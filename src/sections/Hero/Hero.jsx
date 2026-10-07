@@ -1,9 +1,10 @@
 import { useLayoutEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { ArrowRight, CalendarDays, ChevronDown, MapPin, Menu, Music2 } from 'lucide-react'
+import { ArrowRight, CalendarDays, ChevronDown, MapPin } from 'lucide-react'
 import { PrimaryButton } from '../../components/ui/Button'
-import IconButton from '../../components/ui/IconButton'
 import { weddingData } from '../../data/weddingData'
+import HeroAtmosphere from './HeroAtmosphere'
+import HeroControls from './HeroControls'
 import './Hero.css'
 
 const monthNames = [
@@ -140,12 +141,13 @@ export default function Hero({ active = false }) {
       const chevronMotion = gsap.to(chevron, {
         y: 3, duration: 1, ease: 'sine.inOut', repeat: -1, yoyo: true, paused: true,
       })
-
       const timeline = gsap.timeline({
         defaults: { ease: 'power3.out' },
         onComplete: () => {
           completed = true
           chevronMotion.play()
+          root.classList.add('hero-atmosphere--live')
+          cta.classList.add('hero-cta--pulse-once')
         },
       })
       timeline
@@ -181,6 +183,8 @@ export default function Hero({ active = false }) {
     }, root)
 
     return () => {
+      root.classList.remove('hero-atmosphere--live')
+      root.querySelector('.hero-cta')?.classList.remove('hero-cta--pulse-once')
       context.revert()
       if (active && !completed) hasEnteredRef.current = false
     }
@@ -189,16 +193,19 @@ export default function Hero({ active = false }) {
   return (
     <section ref={rootRef} id="hero" className="hero-section" aria-labelledby="hero-title">
       <div className="hero-stage">
-        <img
-          className="hero-background"
-          src="/images/hero/hero-bg.webp.png"
-          alt=""
-          width="941"
-          height="1672"
-          loading="eager"
-          decoding="async"
-        />
+        <div className="hero-camera-plane" aria-hidden="true">
+          <img
+            className="hero-background"
+            src="/images/hero/hero-bg.webp.png"
+            alt=""
+            width="941"
+            height="1672"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
         <div className="hero-image-overlay" aria-hidden="true" />
+        <HeroAtmosphere />
 
         <div className="hero-couple">
           <img
@@ -211,10 +218,7 @@ export default function Hero({ active = false }) {
           />
         </div>
 
-        <div className="hero-top-controls">
-          <IconButton label="Toggle wedding music" disabled><Music2 size={19} strokeWidth={1.6} /></IconButton>
-          <IconButton label="Open invitation menu" disabled><Menu size={20} strokeWidth={1.6} /></IconButton>
-        </div>
+        <HeroControls />
 
         <div className="hero-content">
           <div className="hero-copy">
