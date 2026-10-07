@@ -146,7 +146,7 @@
   width: 100%;
 }
 
-/* Block A - heading */
+/* Block A â€” heading */
 .hero-eyebrow {
   display: flex;
   flex-direction: column;
@@ -238,7 +238,7 @@
   text-shadow: 0 2px 10px rgba(3, 10, 18, .8);
 }
 
-/* Block B - details */
+/* Block B â€” details */
 .hero-wedding-info {
   display: flex;
   flex-direction: column;
@@ -312,7 +312,7 @@
   line-height: 1.25;
 }
 
-/* Block C - countdown (follows details, single row, clear of the couple) */
+/* Block C â€” countdown (anchored low, single elegant row) */
 .hero-countdown {
   position: relative;
   width: min(46%, 180px);
