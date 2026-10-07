@@ -322,16 +322,6 @@ p { font-size: clamp(1rem, 2vw, 1.2rem); line-height: 1.65; }
 }
 .form-input:focus { border-color: var(--gold-500); outline: 0; box-shadow: 0 0 0 3px rgba(211, 160, 74, .15); }
 
-.opening {
-  min-height: 100vh;
-  min-height: 100svh;
-  display: grid;
-  place-items: center;
-  position: relative;
-  isolation: isolate;
-  padding: var(--section-padding) var(--content-gutter);
-  text-align: center;
-}
 .cinematic-vignette {
   position: absolute;
   inset: 0;
@@ -339,9 +329,6 @@ p { font-size: clamp(1rem, 2vw, 1.2rem); line-height: 1.65; }
   pointer-events: none;
   background: radial-gradient(circle, transparent 35%, rgba(0, 0, 0, .4));
 }
-.opening__content { width: min(100%, var(--content-max-width)); }
-.opening__date { color: var(--gold-300); letter-spacing: .1em; }
-
 .section-shell {
   min-height: 70svh;
   display: flex;
