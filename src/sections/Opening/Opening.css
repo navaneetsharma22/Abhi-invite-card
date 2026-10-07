@@ -7,6 +7,7 @@
   width: 100%;
   height: 100dvh;
   min-height: 100svh;
+  max-height: 100dvh;
   overflow: hidden;
   background: radial-gradient(circle at center, rgba(211, 160, 74, .08), transparent 38%), #020811;
 }
@@ -24,6 +25,7 @@
   width: 100%;
   height: 100dvh;
   min-height: 100svh;
+  max-height: 100dvh;
   overflow: hidden;
   color: var(--text-light);
   background: var(--navy-950);
@@ -42,6 +44,15 @@
   z-index: var(--opening-layer-background);
   object-fit: cover;
   object-position: center;
+  will-change: transform, opacity;
+}
+
+.opening-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background: radial-gradient(circle at center, rgba(211, 160, 74, .045), transparent 42%), #020811;
+  pointer-events: none;
 }
 
 .opening-overlay {
@@ -63,6 +74,11 @@
 }
 
 .opening-content {
+  --opening-mantra-art-gap: clamp(14px, 2dvh, 22px);
+  --opening-art-title-gap: clamp(10px, 1.4dvh, 16px);
+  --opening-title-blessing-gap: clamp(8px, 1.1dvh, 12px);
+  --opening-diya-tagline-gap: clamp(18px, 3dvh, 30px);
+
   position: relative;
   z-index: var(--opening-layer-content);
   display: flex;
@@ -71,9 +87,9 @@
   width: 100%;
   height: 100%;
   padding:
-    max(16px, env(safe-area-inset-top))
+    max(16px, calc(env(safe-area-inset-top) + 8px))
     clamp(12px, 4vw, 24px)
-    max(20px, env(safe-area-inset-bottom));
+    max(20px, calc(env(safe-area-inset-bottom) + 16px));
   text-align: center;
 }
 
@@ -82,7 +98,8 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding-top: clamp(90px, 14dvh, 150px);
+  padding-top: clamp(96px, 14.5dvh, 154px);
+  margin-bottom: clamp(18px, 3dvh, 34px);
 }
 
 .opening-ganesh-text,
@@ -103,7 +120,7 @@
 .opening-ganesha-wrap {
   width: clamp(165px, 44vw, 270px);
   max-width: 70%;
-  margin-top: clamp(8px, 1.5dvh, 16px);
+  margin-top: var(--opening-mantra-art-gap);
 }
 
 .opening-ganesha {
@@ -111,15 +128,16 @@
   width: 100%;
   height: auto;
   object-fit: contain;
+  will-change: transform, opacity;
 }
 
 .opening-shubh-vivah {
-  margin-top: clamp(2px, .6dvh, 8px);
+  margin-top: var(--opening-art-title-gap);
   font-size: clamp(1.2rem, 4.8vw, 1.9rem);
 }
 
 .opening-blessing {
-  margin: clamp(4px, .8dvh, 10px) 0 0;
+  margin: var(--opening-title-blessing-gap) 0 0;
   color: var(--text-light);
   font-family: var(--font-serif);
   font-size: clamp(1rem, 3.8vw, 1.35rem);
@@ -137,17 +155,53 @@
   margin: auto auto 0;
 }
 
+.opening-diya-wrap::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  left: 26%;
+  right: 26%;
+  bottom: -1%;
+  height: 10%;
+  border-radius: 50%;
+  background: rgba(18, 9, 5, .48);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.opening-diya-wrap::after {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  left: -8%;
+  right: -8%;
+  bottom: -9%;
+  height: 40%;
+  background: radial-gradient(ellipse at 50% 75%, rgba(242, 160, 69, .12), rgba(187, 100, 35, .06) 38%, transparent 72%);
+  filter: blur(13px);
+  pointer-events: none;
+}
+
 .opening-diya {
   display: block;
   width: 100%;
   height: auto;
   object-fit: contain;
+  filter: brightness(.96) saturate(.93) contrast(.96);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 84%, rgba(0, 0, 0, .94) 94%, rgba(0, 0, 0, .78) 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 84%, rgba(0, 0, 0, .94) 94%, rgba(0, 0, 0, .78) 100%);
+  will-change: transform, opacity;
 }
+
+.opening-font-fallback .opening-ganesh-text,
+.opening-font-fallback .opening-shubh-vivah { font-family: serif; }
+.opening-font-fallback .opening-blessing { font-family: Georgia, serif; }
+.opening-font-fallback .opening-tagline { font-family: Arial, sans-serif; }
 
 .opening-tagline {
   flex: none;
   max-width: 100%;
-  margin: clamp(14px, 2.7dvh, 28px) 0 0;
+  margin: var(--opening-diya-tagline-gap) 0 0;
   color: var(--gold-300);
   font-family: var(--font-ui);
   font-size: clamp(.58rem, 2.2vw, .75rem);
@@ -158,17 +212,19 @@
   text-shadow: 0 2px 10px rgba(3, 12, 22, .75);
 }
 
-@media (min-width: 700px) {
+@media (max-width: 767px) {
   .opening-stage {
-    width: clamp(390px, 32vw, 520px);
-    box-shadow: var(--shadow-night);
+    width: 100%;
+    max-width: none;
+    box-shadow: none;
   }
 }
 
 @media (min-width: 768px) {
   .opening-stage {
-    width: min(560px, 60dvh);
-    min-width: 470px;
+    width: min(560px, 60dvh, calc(100vw - 32px));
+    min-width: 0;
+    box-shadow: var(--shadow-night);
   }
 
   .opening-content {
@@ -194,23 +250,41 @@
 
 @media (min-width: 1200px) {
   .opening-stage {
-    width: min(580px, 62dvh);
+    width: min(580px, 62dvh, calc(100vw - 32px));
   }
 }
 
 @media (max-height: 720px) {
+  .opening-content {
+    --opening-mantra-art-gap: 10px;
+    --opening-art-title-gap: 6px;
+    --opening-title-blessing-gap: 6px;
+    --opening-diya-tagline-gap: 12px;
+  }
   .opening-upper-content { padding-top: clamp(67px, 12dvh, 90px); }
-  .opening-ganesha-wrap { width: clamp(140px, 38vw, 205px); margin-top: 8px; }
+  .opening-ganesha-wrap { width: clamp(140px, 38vw, 205px); }
   .opening-diya-wrap { width: clamp(185px, 54vw, 250px); }
-  .opening-tagline { margin-top: 12px; }
 }
 
-@media (max-height: 650px) {
-  .opening-content { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+@media (max-height: 660px) {
+  .opening-content {
+    --opening-mantra-art-gap: 8px;
+    --opening-art-title-gap: 5px;
+    --opening-title-blessing-gap: 5px;
+    --opening-diya-tagline-gap: 10px;
+    padding-bottom: max(16px, calc(env(safe-area-inset-bottom) + 12px));
+  }
   .opening-upper-content { padding-top: clamp(52px, 9dvh, 70px); }
-  .opening-ganesha-wrap { width: clamp(120px, 33vw, 165px); margin-top: 6px; }
-  .opening-shubh-vivah { margin-top: 1px; }
-  .opening-blessing { margin-top: 2px; }
+  .opening-ganesha-wrap { width: clamp(120px, 33vw, 165px); }
   .opening-diya-wrap { width: clamp(165px, 45vw, 210px); }
-  .opening-tagline { margin-top: 10px; }
+}
+
+@media (max-width: 380px) {
+  .opening-ganesh-text { font-size: clamp(.94rem, 4.2vw, 1rem); }
+}
+
+@media (max-width: 767px) and (min-height: 880px) {
+  .opening-upper-content { padding-top: clamp(125px, 15dvh, 150px); }
+  .opening-ganesha-wrap { width: clamp(190px, 48vw, 225px); }
+  .opening-diya-wrap { width: clamp(275px, 72vw, 325px); }
 }

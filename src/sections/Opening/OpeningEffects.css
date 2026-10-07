@@ -68,25 +68,22 @@
   z-index: 0;
   top: 50%;
   left: 50%;
-  width: 130%;
+  width: 145%;
   aspect-ratio: 1;
   translate: -50% -50%;
   pointer-events: none;
   opacity: 0;
-  color: var(--gold-400);
 }
-.sacred-halo__glow,
-.sacred-halo__ornament { position: absolute; inset: 0; width: 100%; height: 100%; }
 .sacred-halo__glow {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  opacity: .18;
-  background: radial-gradient(circle, rgba(242, 217, 156, .2), rgba(211, 160, 74, .1) 35%, transparent 70%);
-  filter: blur(6px);
+  opacity: .22;
+  background: radial-gradient(circle, rgba(242, 217, 156, .24), rgba(211, 160, 74, .11) 38%, transparent 74%);
+  filter: blur(10px);
   animation: openingHaloPulse 3.2s ease-in-out infinite alternate;
-}
-.sacred-halo__ornament {
-  opacity: .58;
-  animation: openingHaloTurn 4s linear 1 forwards;
 }
 
 .diya-bowl-glow,
@@ -101,31 +98,33 @@
 .diya-flame-glow span { display: block; width: 100%; height: 100%; }
 .diya-bowl-glow {
   z-index: 0;
-  left: -20%;
-  top: 10%;
-  width: 140%;
-  height: 90%;
+  left: -25%;
+  top: 12%;
+  width: 150%;
+  height: 96%;
 }
 .diya-bowl-glow span {
-  opacity: .52;
+  opacity: .46;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(255, 192, 82, .18), rgba(226, 129, 36, .08) 42%, transparent 72%);
-  filter: blur(10px);
+  background: radial-gradient(ellipse, rgba(255, 187, 87, .16), rgba(207, 119, 46, .09) 44%, transparent 74%);
+  filter: blur(13px);
   mix-blend-mode: screen;
   animation: openingBowlGlow 1.6s ease-in-out infinite alternate;
 }
 .diya-floor-glow {
   z-index: 1;
-  left: 17.5%;
-  bottom: -20%;
-  width: 65%;
-  height: 30%;
+  left: 0;
+  bottom: -18%;
+  width: 100%;
+  height: 34%;
 }
 .diya-floor-glow span {
-  opacity: .2;
+  opacity: .28;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(255, 174, 61, .2), transparent 70%);
-  filter: blur(10px);
+  background:
+    radial-gradient(ellipse at 50% 52%, rgba(255, 186, 91, .24), transparent 32%),
+    radial-gradient(ellipse, rgba(231, 149, 63, .24), rgba(171, 89, 32, .13) 44%, transparent 74%);
+  filter: blur(11px);
   mix-blend-mode: screen;
   animation: openingFloorGlow 3.1s ease-in-out infinite alternate;
 }
@@ -197,7 +196,7 @@
   .golden-particle--desktop,
   .opening-petal--desktop { display: none; }
 }
-@media (max-height: 650px) {
+@media (max-height: 660px) {
   .opening-tagline-divider { display: none; }
 }
 
@@ -228,20 +227,16 @@
   50% { transform: translate3d(0, -1.5px, 0) scale(1.008); }
 }
 @keyframes openingHaloPulse {
-  from { opacity: .15; transform: scale(.96); }
-  to { opacity: .27; transform: scale(1.045); }
-}
-@keyframes openingHaloTurn {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(4deg); }
+  from { opacity: .19; transform: scale(.98); }
+  to { opacity: .25; transform: scale(1.025); }
 }
 @keyframes openingBowlGlow {
   from { opacity: .45; transform: scale(.98); }
   to { opacity: .62; transform: scale(1.035); }
 }
 @keyframes openingFloorGlow {
-  from { opacity: .16; transform: scaleX(.94); }
-  to { opacity: .26; transform: scaleX(1.05); }
+  from { opacity: .25; transform: scaleX(.96); }
+  to { opacity: .34; transform: scaleX(1.04); }
 }
 @keyframes openingFlameFlicker {
   0%, 100% { opacity: .4; transform: translateX(0) scale(.98, .98); }
@@ -262,7 +257,6 @@
 
   .temple-glow__light,
   .sacred-halo__glow,
-  .sacred-halo__ornament,
   .opening-ganesha-wrap,
   .diya-bowl-glow span,
   .diya-floor-glow span,

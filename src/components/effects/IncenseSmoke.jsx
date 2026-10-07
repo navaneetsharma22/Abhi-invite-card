@@ -5,7 +5,7 @@ function SmokeTrail({ side, blurId }) {
     <svg className={`incense-smoke__trail incense-smoke__trail--${side}`} viewBox="0 0 120 300" preserveAspectRatio="none">
       <defs>
         <filter id={blurId} x="-50%" y="-20%" width="200%" height="140%">
-          <feGaussianBlur stdDeviation="8" />
+          <feGaussianBlur stdDeviation="6" />
         </filter>
       </defs>
       <path

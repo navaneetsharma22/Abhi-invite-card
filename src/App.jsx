@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useLayoutEffect, useState } from 'react'
 import Opening from './sections/Opening/Opening'
 import Hero from './sections/Hero/Hero'
 import Invitation from './sections/Invitation/Invitation'
@@ -9,9 +9,14 @@ import Venue from './sections/Venue/Venue'
 import FinalBlessing from './sections/FinalBlessing/FinalBlessing'
 export default function App() {
   const [introComplete, setIntroComplete] = useState(false)
-  const handleOpeningComplete = useCallback(() => setIntroComplete(true), [])
+  const [heroActive, setHeroActive] = useState(false)
+  const handleOpeningExitStart = useCallback(() => setHeroActive(true), [])
+  const handleOpeningComplete = useCallback(() => {
+    setHeroActive(true)
+    setIntroComplete(true)
+  }, [])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (introComplete) return undefined
 
     const previousOverflow = document.body.style.overflow
@@ -21,9 +26,9 @@ export default function App() {
 
   return (
     <>
-      {!introComplete && <Opening onComplete={handleOpeningComplete} />}
+      {!introComplete && <Opening onExitStart={handleOpeningExitStart} onComplete={handleOpeningComplete} />}
       <main inert={!introComplete} aria-hidden={!introComplete}>
-        <Hero />
+        <Hero active={heroActive} />
         <Invitation />
         <Celebrations />
         <Couple />

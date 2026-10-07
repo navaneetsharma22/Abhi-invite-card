@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Browser / QA temporary profile
+.qa-profile/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

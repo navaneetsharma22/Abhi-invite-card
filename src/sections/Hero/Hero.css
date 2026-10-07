@@ -1,0 +1,324 @@
+.hero-section {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100svh;
+  overflow: hidden;
+  color: var(--text-light);
+  background: radial-gradient(circle at center, rgba(211, 160, 74, .08), transparent 38%), #020811;
+}
+
+.hero-stage {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100dvh;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--navy-950);
+}
+
+.hero-background,
+.hero-image-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-background {
+  z-index: 0;
+  object-fit: cover;
+  object-position: center;
+  opacity: .72;
+  transform: scale(1.055);
+  filter: brightness(.78) saturate(.88);
+}
+
+.hero-image-overlay {
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(3, 10, 18, .86), rgba(3, 10, 18, .72) 35%, rgba(3, 10, 18, .24) 68%, transparent),
+    linear-gradient(0deg, rgba(3, 10, 18, .45), transparent 30%, transparent 80%, rgba(3, 10, 18, .2));
+}
+
+.hero-couple {
+  position: absolute;
+  z-index: 2;
+  right: -7%;
+  bottom: clamp(45px, 6dvh, 70px);
+  width: clamp(180px, 52%, 315px);
+  opacity: 0;
+  transform: translate3d(14px, 28px, 0) scale(.965);
+  pointer-events: none;
+}
+
+.hero-couple img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.hero-top-controls {
+  position: absolute;
+  z-index: 5;
+  top: max(16px, calc(env(safe-area-inset-top) + 12px));
+  right: clamp(18px, 5%, 28px);
+  display: flex;
+  gap: 8px;
+}
+
+.hero-top-controls .icon-button:disabled {
+  cursor: default;
+}
+
+.hero-eyebrow,
+.hero-names__groom,
+.hero-names__ampersand,
+.hero-names__bride,
+.hero-invite-copy,
+.hero-wedding-info,
+.hero-info-row,
+.hero-countdown,
+.hero-cta,
+.hero-top-controls .icon-button,
+.hero-scroll-hint {
+  opacity: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  padding:
+    max(clamp(86px, 11dvh, 120px), calc(env(safe-area-inset-top) + 72px))
+    clamp(20px, 5%, 30px)
+    max(70px, calc(env(safe-area-inset-bottom) + 62px));
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.hero-eyebrow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  color: var(--gold-300);
+  font-family: var(--font-ui);
+  font-size: clamp(.62rem, 2vw, .78rem);
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: .16em;
+}
+
+.hero-lotus {
+  width: 28px;
+  height: 21px;
+}
+
+.hero-names {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin: clamp(16px, 2dvh, 22px) 0 0;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 0 3px 20px rgba(3, 10, 18, .75);
+}
+
+.hero-names__groom,
+.hero-names__bride {
+  display: block;
+  max-width: 76%;
+  color: var(--gold-300);
+  line-height: .91;
+  letter-spacing: .025em;
+  text-wrap: balance;
+}
+
+.hero-names__groom {
+  font-size: clamp(2.35rem, 7.5vw, 3.85rem);
+}
+
+.hero-names__ampersand {
+  display: block;
+  margin: 1px 0 0 clamp(28px, 9%, 52px);
+  color: var(--gold-400);
+  font-family: var(--font-script);
+  font-size: clamp(2.7rem, 8vw, 4.4rem);
+  font-weight: 400;
+  line-height: .76;
+  text-transform: none;
+}
+
+.hero-names__bride {
+  font-size: clamp(3rem, 9vw, 4.9rem);
+}
+
+.hero-invite-copy {
+  margin: clamp(10px, 1.6dvh, 16px) 0 0;
+  color: var(--ivory-100);
+  font-family: var(--font-serif);
+  font-size: clamp(1.08rem, 3.5vw, 1.38rem);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.2;
+  text-shadow: 0 2px 10px rgba(3, 10, 18, .8);
+}
+
+.hero-wedding-info {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.5dvh, 15px);
+  width: min(51%, 240px);
+  margin-top: clamp(18px, 2.8dvh, 27px);
+  padding-top: clamp(12px, 1.8dvh, 17px);
+  border-top: 1px solid rgba(229, 190, 112, .58);
+}
+
+.hero-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+  color: var(--ivory-100);
+}
+
+.hero-info-row svg {
+  flex: none;
+  margin-top: 1px;
+  color: var(--gold-300);
+}
+
+.hero-info-date,
+.hero-info-venue {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: clamp(.6rem, 1.8vw, .72rem);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: .065em;
+  text-transform: uppercase;
+}
+
+.hero-info-address {
+  display: block;
+  margin-top: 4px;
+  color: var(--cream-200);
+  font-family: var(--font-serif);
+  font-size: clamp(.8rem, 2.4vw, .95rem);
+  line-height: 1.25;
+}
+
+.hero-countdown {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 53px;
+  margin-top: clamp(13px, 2.1dvh, 20px);
+  padding-left: 12px;
+  border-left: 1px solid rgba(229, 190, 112, .58);
+  color: var(--gold-300);
+}
+
+.hero-countdown__number {
+  font-family: var(--font-serif);
+  font-size: clamp(2.8rem, 8vw, 3.6rem);
+  font-weight: 600;
+  line-height: .9;
+}
+
+.hero-countdown__label,
+.hero-countdown__message {
+  font-family: var(--font-ui);
+  font-size: .6rem;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: .16em;
+}
+
+.hero-cta {
+  position: relative;
+  z-index: 4;
+  min-height: 52px;
+  max-width: 100%;
+  margin-top: clamp(16px, 2.2dvh, 22px);
+  padding-inline: 17px;
+  font-size: .68rem;
+  white-space: nowrap;
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  z-index: 4;
+  left: clamp(20px, 5%, 30px);
+  bottom: max(16px, calc(env(safe-area-inset-bottom) + 12px));
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--gold-300);
+  font-family: var(--font-ui);
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .17em;
+  text-decoration: none;
+}
+
+.hero-scroll-hint__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 29px;
+  height: 29px;
+  border: 1px solid rgba(229, 190, 112, .6);
+  border-radius: 50%;
+}
+
+@media (min-width: 768px) {
+  .hero-stage {
+    width: min(560px, 60dvh, calc(100vw - 32px));
+    box-shadow: var(--shadow-night);
+  }
+}
+
+@media (min-width: 1200px) {
+  .hero-stage {
+    width: min(580px, 62dvh, calc(100vw - 32px));
+  }
+}
+
+@media (max-height: 720px) {
+  .hero-content {
+    padding-top: max(72px, calc(env(safe-area-inset-top) + 62px));
+    padding-bottom: max(55px, calc(env(safe-area-inset-bottom) + 50px));
+  }
+  .hero-names { margin-top: 10px; }
+  .hero-names__groom { font-size: clamp(2.05rem, 7vw, 3.1rem); }
+  .hero-names__ampersand { font-size: 2.35rem; }
+  .hero-names__bride { font-size: clamp(2.65rem, 8.5vw, 3.8rem); }
+  .hero-invite-copy { margin-top: 8px; font-size: 1rem; }
+  .hero-wedding-info { gap: 8px; margin-top: 12px; padding-top: 9px; }
+  .hero-info-address { font-size: .78rem; }
+  .hero-countdown { min-height: 44px; margin-top: 9px; }
+  .hero-countdown__number { font-size: 2.45rem; }
+  .hero-cta { min-height: 46px; margin-top: 11px; }
+  .hero-couple { width: 48%; bottom: 44px; }
+}
+
+@media (max-width: 380px) {
+  .hero-wedding-info { width: 54%; }
+  .hero-cta { padding-inline: 13px; font-size: .63rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-background,
+  .hero-couple { transform: none; }
+}

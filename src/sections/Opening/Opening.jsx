@@ -19,12 +19,13 @@ const openingAssets = {
   diya: '/images/opening/diya.webp.png',
 }
 
-export default function Opening({ onComplete }) {
+export default function Opening({ onExitStart, onComplete }) {
   const rootRef = useRef(null)
   const backgroundRef = useRef(null)
   const ganeshaRef = useRef(null)
   const diyaRef = useRef(null)
   const completedRef = useRef(false)
+  const exitStartedRef = useRef(false)
   const reducedMotion = useReducedMotion()
 
   useLayoutEffect(() => {
@@ -60,8 +61,15 @@ export default function Opening({ onComplete }) {
       const reflection = root.querySelector('[data-opening-reflection]')
       const divider = root.querySelector('[data-opening-divider]')
 
+      const beginExit = () => {
+        if (!active || exitStartedRef.current) return
+        exitStartedRef.current = true
+        onExitStart?.()
+      }
+
       const finish = () => {
         if (!active || completedRef.current) return
+        beginExit()
         completedRef.current = true
         window.clearTimeout(fallbackTimer)
         onComplete?.()
@@ -98,13 +106,15 @@ export default function Opening({ onComplete }) {
           .addLabel('diya', 1.3)
           .addLabel('tagline', 1.55)
           .addLabel('breathe', 2)
-          .addLabel('exit', 3)
+          .addLabel('heroExit', 3.4)
+          .addLabel('exit', 3.7)
+          .call(beginExit, null, 'heroExit')
           .to(background, { opacity: 1, duration: 0.45 }, 'background')
           .to(mantra, { opacity: 1, duration: 0.45 }, 'mantra')
           .to(ganesha, { opacity: 1, duration: 0.55 }, 'ganesha')
           .to(shubh, { opacity: 1, duration: 0.45 }, 'shubh')
           .to(blessing, { opacity: 1, duration: 0.45 }, 'blessing')
-          .to(diya, { opacity: 1, duration: 0.55 }, 'diya')
+          .to(diya, { opacity: 0.97, duration: 0.55 }, 'diya')
           .to(tagline, { opacity: 1, duration: 0.45 }, 'tagline')
           .to(templeGlow, { opacity: 1, duration: 0.3 }, 'background+=0.2')
           .to(halo, { opacity: 1, duration: 0.4 }, 'ganesha')
@@ -139,17 +149,18 @@ export default function Opening({ onComplete }) {
         .addLabel('diya', 1.35)
         .addLabel('tagline', 1.75)
         .addLabel('breathe', 2.2)
-        .addLabel('warmth', 3.15)
-        .addLabel('exit', 3.4)
+        .addLabel('warmth', 3.4)
+        .addLabel('exit', 3.7)
+        .call(beginExit, null, 'warmth')
         .to(background, { opacity: 1, duration: 0.55 }, 'background')
-        .to(background, { scale: 1.055, yPercent: -0.5, duration: 3.9, ease: 'none' }, 'background')
+        .to(background, { scale: 1.055, yPercent: -0.5, duration: 4.2, ease: 'none' }, 'background')
         .to(mantra, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.55 }, 'mantra')
         .to(ganesha, { opacity: 1, scale: 1, y: 0, filter: 'blur(0px) brightness(1)', duration: 0.75 }, 'ganesha')
         .to(ganesha, { scale: 1.012, y: -2, duration: 0.14, ease: 'sine.out' }, 'ganesha+=0.75')
         .to(ganesha, { scale: 1, y: 0, duration: 0.46, ease: 'sine.out' }, 'ganesha+=0.89')
         .to(shubh, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.48 }, 'shubh')
         .to(blessing, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.52, ease: 'power2.out' }, 'blessing')
-        .to(diya, { opacity: 1, y: 0, scale: 1, duration: 0.65 }, 'diya')
+        .to(diya, { opacity: 0.97, y: 0, scale: 1, duration: 0.65 }, 'diya')
         .to(diya, { scale: 1.015, duration: 0.12, ease: 'sine.out' }, 'diya+=0.65')
         .to(diya, { scale: 1, duration: 0.33, ease: 'sine.out' }, 'diya+=0.77')
         .to(tagline, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 'tagline')
@@ -195,7 +206,7 @@ export default function Opening({ onComplete }) {
       window.clearTimeout(fallbackTimer)
       context.revert()
     }
-  }, [onComplete, reducedMotion])
+  }, [onExitStart, onComplete, reducedMotion])
 
   return (
     <section ref={rootRef} id="opening" className="opening-scene" aria-label="Opening blessing">

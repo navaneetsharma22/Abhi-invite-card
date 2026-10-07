@@ -9,7 +9,6 @@ const petals = [
   { x: 96, y: 42, size: 13, drift: -21, travel: 60, turn: 210, duration: 7.8, delay: -6.2, shape: 2 },
   { x: 21, y: -15, size: 9, drift: -18, travel: 96, turn: 240, duration: 8.9, delay: -7.4, shape: 0 },
   { x: 78, y: 4, size: 17, drift: 16, travel: 85, turn: -260, duration: 7.5, delay: -3.8, shape: 1 },
-  { x: 9, y: 14, size: 11, drift: 32, travel: 70, turn: 175, duration: 9.4, delay: -8.1, shape: 2 },
 ]
 
 const shapes = [
@@ -28,7 +27,7 @@ export default function PetalField() {
         return (
           <svg
             key={index}
-            className={`opening-petal ${index >= 7 ? 'opening-petal--desktop' : ''} ${petal.size >= 20 ? 'opening-petal--foreground' : ''}`}
+            className={`opening-petal ${index >= 6 ? 'opening-petal--desktop' : ''} ${petal.size >= 20 ? 'opening-petal--foreground' : ''}`}
             viewBox="0 0 24 32"
             style={{
               '--petal-x': `${petal.x}%`,
