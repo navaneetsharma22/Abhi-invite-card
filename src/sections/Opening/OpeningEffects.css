@@ -1,0 +1,270 @@
+.temple-glow,
+.incense-smoke,
+.golden-particles,
+.petal-field,
+.reflection-shimmer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.temple-glow { z-index: 2; }
+.temple-glow__light {
+  position: absolute;
+  width: clamp(70px, 24%, 160px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  opacity: .13;
+  background: radial-gradient(circle, rgba(255, 194, 93, .18), rgba(255, 153, 50, .07) 45%, transparent 72%);
+  filter: blur(6px);
+  mix-blend-mode: screen;
+  animation: openingLampGlow 2.1s ease-in-out infinite alternate;
+}
+.temple-glow__light--upper-left { left: 1%; top: 25%; animation-duration: 1.7s; animation-delay: -.8s; }
+.temple-glow__light--upper-right { right: 1%; top: 25%; animation-duration: 2.4s; animation-delay: -1.2s; }
+.temple-glow__light--lower-left { left: 6%; top: 48%; width: 28%; animation-duration: 1.9s; animation-delay: -.3s; }
+.temple-glow__light--lower-right { right: 6%; top: 48%; width: 28%; animation-duration: 2.7s; animation-delay: -1.8s; }
+.temple-glow__light--lower-center { left: 37%; top: 71%; width: 26%; opacity: .1; animation-duration: 2.3s; animation-delay: -1.4s; }
+
+.incense-smoke { z-index: 3; }
+.incense-smoke__trail {
+  position: absolute;
+  width: 23%;
+  height: 32%;
+  overflow: visible;
+  opacity: .12;
+  animation: openingSmokeRise 5.6s ease-in-out infinite;
+}
+.incense-smoke__trail--left { left: 11%; top: 33%; animation-duration: 5.7s; animation-delay: -1.8s; }
+.incense-smoke__trail--right { right: 11%; top: 37%; animation-duration: 6.4s; animation-delay: -3.4s; }
+
+.golden-particles { z-index: 4; }
+.golden-particle {
+  position: absolute;
+  left: var(--particle-x);
+  top: var(--particle-y);
+  width: var(--particle-size);
+  height: var(--particle-size);
+  border-radius: 50%;
+  background: var(--gold-300);
+  opacity: 0;
+  animation: openingGoldenFloat var(--particle-duration) linear var(--particle-delay) infinite;
+}
+.golden-particle:nth-child(7n) {
+  background: var(--gold-400);
+  box-shadow: 0 0 6px rgba(229, 190, 112, .35);
+}
+.golden-particle:nth-child(5n) { background: var(--gold-500); }
+
+.opening-ganesha-wrap {
+  position: relative;
+  isolation: isolate;
+  animation: openingGaneshaBreathe 3.1s ease-in-out 1.85s infinite;
+}
+.opening-ganesha { position: relative; z-index: 1; }
+.sacred-halo {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  width: 130%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  pointer-events: none;
+  opacity: 0;
+  color: var(--gold-400);
+}
+.sacred-halo__glow,
+.sacred-halo__ornament { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sacred-halo__glow {
+  border-radius: 50%;
+  opacity: .18;
+  background: radial-gradient(circle, rgba(242, 217, 156, .2), rgba(211, 160, 74, .1) 35%, transparent 70%);
+  filter: blur(6px);
+  animation: openingHaloPulse 3.2s ease-in-out infinite alternate;
+}
+.sacred-halo__ornament {
+  opacity: .58;
+  animation: openingHaloTurn 4s linear 1 forwards;
+}
+
+.diya-bowl-glow,
+.diya-floor-glow,
+.diya-flame-glow {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+}
+.diya-bowl-glow span,
+.diya-floor-glow span,
+.diya-flame-glow span { display: block; width: 100%; height: 100%; }
+.diya-bowl-glow {
+  z-index: 0;
+  left: -20%;
+  top: 10%;
+  width: 140%;
+  height: 90%;
+}
+.diya-bowl-glow span {
+  opacity: .52;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255, 192, 82, .18), rgba(226, 129, 36, .08) 42%, transparent 72%);
+  filter: blur(10px);
+  mix-blend-mode: screen;
+  animation: openingBowlGlow 1.6s ease-in-out infinite alternate;
+}
+.diya-floor-glow {
+  z-index: 1;
+  left: 17.5%;
+  bottom: -20%;
+  width: 65%;
+  height: 30%;
+}
+.diya-floor-glow span {
+  opacity: .2;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255, 174, 61, .2), transparent 70%);
+  filter: blur(10px);
+  mix-blend-mode: screen;
+  animation: openingFloorGlow 3.1s ease-in-out infinite alternate;
+}
+.opening-diya { position: relative; z-index: 2; }
+.diya-flame-glow {
+  z-index: 3;
+  left: 39%;
+  top: -2%;
+  width: 22%;
+  height: 43%;
+}
+.diya-flame-glow span {
+  opacity: .4;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255, 255, 220, .7), rgba(255, 206, 89, .42) 35%, rgba(255, 129, 34, .18) 60%, transparent 75%);
+  filter: blur(4px);
+  mix-blend-mode: screen;
+  animation: openingFlameFlicker .42s ease-in-out infinite;
+}
+
+.reflection-shimmer {
+  z-index: 9;
+  inset: auto 0 0;
+  height: 30%;
+}
+.reflection-shimmer span {
+  position: absolute;
+  inset: 0;
+  opacity: .06;
+  background:
+    linear-gradient(83deg, transparent 29%, rgba(242, 217, 156, .55) 31%, transparent 33%),
+    linear-gradient(98deg, transparent 57%, rgba(229, 190, 112, .42) 59%, transparent 61%),
+    linear-gradient(85deg, transparent 72%, rgba(255, 174, 61, .32) 73%, transparent 75%);
+  filter: blur(8px);
+  mix-blend-mode: screen;
+  animation: openingReflectionDrift 5.5s ease-in-out infinite alternate;
+}
+
+.petal-field { z-index: 10; }
+.opening-petal {
+  position: absolute;
+  left: var(--petal-x);
+  top: var(--petal-y);
+  width: var(--petal-size);
+  height: auto;
+  overflow: visible;
+  opacity: 0;
+  animation: openingPetalFall var(--petal-duration) linear var(--petal-delay) infinite;
+}
+.opening-petal--foreground { filter: blur(1.3px); }
+
+.royal-divider {
+  display: block;
+  color: var(--gold-400);
+  opacity: .75;
+}
+.royal-divider--sm { width: 160px; height: 15px; }
+.royal-divider--md { width: 260px; height: 24px; }
+.opening-tagline { position: relative; }
+.opening-tagline-divider {
+  position: absolute;
+  inset-inline: 0;
+  bottom: calc(100% + 2px);
+  margin-inline: auto;
+  transform-origin: center;
+}
+
+@media (max-width: 767px) {
+  .golden-particle--desktop,
+  .opening-petal--desktop { display: none; }
+}
+@media (max-height: 650px) {
+  .opening-tagline-divider { display: none; }
+}
+
+@keyframes openingLampGlow {
+  from { opacity: .1; transform: scale(.98); }
+  to { opacity: .18; transform: scale(1.025); }
+}
+@keyframes openingSmokeRise {
+  0% { opacity: 0; transform: translate3d(-4px, 15px, 0) scale(.92); }
+  35% { opacity: .16; }
+  70% { opacity: .12; }
+  100% { opacity: 0; transform: translate3d(7px, -45px, 0) scale(1.08); }
+}
+@keyframes openingGoldenFloat {
+  0% { opacity: 0; transform: translate3d(0, 25px, 0) scale(.8); }
+  20% { opacity: var(--particle-alpha); }
+  75% { opacity: calc(var(--particle-alpha) * .55); }
+  100% { opacity: 0; transform: translate3d(var(--particle-drift), -65px, 0) scale(1.1); }
+}
+@keyframes openingPetalFall {
+  0% { opacity: 0; transform: translate3d(-18px, -10dvh, 0) rotate(-18deg); }
+  22% { opacity: .42; }
+  75% { opacity: .3; }
+  100% { opacity: 0; transform: translate3d(var(--petal-drift), var(--petal-travel), 0) rotate(var(--petal-turn)); }
+}
+@keyframes openingGaneshaBreathe {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, -1.5px, 0) scale(1.008); }
+}
+@keyframes openingHaloPulse {
+  from { opacity: .15; transform: scale(.96); }
+  to { opacity: .27; transform: scale(1.045); }
+}
+@keyframes openingHaloTurn {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(4deg); }
+}
+@keyframes openingBowlGlow {
+  from { opacity: .45; transform: scale(.98); }
+  to { opacity: .62; transform: scale(1.035); }
+}
+@keyframes openingFloorGlow {
+  from { opacity: .16; transform: scaleX(.94); }
+  to { opacity: .26; transform: scaleX(1.05); }
+}
+@keyframes openingFlameFlicker {
+  0%, 100% { opacity: .4; transform: translateX(0) scale(.98, .98); }
+  28% { opacity: .55; transform: translateX(-1px) scale(1.01, 1.06); }
+  61% { opacity: .34; transform: translateX(1px) scale(1.025, .94); }
+  82% { opacity: .5; transform: translateX(0) scale(.99, 1.03); }
+}
+@keyframes openingReflectionDrift {
+  from { transform: translateX(-8px); }
+  to { transform: translateX(8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .golden-particles,
+  .petal-field,
+  .incense-smoke,
+  .reflection-shimmer { display: none; }
+
+  .temple-glow__light,
+  .sacred-halo__glow,
+  .sacred-halo__ornament,
+  .opening-ganesha-wrap,
+  .diya-bowl-glow span,
+  .diya-floor-glow span,
+  .diya-flame-glow span { animation: none; }
+}
