@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { CalendarDays, MapPin } from 'lucide-react'
+import { CalendarDays, ChevronDown, MapPin } from 'lucide-react'
 import { weddingData } from '../../data/weddingData'
 import HeroAtmosphere from './HeroAtmosphere'
 import HeroCountdown from './HeroCountdown'
@@ -44,6 +44,7 @@ export default function Hero({ active = false }) {
       const countdown = root.querySelector('.hero-countdown')
       const controls = root.querySelectorAll('.hero-top-controls .icon-button')
       const scrollHint = root.querySelector('.hero-scroll-hint')
+      const chevron = root.querySelector('.hero-scroll-hint__icon')
 
       gsap.set(root, { opacity: 1 })
       gsap.set(background, {
@@ -103,9 +104,15 @@ export default function Hero({ active = false }) {
       gsap.set(controls, { y: -5, scale: .98 })
       gsap.set(scrollHint, { y: 6 })
 
+      const chevronMotion = gsap.to(chevron, {
+        y: 2, duration: 1.4, ease: 'sine.inOut', repeat: -1, yoyo: true, paused: true,
+      })
       const timeline = gsap.timeline({
         defaults: { ease: 'power2.out' },
-        onComplete: finishEntrance,
+        onComplete: () => {
+          chevronMotion.play()
+          finishEntrance()
+        },
       })
       timeline
         .addLabel('heroReveal', 0)
@@ -177,32 +184,26 @@ export default function Hero({ active = false }) {
 
         <div className="hero-content">
           <div className="hero-copy">
-            <div className="hero-block hero-block--heading">
-              <div className="hero-eyebrow">
-                <span className="hero-eyebrow__mark">
-                  <LotusMark />
-                  <span className="hero-eyebrow__rule" aria-hidden="true" />
-                </span>
-                <span>TOGETHER WITH THEIR FAMILIES</span>
-              </div>
-
-              <h1 id="hero-title" className="hero-names">
-                <span className="hero-names__groom">{weddingData.groom.split(' ')[0]}</span>
-                <span className="hero-names__ampersand">&amp;</span>
-                <span className="hero-names__bride">{weddingData.bride}</span>
-              </h1>
-
-              <p className="hero-invite-copy">Invite you to celebrate<br />their wedding</p>
+            <div className="hero-eyebrow">
+              <LotusMark />
+              <span>TOGETHER WITH THEIR FAMILIES</span>
             </div>
 
+            <h1 id="hero-title" className="hero-names">
+              <span className="hero-names__groom">{weddingData.groom.split(' ')[0]}</span>
+              <span className="hero-names__ampersand">&amp;</span>
+              <span className="hero-names__bride">{weddingData.bride}</span>
+            </h1>
+
+            <p className="hero-invite-copy">Invite you to celebrate<br />their wedding</p>
+
             <div className="hero-wedding-info">
-              <span className="hero-ornament-divider" aria-hidden="true" />
               <div className="hero-info-row">
-                <CalendarDays size={15} strokeWidth={1.25} aria-hidden="true" />
+                <CalendarDays size={17} strokeWidth={1.5} aria-hidden="true" />
                 <span className="hero-info-date">{weddingData.wedding.date}</span>
               </div>
               <div className="hero-info-row hero-info-row--venue">
-                <MapPin size={15} strokeWidth={1.25} aria-hidden="true" />
+                <MapPin size={17} strokeWidth={1.5} aria-hidden="true" />
                 <div>
                   <span className="hero-info-venue">{weddingData.wedding.venue}</span>
                   <span className="hero-info-address">{weddingData.wedding.location}</span>
@@ -215,8 +216,8 @@ export default function Hero({ active = false }) {
         </div>
 
         <a className="hero-scroll-hint" href="#invitation">
-          <span className="hero-scroll-hint__line" aria-hidden="true" />
           <span>SCROLL DOWN</span>
+          <span className="hero-scroll-hint__icon"><ChevronDown size={17} strokeWidth={1.6} aria-hidden="true" /></span>
         </a>
       </div>
     </section>

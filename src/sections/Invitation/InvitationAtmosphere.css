@@ -1,0 +1,159 @@
+.invitation-background-push {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  transform-origin: center;
+}
+
+.invitation-atmosphere,
+.invitation-atmosphere * {
+  pointer-events: none;
+}
+
+.invitation-atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  container-type: size;
+  opacity: 0;
+}
+
+.invitation-atmosphere--live .invitation-atmosphere { opacity: 1; }
+
+.invitation-lantern-plane {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100cqw, calc(100cqh * 941 / 1672));
+  height: max(100cqh, calc(100cqw * 1672 / 941));
+  transform: translate(-50%, -50%);
+}
+
+.invitation-lantern-glow {
+  position: absolute;
+  width: 24%;
+  height: 13%;
+  background: radial-gradient(ellipse, rgba(255, 201, 104, .9), rgba(235, 157, 56, .38) 32%, transparent 72%);
+  transform: translate(-50%, -50%);
+  opacity: .12;
+}
+
+.invitation-lantern-glow--left { left: 12%; top: 26%; }
+.invitation-lantern-glow--right { left: 91%; top: 17%; }
+.invitation-lantern-glow--lower { left: 89%; top: 41%; }
+
+.invitation-petal {
+  position: absolute;
+  top: -18px;
+  left: var(--petal-x);
+  width: var(--petal-size);
+  height: calc(var(--petal-size) * 1.35);
+  border-radius: 75% 18% 68% 25%;
+  background: radial-gradient(ellipse at 35% 30%, #df8192, #a44360 72%);
+  opacity: 0;
+}
+
+.invitation-dust-particle {
+  position: absolute;
+  width: var(--dust-size);
+  height: var(--dust-size);
+  border-radius: 50%;
+  background: #e3b55e;
+  box-shadow: 0 0 3px rgba(242, 193, 103, .25);
+  opacity: 0;
+}
+
+.invitation-reflection-shimmer {
+  position: absolute;
+  left: 12%;
+  bottom: 3%;
+  width: 76%;
+  height: 15%;
+  background: radial-gradient(ellipse, rgba(255, 213, 132, .85), rgba(247, 179, 75, .3) 35%, transparent 72%);
+  opacity: 0;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .invitation-atmosphere--live .invitation-background-push {
+    animation: invitation-background-breathe 14s ease-in-out infinite alternate;
+    animation-play-state: paused;
+  }
+
+  .invitation-petal {
+    animation: invitation-petal-fall var(--petal-duration) linear var(--petal-delay) infinite;
+    animation-play-state: paused;
+  }
+
+  .invitation-dust-particle {
+    animation: invitation-dust-rise var(--dust-duration) ease-in-out var(--dust-delay) infinite;
+    animation-play-state: paused;
+  }
+
+  .invitation-lantern-glow {
+    animation: invitation-lantern-warmth 6.8s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+
+  .invitation-lantern-glow--right { animation-duration: 8.3s; animation-delay: -2.4s; }
+  .invitation-lantern-glow--lower { animation-duration: 9.7s; animation-delay: -4.2s; }
+
+  .invitation-reflection-shimmer {
+    animation: invitation-reflection-light 10s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+
+  .invitation-atmosphere--live.invitation-atmosphere--visible .invitation-background-push,
+  .invitation-atmosphere--live.invitation-atmosphere--visible .invitation-atmosphere * {
+    animation-play-state: running;
+  }
+
+  .invitation-atmosphere--live.invitation-atmosphere--visible .invitation-background-push,
+  .invitation-atmosphere--live.invitation-atmosphere--visible .invitation-petal,
+  .invitation-atmosphere--live.invitation-atmosphere--visible .invitation-dust-particle {
+    will-change: transform;
+  }
+}
+
+@keyframes invitation-background-breathe {
+  from { transform: scale(1); }
+  to { transform: scale(1.025); }
+}
+
+@keyframes invitation-petal-fall {
+  0% { transform: translate3d(0, 0, 0) rotate(-15deg); opacity: 0; }
+  12% { opacity: .32; }
+  82% { opacity: .26; }
+  100% {
+    transform: translate3d(var(--petal-drift), calc(100cqh + 36px), 0) rotate(var(--petal-rotation));
+    opacity: 0;
+  }
+}
+
+@keyframes invitation-dust-rise {
+  0% { transform: translate3d(0, 12px, 0); opacity: 0; }
+  35% { opacity: .3; }
+  70% { opacity: .16; }
+  100% { transform: translate3d(2px, -32px, 0); opacity: 0; }
+}
+
+@keyframes invitation-lantern-warmth {
+  0%, 100% { opacity: .12; }
+  28% { opacity: .1; }
+  62% { opacity: .18; }
+}
+
+@keyframes invitation-reflection-light {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: .04; }
+  50% { transform: translate3d(2px, 0, 0) scale(1.02); opacity: .09; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .invitation-background-push { animation: none; transform: none; }
+  .invitation-petals,
+  .invitation-dust,
+  .invitation-reflection-shimmer { display: none; }
+  .invitation-lantern-glow { animation: none; opacity: .12; }
+}

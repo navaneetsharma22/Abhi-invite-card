@@ -44,6 +44,8 @@
   z-index: var(--opening-layer-background);
   object-fit: cover;
   object-position: center;
+  /* Brighter palace — let the radial shadow do the legibility work */
+  opacity: .88;
   will-change: transform, opacity;
 }
 
@@ -58,12 +60,13 @@
 .opening-overlay {
   z-index: var(--opening-layer-overlay);
   pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    rgba(3, 12, 22, .08),
-    rgba(3, 12, 22, .02) 45%,
-    rgba(3, 12, 22, .2)
-  );
+  background:
+    /* Cinematic vignette — dark corners, bright centre */
+    radial-gradient(ellipse 72% 68% at 50% 46%, transparent 50%, rgba(3, 12, 22, .42) 100%),
+    /* Warm amber wash to match the diya lighting */
+    linear-gradient(180deg, rgba(180, 120, 50, .04), rgba(180, 120, 50, .06) 55%, rgba(120, 60, 20, .08)),
+    /* Subtle top/bottom fade for text readability */
+    linear-gradient(180deg, rgba(3, 12, 22, .12), transparent 35%, transparent 70%, rgba(3, 12, 22, .22));
 }
 
 .opening-transition-veil {
@@ -75,8 +78,8 @@
 
 .opening-content {
   --opening-mantra-art-gap: clamp(14px, 2dvh, 22px);
-  --opening-art-title-gap: clamp(10px, 1.4dvh, 16px);
-  --opening-title-blessing-gap: clamp(8px, 1.1dvh, 12px);
+  --opening-art-title-gap: clamp(18px, 2.8dvh, 32px);
+  --opening-title-blessing-gap: clamp(10px, 1.6dvh, 16px);
   --opening-diya-tagline-gap: clamp(18px, 3dvh, 30px);
 
   position: relative;
@@ -110,7 +113,7 @@
   line-height: 1.35;
   letter-spacing: .01em;
   color: var(--gold-300);
-  text-shadow: 0 2px 12px rgba(3, 12, 22, .7);
+  text-shadow: 0 2px 12px rgba(3, 12, 22, .7), 0 0 18px rgba(229, 190, 112, .12);
 }
 
 .opening-ganesh-text {
@@ -155,17 +158,18 @@
   margin: auto auto 0;
 }
 
+/* Warm amber glow that bleeds from the diya into the scene’s bottom edge */
 .opening-diya-wrap::before {
   content: '';
   position: absolute;
   z-index: 0;
-  left: 26%;
-  right: 26%;
-  bottom: -1%;
-  height: 10%;
+  left: 20%;
+  right: 20%;
+  bottom: -6%;
+  height: 16%;
   border-radius: 50%;
-  background: rgba(18, 9, 5, .48);
-  filter: blur(10px);
+  background: radial-gradient(ellipse, rgba(210, 130, 50, .18), rgba(18, 9, 5, .35) 60%, transparent);
+  filter: blur(14px);
   pointer-events: none;
 }
 
@@ -173,12 +177,12 @@
   content: '';
   position: absolute;
   z-index: 3;
-  left: -8%;
-  right: -8%;
-  bottom: -9%;
-  height: 40%;
-  background: radial-gradient(ellipse at 50% 75%, rgba(242, 160, 69, .12), rgba(187, 100, 35, .06) 38%, transparent 72%);
-  filter: blur(13px);
+  left: -12%;
+  right: -12%;
+  bottom: -14%;
+  height: 45%;
+  background: radial-gradient(ellipse at 50% 70%, rgba(242, 160, 69, .15), rgba(187, 100, 35, .08) 38%, transparent 72%);
+  filter: blur(16px);
   pointer-events: none;
 }
 
@@ -188,8 +192,9 @@
   height: auto;
   object-fit: contain;
   filter: brightness(.96) saturate(.93) contrast(.96);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 84%, rgba(0, 0, 0, .94) 94%, rgba(0, 0, 0, .78) 100%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 84%, rgba(0, 0, 0, .94) 94%, rgba(0, 0, 0, .78) 100%);
+  /* Aggressive bottom fade so the diya melts into the scene instead of looking pasted on */
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 70%, rgba(0, 0, 0, .7) 82%, rgba(0, 0, 0, .3) 92%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 70%, rgba(0, 0, 0, .7) 82%, rgba(0, 0, 0, .3) 92%, transparent 100%);
   will-change: transform, opacity;
 }
 
@@ -257,8 +262,8 @@
 @media (max-height: 720px) {
   .opening-content {
     --opening-mantra-art-gap: 10px;
-    --opening-art-title-gap: 6px;
-    --opening-title-blessing-gap: 6px;
+    --opening-art-title-gap: 12px;
+    --opening-title-blessing-gap: 8px;
     --opening-diya-tagline-gap: 12px;
   }
   .opening-upper-content { padding-top: clamp(67px, 12dvh, 90px); }
@@ -269,8 +274,8 @@
 @media (max-height: 660px) {
   .opening-content {
     --opening-mantra-art-gap: 8px;
-    --opening-art-title-gap: 5px;
-    --opening-title-blessing-gap: 5px;
+    --opening-art-title-gap: 10px;
+    --opening-title-blessing-gap: 7px;
     --opening-diya-tagline-gap: 10px;
     padding-bottom: max(16px, calc(env(safe-area-inset-bottom) + 12px));
   }

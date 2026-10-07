@@ -1,0 +1,166 @@
+.invitation-section {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100svh;
+  color: var(--text-dark);
+  background: radial-gradient(circle at center, rgba(211, 160, 74, .08), transparent 38%), #020811;
+}
+
+.invitation-stage {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100dvh;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--ivory-100);
+}
+
+.invitation-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+.invitation-content {
+  position: relative;
+  z-index: 1;
+  width: min(76%, 420px);
+  margin-inline: auto;
+  padding-top: max(clamp(78px, 10.5dvh, 120px), calc(env(safe-area-inset-top) + 66px));
+  padding-bottom: max(24px, calc(env(safe-area-inset-bottom) + 16px));
+  text-align: center;
+}
+
+.invitation-quote,
+.invitation-body {
+  margin: 0;
+  color: var(--text-dark);
+  font-family: var(--font-serif);
+  font-weight: 500;
+}
+
+.invitation-quote {
+  font-size: clamp(.98rem, 1.95dvh, 1.2rem);
+  line-height: 1.32;
+}
+
+.invitation-quote span,
+.invitation-title span,
+.invitation-body span { display: block; }
+
+.invitation-divider {
+  display: block;
+  height: auto;
+  margin-inline: auto;
+  color: var(--gold-700);
+}
+
+.invitation-divider--quote {
+  width: min(64%, 200px);
+  margin-top: clamp(10px, 1.4dvh, 16px);
+}
+
+.invitation-title {
+  margin: clamp(16px, 2.2dvh, 24px) 0 0;
+  color: var(--gold-700);
+  font-family: var(--font-script);
+  font-size: clamp(3.5rem, 9dvh, 6.1rem);
+  font-weight: 400;
+  line-height: .84;
+  text-shadow: 0 1px 1px rgba(255, 249, 236, .45);
+}
+
+.invitation-title span + span { margin-top: 4px; }
+
+.invitation-body {
+  margin-top: clamp(17px, 2.3dvh, 24px);
+  font-size: clamp(1rem, 1.98dvh, 1.28rem);
+  line-height: 1.34;
+}
+
+.invitation-divider--celebration {
+  width: min(76%, 230px);
+  margin-top: clamp(16px, 2.2dvh, 24px);
+}
+
+.invitation-closing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(5px, .7dvh, 8px);
+  margin-top: clamp(9px, 1.4dvh, 16px);
+  font-family: var(--font-ui);
+  font-weight: 500;
+}
+
+.invitation-closing p { margin: 0; }
+
+.invitation-celebrate {
+  color: var(--gold-700);
+  font-size: clamp(.68rem, 1.4dvh, .9rem);
+  line-height: 1.35;
+  letter-spacing: .3em;
+}
+
+.invitation-tagline {
+  color: var(--text-medium);
+  font-size: clamp(.5rem, 1dvh, .65rem);
+  line-height: 1.45;
+  letter-spacing: .18em;
+  text-wrap: balance;
+}
+
+@media (min-width: 768px) {
+  .invitation-stage {
+    width: min(560px, 60dvh, calc(100vw - 32px));
+    box-shadow: var(--shadow-night);
+  }
+}
+
+@media (min-width: 1200px) {
+  .invitation-stage {
+    width: min(580px, 62dvh, calc(100vw - 32px));
+  }
+}
+
+@media (max-height: 800px) {
+  .invitation-content {
+    padding-top: max(clamp(70px, 10.3dvh, 86px), calc(env(safe-area-inset-top) + 60px));
+  }
+  .invitation-quote { font-size: clamp(.95rem, 1.92dvh, 1.12rem); }
+  .invitation-title { font-size: clamp(3.35rem, 9.1dvh, 5.6rem); margin-top: 16px; }
+  .invitation-body { font-size: clamp(.96rem, 1.92dvh, 1.16rem); margin-top: 17px; }
+  .invitation-divider--celebration { margin-top: 16px; }
+  .invitation-closing { margin-top: 10px; gap: 5px; }
+}
+
+@media (max-height: 720px) {
+  .invitation-content {
+    padding-top: max(clamp(60px, 9.5dvh, 72px), calc(env(safe-area-inset-top) + 50px));
+  }
+  .invitation-quote { font-size: .92rem; line-height: 1.28; }
+  .invitation-divider--quote { width: min(64%, 180px); margin-top: 8px; }
+  .invitation-title { font-size: clamp(3rem, 8.8dvh, 4.9rem); margin-top: 12px; }
+  .invitation-body { font-size: .94rem; line-height: 1.28; margin-top: 14px; }
+  .invitation-divider--celebration { width: min(72%, 200px); margin-top: 12px; }
+  .invitation-closing { margin-top: 8px; }
+}
+
+@media (max-height: 600px) {
+  .invitation-stage { height: auto; }
+  .invitation-content {
+    padding-top: max(clamp(48px, 8.5dvh, 56px), calc(env(safe-area-inset-top) + 40px));
+    padding-bottom: max(250px, calc(38dvh + env(safe-area-inset-bottom)));
+  }
+  .invitation-quote { font-size: .875rem; }
+  .invitation-title { font-size: clamp(2.75rem, 7.8dvh, 4.2rem); margin-top: 10px; }
+  .invitation-body { font-size: .9rem; margin-top: 12px; }
+  .invitation-divider--celebration { margin-top: 10px; }
+}
