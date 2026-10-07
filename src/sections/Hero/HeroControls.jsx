@@ -27,10 +27,18 @@ export default function HeroControls() {
   const closeButtonRef = useRef(null)
   const drawerRef = useRef(null)
 
-  useEffect(() => () => {
-    wantsMusicRef.current = false
-    fadeRef.current?.kill()
-    audioRef.current?.pause()
+  useEffect(() => {
+    const audio = new Audio(musicSource)
+    audio.loop = true
+    audio.preload = 'none'
+    audio.volume = 0
+    audioRef.current = audio
+    return () => {
+      wantsMusicRef.current = false
+      fadeRef.current?.kill()
+      audio.pause()
+      audioRef.current = null
+    }
   }, [])
 
   useEffect(() => {
@@ -69,13 +77,8 @@ export default function HeroControls() {
   }, [isMenuOpen])
 
   const toggleMusic = async () => {
-    const audio = audioRef.current || new Audio(musicSource)
-    if (!audioRef.current) {
-      audio.loop = true
-      audio.preload = 'none'
-      audio.volume = 0
-      audioRef.current = audio
-    }
+    const audio = audioRef.current
+    if (!audio) return
 
     fadeRef.current?.kill()
     if (wantsMusicRef.current) {
@@ -94,7 +97,7 @@ export default function HeroControls() {
 
     wantsMusicRef.current = true
     setMusicStatus('')
-    audio.volume = 0
+    if (audio.paused) audio.volume = 0
     try {
       await audio.play()
       if (!wantsMusicRef.current) {

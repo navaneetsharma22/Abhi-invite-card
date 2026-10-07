@@ -6,6 +6,31 @@
   pointer-events: none;
 }
 
+.hero-background-motion,
+.hero-foreground-motion {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero-couple-motion { width: 100%; }
+
+.hero-entrance--active .hero-camera-plane,
+.hero-entrance--active .hero-couple { will-change: transform, opacity; }
+
+/* Parallax layers: static will-change (no toggling) so the GPU layer is never re-rasterized mid-motion. */
+.hero-background-motion,
+.hero-couple-motion {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-background-motion,
+  .hero-couple-motion { transform: none; will-change: auto; }
+}
+
 .hero-palace-atmosphere,
 .hero-foreground-atmosphere {
   position: absolute;
@@ -81,6 +106,7 @@
   height: var(--dust-size);
   border-radius: 50%;
   background: var(--gold-300);
+  box-shadow: 0 0 6px rgba(242, 217, 156, .65);
   opacity: 0;
   animation: heroDustFloat var(--dust-duration) linear var(--dust-delay) infinite;
 }
@@ -90,33 +116,14 @@
   left: var(--petal-x);
   top: var(--petal-y);
   width: var(--petal-size);
-  height: calc(var(--petal-size) * 1.5);
-  border-radius: 75% 15% 75% 20%;
-  background: linear-gradient(135deg, rgba(222, 126, 145, .7), rgba(123, 32, 38, .55));
+  height: calc(var(--petal-size) * 1.4);
+  border-radius: 80% 10% 80% 18%;
+  background:
+    radial-gradient(ellipse at 30% 25%, rgba(255, 214, 222, .85), transparent 45%),
+    linear-gradient(140deg, #e58a9c 0%, #c4475f 45%, #7d1f2c 100%);
+  box-shadow: inset -1px -2px 3px rgba(70, 10, 20, .35), 0 2px 6px rgba(20, 4, 8, .3);
   opacity: 0;
   animation: heroPetalFall var(--petal-duration) linear var(--petal-delay) infinite;
-}
-
-.hero-atmosphere--live .hero-camera-plane {
-  animation: heroCameraDrift 18s ease-in-out infinite alternate;
-  will-change: transform;
-}
-
-.hero-atmosphere--live .hero-couple {
-  animation: heroCoupleBreathe 3s ease-in-out infinite;
-  will-change: transform;
-}
-
-.hero-cta--pulse-once { animation: heroCtaPulse 1.25s ease-out 1; }
-
-@keyframes heroCameraDrift {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to { transform: translate3d(-1px, -2px, 0) scale(1.008); }
-}
-
-@keyframes heroCoupleBreathe {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(0, -2px, 0) scale(1.006); }
 }
 
 @keyframes heroPalaceLight {
@@ -138,14 +145,11 @@
 
 @keyframes heroPetalFall {
   0% { opacity: 0; transform: translate3d(0, -8dvh, 0) rotate(-20deg); }
-  20% { opacity: .36; }
-  75% { opacity: .28; }
+  12% { opacity: .82; }
+  30% { transform: translate3d(calc(var(--petal-drift) * -.35), 28dvh, 0) rotate(calc(var(--petal-turn) * .3)); }
+  55% { transform: translate3d(calc(var(--petal-drift) * .45), 54dvh, 0) rotate(calc(var(--petal-turn) * .55)); }
+  80% { opacity: .72; transform: translate3d(calc(var(--petal-drift) * .2), 80dvh, 0) rotate(calc(var(--petal-turn) * .8)); }
   100% { opacity: 0; transform: translate3d(var(--petal-drift), 102dvh, 0) rotate(var(--petal-turn)); }
-}
-
-@keyframes heroCtaPulse {
-  0%, 100% { box-shadow: 0 8px 28px rgba(73, 30, 10, .18), inset 0 1px rgba(255, 255, 255, .15); }
-  45% { box-shadow: 0 8px 28px rgba(73, 30, 10, .2), 0 0 17px rgba(229, 190, 112, .22), inset 0 1px rgba(255, 255, 255, .18); }
 }
 
 @media (max-width: 767px) {
@@ -155,7 +159,6 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-palace-atmosphere,
   .hero-foreground-atmosphere { display: none; transition: none; }
-  .hero-atmosphere--live .hero-camera-plane,
-  .hero-cta--pulse-once { animation: none; will-change: auto; }
-  .hero-atmosphere--live .hero-couple { animation: none; will-change: auto; }
+  .hero-entrance--active .hero-camera-plane,
+  .hero-entrance--active .hero-couple { will-change: opacity; }
 }
