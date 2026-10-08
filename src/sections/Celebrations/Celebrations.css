@@ -61,6 +61,32 @@
   .celebrations-transition { height: 18px; }
 }
 
+/* ── Celebrations→Couple narrow cinematic seam (18–28px) ─────────────
+   Feathers Celebrations bottom 22px softly to seamlessly bridge to Couple
+   while keeping Couple top arch completely crisp. */
+.celebrations-stage::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 2;
+  height: 22px;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 100% 100% at 50% 100%, rgba(229, 190, 112, .05), transparent 70%),
+    linear-gradient(to top, rgba(255, 244, 223, .20) 0%, transparent 100%);
+}
+
+@media (max-height: 720px) {
+  .celebrations-stage::after { height: 18px; }
+}
+
+@media (max-height: 660px) {
+  .celebrations-stage::after { height: 16px; }
+}
+
+
 /* ── Header Overlay ─────────────────────────────────────────────────── */
 .celebrations-header {
   position: absolute;

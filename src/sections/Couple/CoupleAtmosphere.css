@@ -1,0 +1,323 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   CoupleAtmosphere.css
+   Live Cinematic Atmosphere for Couple Section (Part 3)
+   - Background camera breathing (GSAP-driven wrapper)
+   - Lantern radial glow overlays (baked lanterns, independent timing, no blink)
+   - Portrait-area warmth (subtle ambient light for empty/future portraits)
+   - Lower palace / lake shimmer (soft reflection, no stripes)
+   - Floating petals (7 petals, confined to margins and center gutter)
+   - Golden dust particles (10 particles, slow upward drift around borders)
+   - One-time "Better Together" gold bloom
+   - Full prefers-reduced-motion support
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.couple-atmosphere,
+.couple-atmosphere * {
+  pointer-events: none;
+}
+
+.couple-atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  container-type: size;
+}
+
+.couple-background-push {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* ── 1. Lantern Glow Overlays ───────────────────────────────────────── */
+.couple-lantern-glows {
+  position: absolute;
+  inset: 0;
+}
+
+.couple-lantern-glow {
+  position: absolute;
+  width: clamp(75px, 17cqi, 115px);
+  height: clamp(75px, 17cqi, 115px);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 212, 120, 0.95),
+    rgba(240, 162, 52, 0.40) 36%,
+    transparent 72%
+  );
+  transform: translate(-50%, -50%);
+  opacity: .12;
+}
+
+/* Align with baked lanterns in couple-bg */
+.couple-lantern-glow--left {
+  left: 9.0%;
+  top: 9.2%;
+  animation: couple-lantern-glow-left 3.4s ease-in-out infinite;
+}
+
+.couple-lantern-glow--right {
+  left: 87.0%;
+  top: 12.1%;
+  animation: couple-lantern-glow-right 3.9s ease-in-out infinite;
+}
+
+@keyframes couple-lantern-glow-left {
+  0%, 100% {
+    opacity: .10;
+    transform: translate(-50%, -50%) scale(.98);
+  }
+  42% {
+    opacity: .21;
+    transform: translate(-50%, -50%) scale(1.035);
+  }
+  74% {
+    opacity: .12;
+    transform: translate(-50%, -50%) scale(1.00);
+  }
+}
+
+@keyframes couple-lantern-glow-right {
+  0%, 100% {
+    opacity: .12;
+    transform: translate(-50%, -50%) scale(1.00);
+  }
+  38% {
+    opacity: .21;
+    transform: translate(-50%, -50%) scale(1.035);
+  }
+  72% {
+    opacity: .10;
+    transform: translate(-50%, -50%) scale(.98);
+  }
+}
+
+/* ── 2. Portrait-Area Warmth (Soft ambient lighting for frames) ─────── */
+.couple-glow-portrait {
+  position: absolute;
+  top: 42.4%;
+  width: clamp(130px, 34cqi, 200px);
+  height: clamp(130px, 34cqi, 200px);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  opacity: .04;
+}
+
+.couple-glow-portrait--groom {
+  left: 26.6%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 215, 120, 0.45),
+    rgba(235, 175, 65, 0.16) 45%,
+    transparent 72%
+  );
+  animation: couple-portrait-warmth-groom 4.8s ease-in-out infinite;
+}
+
+.couple-glow-portrait--bride {
+  left: 73.4%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 205, 135, 0.45),
+    rgba(235, 160, 85, 0.16) 45%,
+    transparent 72%
+  );
+  animation: couple-portrait-warmth-bride 5.4s ease-in-out infinite;
+}
+
+@keyframes couple-portrait-warmth-groom {
+  0%, 100% { opacity: .03; }
+  50%      { opacity: .08; }
+  80%      { opacity: .04; }
+}
+
+@keyframes couple-portrait-warmth-bride {
+  0%, 100% { opacity: .03; }
+  46%      { opacity: .08; }
+  78%      { opacity: .04; }
+}
+
+/* ── 3. Lower Palace / Lake Shimmer ─────────────────────────────────── */
+.couple-water-shimmer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 22%;
+  overflow: hidden;
+}
+
+.couple-water-reflection {
+  position: absolute;
+  inset: -10% -20%;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 65%, rgba(255, 215, 130, .45), transparent 70%),
+    radial-gradient(ellipse 50% 30% at 26% 75%, rgba(255, 190, 85, .35), transparent 60%),
+    radial-gradient(ellipse 50% 30% at 74% 75%, rgba(255, 190, 85, .35), transparent 60%);
+  opacity: .05;
+  animation: couple-water-shimmer 6.6s ease-in-out infinite;
+}
+
+@keyframes couple-water-shimmer {
+  0%, 100% {
+    transform: translate3d(-5px, 0, 0);
+    opacity: .04;
+  }
+  50% {
+    transform: translate3d(5px, 0, 0);
+    opacity: .09;
+  }
+  78% {
+    transform: translate3d(1px, 0, 0);
+    opacity: .05;
+  }
+}
+
+/* ── 4. Floating Petals ─────────────────────────────────────────────── */
+.couple-petals {
+  position: absolute;
+  inset: 0;
+}
+
+.couple-petal {
+  position: absolute;
+  top: -30px;
+  left: var(--petal-x);
+  width: var(--petal-size);
+  height: calc(var(--petal-size) * 1.35);
+  border-radius: 50% 0 50% 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(238, 92, 118, .85) 0%,
+    rgba(215, 55, 84, .75) 50%,
+    rgba(195, 40, 70, .65) 100%
+  );
+  box-shadow: 0 2px 6px rgba(180, 40, 60, .25);
+  opacity: 0;
+  animation: couple-petal-drift var(--petal-duration) cubic-bezier(.4, 0, .6, 1) var(--petal-delay) infinite;
+}
+
+.couple-petal--fg {
+  filter: blur(1.5px);
+  z-index: 1;
+}
+
+@keyframes couple-petal-drift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: .72;
+  }
+  32% {
+    transform: translate3d(calc(var(--petal-drift) * .8), 30cqh, 0) rotate(calc(var(--petal-rotation) * .35));
+    opacity: .75;
+  }
+  62% {
+    transform: translate3d(calc(var(--petal-drift) * -.4), 62cqh, 0) rotate(calc(var(--petal-rotation) * .7));
+    opacity: .68;
+  }
+  85% {
+    transform: translate3d(calc(var(--petal-drift) * .6), 88cqh, 0) rotate(calc(var(--petal-rotation) * .9));
+    opacity: .52;
+  }
+  100% {
+    transform: translate3d(var(--petal-drift), calc(100cqh + 40px), 0) rotate(var(--petal-rotation));
+    opacity: 0;
+  }
+}
+
+/* ── 5. Golden Dust Particles ───────────────────────────────────────── */
+.couple-dust {
+  position: absolute;
+  inset: 0;
+}
+
+.couple-dust-particle {
+  position: absolute;
+  left: var(--dust-x);
+  top: var(--dust-y);
+  width: var(--dust-size);
+  height: var(--dust-size);
+  border-radius: 50%;
+  background: #f7d896;
+  box-shadow: 0 0 6px rgba(247, 216, 150, .8);
+  opacity: 0;
+  animation: couple-dust-rise var(--dust-duration) ease-in-out var(--dust-delay) infinite alternate;
+}
+
+@keyframes couple-dust-rise {
+  0% {
+    transform: translate3d(0, 8px, 0);
+    opacity: .08;
+  }
+  50% {
+    transform: translate3d(3px, -8px, 0);
+    opacity: .42;
+  }
+  100% {
+    transform: translate3d(-3px, -24px, 0);
+    opacity: .10;
+  }
+}
+
+/* ── 6. "Better Together" Gold Bloom Accent (One-time GSAP reveal) ──── */
+.couple-tagline-bloom {
+  position: absolute;
+  top: 79.2%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(80%, 340px);
+  height: clamp(55px, 14cqi, 85px);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse 75% 55% at 50% 50%,
+    rgba(245, 205, 120, 0.40),
+    rgba(225, 175, 60, 0.12) 50%,
+    transparent 75%
+  );
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Viewport Optimization ──────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .couple-atmosphere * {
+    animation-play-state: paused;
+  }
+  .couple-section.couple-atmosphere--visible .couple-atmosphere * {
+    animation-play-state: running;
+  }
+}
+
+/* ── 7. Reduced Motion ──────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .couple-background-push {
+    animation: none !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
+  .couple-petals,
+  .couple-dust,
+  .couple-water-shimmer,
+  .couple-tagline-bloom {
+    display: none !important;
+  }
+  .couple-lantern-glow {
+    animation: none !important;
+    opacity: .12 !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+  }
+  .couple-glow-portrait--groom,
+  .couple-glow-portrait--bride {
+    animation: none !important;
+    opacity: .04 !important;
+  }
+}

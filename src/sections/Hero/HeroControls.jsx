@@ -11,7 +11,6 @@ const menuLinks = [
   { id: 'invitation', label: 'Invitation' },
   { id: 'celebrations', label: 'Celebrations' },
   { id: 'couple', label: 'The Couple' },
-  { id: 'gallery', label: 'Gallery' },
   { id: 'venue', label: 'Venue' },
   { id: 'final-blessing', label: 'Final Blessing' },
 ]
