@@ -27,6 +27,25 @@
   background: var(--navy-950);
 }
 
+/* Soft feather at Hero bottom – pairs with the subtle Invitation-top seam.
+   Deliberately light so flowers and lanterns are never hidden. */
+.hero-stage::after {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 1;
+  height: clamp(20px, 4dvh, 35px);
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 100% 100% at 50% 100%, rgba(211, 160, 74, .06), transparent 70%),
+    linear-gradient(to top, rgba(255, 240, 200, .08), transparent);
+  content: '';
+}
+
+@media (max-height: 720px) {
+  .hero-stage::after { height: 20px; }
+}
+
 .hero-background,
 .hero-image-overlay {
   position: absolute;

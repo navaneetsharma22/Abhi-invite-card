@@ -1,11 +1,20 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   InvitationAtmosphere.css
+   Live cinematic effects for the Invitation section.
+   Everything uses transform + opacity only, is pointer-events:none,
+   clipped by .invitation-stage overflow:hidden, and has no new deps.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Background push wrapper ─────────────────────────────────────── */
 .invitation-background-push {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  transform-origin: center;
+  transform-origin: center center;
 }
 
+/* ── Atmosphere container ────────────────────────────────────────── */
 .invitation-atmosphere,
 .invitation-atmosphere * {
   pointer-events: none;
@@ -22,6 +31,11 @@
 
 .invitation-atmosphere--live .invitation-atmosphere { opacity: 1; }
 
+/* ═══════════════════════════════════════════════════════════════════════
+   1. LANTERN GLOW OVERLAYS
+   Warm amber/gold radials positioned over the baked-in lanterns.
+   Each flickers on an independent timer; no blinking, slow organic.
+   ═══════════════════════════════════════════════════════════════════════ */
 .invitation-lantern-plane {
   position: absolute;
   top: 50%;
@@ -33,20 +47,79 @@
 
 .invitation-lantern-glow {
   position: absolute;
-  width: 24%;
-  height: 13%;
-  background: radial-gradient(ellipse, rgba(255, 201, 104, .9), rgba(235, 157, 56, .38) 32%, transparent 72%);
+  width: 26%;
+  height: 15%;
+  background: radial-gradient(
+    ellipse,
+    rgba(255, 201, 104, .88),
+    rgba(235, 157, 56, .36) 34%,
+    transparent 72%
+  );
   transform: translate(-50%, -50%);
-  opacity: .12;
+  opacity: .10;
 }
 
-.invitation-lantern-glow--left { left: 12%; top: 26%; }
+.invitation-lantern-glow--left  { left: 12%; top: 26%; }
 .invitation-lantern-glow--right { left: 91%; top: 17%; }
 .invitation-lantern-glow--lower { left: 89%; top: 41%; }
 
+/* ═══════════════════════════════════════════════════════════════════════
+   2. WARM LIGHT BREATHING BLOOMS
+   3 golden radials at top-arch, centre-title, and lower-palace areas.
+   Very slow opacity breathing: .06 → .11 → .07
+   ═══════════════════════════════════════════════════════════════════════ */
+.invitation-light-blooms {
+  position: absolute;
+  inset: 0;
+}
+
+.invitation-bloom {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(242, 200, 110, .55),
+    rgba(235, 175, 65, .2) 40%,
+    transparent 72%
+  );
+  opacity: 0;
+}
+
+/* Top floral/arch area */
+.invitation-bloom--top {
+  top: 2%;
+  left: 50%;
+  width: 70%;
+  height: 28%;
+  transform: translateX(-50%);
+}
+
+/* Centre behind title */
+.invitation-bloom--center {
+  top: 30%;
+  left: 50%;
+  width: 55%;
+  height: 25%;
+  transform: translateX(-50%);
+}
+
+/* Lower palace area */
+.invitation-bloom--bottom {
+  bottom: 3%;
+  left: 50%;
+  width: 80%;
+  height: 22%;
+  transform: translateX(-50%);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   3. FLOATING PETALS
+   7 petals on side lanes – curved paths via multi-stop keyframes.
+   2 foreground petals get slight blur for depth.
+   ═══════════════════════════════════════════════════════════════════════ */
 .invitation-petal {
   position: absolute;
-  top: -18px;
+  top: -20px;
   left: var(--petal-x);
   width: var(--petal-size);
   height: calc(var(--petal-size) * 1.35);
@@ -55,6 +128,17 @@
   opacity: 0;
 }
 
+/* Foreground petals – slight blur gives depth layering */
+.invitation-petal--fg {
+  filter: blur(.6px);
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   4. GOLDEN ATMOSPHERIC DUST
+   12 particles (1.5–3.5px), slow upward drift.
+   3 particles get a brighter glow halo.
+   ═══════════════════════════════════════════════════════════════════════ */
 .invitation-dust-particle {
   position: absolute;
   width: var(--dust-size);
@@ -65,51 +149,86 @@
   opacity: 0;
 }
 
+/* Brighter glow on select particles */
+.invitation-dust-particle--glow {
+  box-shadow: 0 0 6px rgba(242, 193, 103, .5), 0 0 12px rgba(255, 210, 120, .15);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   5. PALACE / DIYA REFLECTION SHIMMER
+   Very soft warm reflection layer at the lower water/palace area.
+   Slow horizontal + vertical shimmer, no obvious moving stripes.
+   ═══════════════════════════════════════════════════════════════════════ */
 .invitation-reflection-shimmer {
   position: absolute;
-  left: 12%;
-  bottom: 3%;
-  width: 76%;
-  height: 15%;
-  background: radial-gradient(ellipse, rgba(255, 213, 132, .85), rgba(247, 179, 75, .3) 35%, transparent 72%);
+  left: 8%;
+  bottom: 1%;
+  width: 84%;
+  height: 18%;
+  background: radial-gradient(
+    ellipse,
+    rgba(255, 213, 132, .7),
+    rgba(247, 179, 75, .25) 38%,
+    transparent 72%
+  );
   opacity: 0;
   transform-origin: center;
 }
 
+/* ═══════════════════════════════════════════════════════════════════════
+   ANIMATIONS — prefers-reduced-motion: no-preference only
+   ═══════════════════════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: no-preference) {
+
+  /* ── 1. Background camera motion ────────────────────────────────
+     Very slow push: scale 1→1.025 + tiny y drift 0→-2px
+     16s sine.inOut, yoyo (alternate), almost invisible              */
   .invitation-atmosphere--live .invitation-background-push {
-    animation: invitation-background-breathe 14s ease-in-out infinite alternate;
+    animation: inv-bg-camera 16s cubic-bezier(.37, 0, .63, 1) infinite alternate;
     animation-play-state: paused;
   }
 
+  /* ── 2. Petals – curved fall paths ──────────────────────────── */
   .invitation-petal {
-    animation: invitation-petal-fall var(--petal-duration) linear var(--petal-delay) infinite;
+    animation: inv-petal-drift var(--petal-duration) linear var(--petal-delay) infinite;
     animation-play-state: paused;
   }
 
-  .invitation-dust-particle {
-    animation: invitation-dust-rise var(--dust-duration) ease-in-out var(--dust-delay) infinite;
-    animation-play-state: paused;
-  }
-
+  /* ── 3. Lantern glow flicker – independent timing ───────────── */
   .invitation-lantern-glow {
-    animation: invitation-lantern-warmth 6.8s ease-in-out infinite;
+    animation: inv-lantern-flicker 6s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+  .invitation-lantern-glow--right { animation-duration: 7.8s; animation-delay: -2.3s; }
+  .invitation-lantern-glow--lower { animation-duration: 9.2s; animation-delay: -4.1s; }
+
+  /* ── 4. Gold dust – slow upward drift ───────────────────────── */
+  .invitation-dust-particle {
+    animation: inv-dust-rise var(--dust-duration) ease-in-out var(--dust-delay) infinite;
     animation-play-state: paused;
   }
 
-  .invitation-lantern-glow--right { animation-duration: 8.3s; animation-delay: -2.4s; }
-  .invitation-lantern-glow--lower { animation-duration: 9.7s; animation-delay: -4.2s; }
-
+  /* ── 5. Palace reflection shimmer ───────────────────────────── */
   .invitation-reflection-shimmer {
-    animation: invitation-reflection-light 10s ease-in-out infinite;
+    animation: inv-reflection 7s ease-in-out infinite;
     animation-play-state: paused;
   }
 
+  /* ── 6. Warm light breathing blooms ─────────────────────────── */
+  .invitation-bloom {
+    animation: inv-bloom-breathe 10s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+  .invitation-bloom--center { animation-duration: 12s; animation-delay: -3.5s; }
+  .invitation-bloom--bottom { animation-duration: 9s;  animation-delay: -6s; }
+
+  /* ── Resume when live + in viewport ─────────────────────────── */
   .invitation-atmosphere--live.invitation-atmosphere--visible .invitation-background-push,
   .invitation-atmosphere--live.invitation-atmosphere--visible .invitation-atmosphere * {
     animation-play-state: running;
   }
 
+  /* will-change only on transform-heavy elements */
   .invitation-atmosphere--live.invitation-atmosphere--visible .invitation-background-push,
   .invitation-atmosphere--live.invitation-atmosphere--visible .invitation-petal,
   .invitation-atmosphere--live.invitation-atmosphere--visible .invitation-dust-particle {
@@ -117,43 +236,108 @@
   }
 }
 
-@keyframes invitation-background-breathe {
-  from { transform: scale(1); }
-  to { transform: scale(1.025); }
+/* ═══════════════════════════════════════════════════════════════════════
+   KEYFRAMES
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* 1. Background camera – scale 1→1.025, y 0→-2px */
+@keyframes inv-bg-camera {
+  from { transform: scale(1) translateY(0); }
+  to   { transform: scale(1.025) translateY(-2px); }
 }
 
-@keyframes invitation-petal-fall {
-  0% { transform: translate3d(0, 0, 0) rotate(-15deg); opacity: 0; }
-  12% { opacity: .32; }
-  82% { opacity: .26; }
+/* 2. Petal curved fall – sideways sine drift + gentle rotation
+   Multi-stop path so the petal curves left-right as it falls.        */
+@keyframes inv-petal-drift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-12deg);
+    opacity: 0;
+  }
+  6% {
+    opacity: .36;
+  }
+  25% {
+    transform: translate3d(calc(var(--petal-drift) * .6), 25cqh, 0) rotate(calc(var(--petal-rotation) * .3));
+    opacity: .38;
+  }
+  50% {
+    transform: translate3d(calc(var(--petal-drift) * -.3), 50cqh, 0) rotate(calc(var(--petal-rotation) * .6));
+    opacity: .34;
+  }
+  75% {
+    transform: translate3d(calc(var(--petal-drift) * .8), 75cqh, 0) rotate(calc(var(--petal-rotation) * .85));
+    opacity: .28;
+  }
   100% {
     transform: translate3d(var(--petal-drift), calc(100cqh + 36px), 0) rotate(var(--petal-rotation));
     opacity: 0;
   }
 }
 
-@keyframes invitation-dust-rise {
-  0% { transform: translate3d(0, 12px, 0); opacity: 0; }
-  35% { opacity: .3; }
-  70% { opacity: .16; }
-  100% { transform: translate3d(2px, -32px, 0); opacity: 0; }
+/* 3. Lantern glow flicker: .10 → .20 → .12 – slow organic, no blinking */
+@keyframes inv-lantern-flicker {
+  0%, 100% { opacity: .10; }
+  20%      { opacity: .14; }
+  45%      { opacity: .20; }
+  65%      { opacity: .16; }
+  85%      { opacity: .12; }
 }
 
-@keyframes invitation-lantern-warmth {
-  0%, 100% { opacity: .12; }
-  28% { opacity: .1; }
-  62% { opacity: .18; }
+/* 4. Gold dust – slow upward drift with subtle horizontal wander */
+@keyframes inv-dust-rise {
+  0%   { transform: translate3d(0, 16px, 0); opacity: 0; }
+  20%  { opacity: .32; }
+  50%  { transform: translate3d(2px, -8px, 0); opacity: .28; }
+  75%  { opacity: .18; }
+  100% { transform: translate3d(-1px, -40px, 0); opacity: 0; }
 }
 
-@keyframes invitation-reflection-light {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: .04; }
-  50% { transform: translate3d(2px, 0, 0) scale(1.02); opacity: .09; }
+/* 5. Palace/diya reflection – very soft warm shimmer, 5-8s
+   No obvious moving stripes, just gentle position + opacity pulse.   */
+@keyframes inv-reflection {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: .04;
+  }
+  35% {
+    transform: translate3d(1.5px, -1px, 0) scale(1.01);
+    opacity: .08;
+  }
+  65% {
+    transform: translate3d(-1px, .5px, 0) scale(1.005);
+    opacity: .06;
+  }
 }
 
+/* 6. Warm light breathing: .06 → .11 → .07 */
+@keyframes inv-bloom-breathe {
+  0%, 100% { opacity: .06; }
+  35%      { opacity: .11; }
+  70%      { opacity: .07; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   REDUCED MOTION
+   Disable: petals, particles, background push, lantern flicker,
+   reflection shimmer. Keep only static subtle glow.
+   ═══════════════════════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
-  .invitation-background-push { animation: none; transform: none; }
+  .invitation-background-push {
+    animation: none !important;
+    transform: none !important;
+  }
   .invitation-petals,
   .invitation-dust,
-  .invitation-reflection-shimmer { display: none; }
-  .invitation-lantern-glow { animation: none; opacity: .12; }
+  .invitation-reflection-shimmer {
+    display: none;
+  }
+  .invitation-lantern-glow {
+    animation: none !important;
+    opacity: .14;
+  }
+  /* Static subtle glow on blooms */
+  .invitation-bloom {
+    animation: none !important;
+    opacity: .07;
+  }
 }
