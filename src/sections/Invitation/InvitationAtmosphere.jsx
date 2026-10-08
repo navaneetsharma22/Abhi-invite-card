@@ -3,33 +3,39 @@ import './InvitationAtmosphere.css'
 
 /* ── Petal config ────────────────────────────────────────────────────
    7 petals on side lanes only – never covering the central text column.
-   Items marked `fg: true` get slight blur for foreground depth.          */
+   Durations 6–10s with staggered starts.
+   Items marked `fg: true` receive blur(1.5px) for foreground depth.   */
 const petals = [
-  { x: '4%',  size: 12, duration: 22, delay: -2,  drift: 6,  rotation: 58,  fg: false },
-  { x: '9%',  size: 15, duration: 28, delay: -12, drift: -7, rotation: -78, fg: true },
-  { x: '6%',  size: 10, duration: 24, delay: -8,  drift: 4,  rotation: 92,  fg: false },
-  { x: '3%',  size: 8,  duration: 30, delay: -19, drift: 3,  rotation: -46, fg: false },
-  { x: '92%', size: 14, duration: 25, delay: -5,  drift: 7,  rotation: -68, fg: false },
-  { x: '96%', size: 11, duration: 21, delay: -14, drift: -5, rotation: 82,  fg: true },
-  { x: '90%', size: 9,  duration: 27, delay: -22, drift: 4,  rotation: -95, fg: false },
+  // Left side petals (1 foreground with blur, 3 background)
+  { x: '4%',  size: 13, duration: 7.2, delay: -2.4, drift: 22,  rotation: 65,  fg: false },
+  { x: '9%',  size: 19, duration: 6.6, delay: -4.8, drift: -26, rotation: -75, fg: true },
+  { x: '6%',  size: 11, duration: 8.4, delay: -1.2, drift: 18,  rotation: 88,  fg: false },
+  { x: '13%', size: 14, duration: 9.2, delay: -6.5, drift: -18, rotation: -45, fg: false },
+  // Right side petals (1 foreground with blur, 2 background)
+  { x: '89%', size: 18, duration: 7.6, delay: -3.6, drift: 24,  rotation: -80, fg: true },
+  { x: '95%', size: 12, duration: 8.1, delay: -4.2, drift: -20, rotation: 72,  fg: false },
+  { x: '91%', size: 15, duration: 9.6, delay: -7.0, drift: 16,  rotation: -62, fg: false },
 ]
 
 /* ── Gold dust particles ─────────────────────────────────────────────
-   12 particles – concentrated around side flowers and upper-middle.
-   Items where glowing=true receive a brighter box-shadow.              */
+   12 particles – concentrated around floral edges, middle atmosphere flanks,
+   and palace area without covering the text column.                    */
 const particles = [
-  { x: 4,  y: 18, glow: false },
-  { x: 9,  y: 35, glow: true },
+  // Left floral edge
+  { x: 5,  y: 16, glow: false },
+  { x: 9,  y: 34, glow: true },
   { x: 6,  y: 52, glow: false },
-  { x: 12, y: 14, glow: false },
-  { x: 14, y: 68, glow: true },
-  { x: 3,  y: 82, glow: false },
-  { x: 96, y: 16, glow: false },
-  { x: 91, y: 32, glow: true },
-  { x: 88, y: 48, glow: false },
-  { x: 94, y: 62, glow: false },
-  { x: 97, y: 78, glow: false },
-  { x: 86, y: 26, glow: false },
+  { x: 13, y: 68, glow: true },
+  { x: 4,  y: 82, glow: false },
+  // Right floral edge
+  { x: 95, y: 16, glow: false },
+  { x: 90, y: 32, glow: true },
+  { x: 93, y: 50, glow: false },
+  { x: 88, y: 66, glow: true },
+  { x: 96, y: 80, glow: false },
+  // Palace lower / reflection area
+  { x: 28, y: 86, glow: true },
+  { x: 72, y: 88, glow: false },
 ]
 
 export default function InvitationAtmosphere() {

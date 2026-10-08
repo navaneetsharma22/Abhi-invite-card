@@ -63,10 +63,9 @@ export default function Invitation() {
       const title = root.querySelector('.invitation-title')
       const body = root.querySelector('.invitation-body')
       const lotus = root.querySelector('.invitation-lotus')
-      const celebrationDivider = root.querySelector('.invitation-divider--celebration')
       const celebrate = root.querySelector('.invitation-celebrate')
       const tagline = root.querySelector('.invitation-tagline')
-      const revealElements = [quote, quoteDivider, title, body, lotus, celebrationDivider, celebrate, tagline]
+      const revealElements = [quote, quoteDivider, title, body, lotus, celebrate, tagline]
 
       timeline = gsap.timeline({
         paused: true,
@@ -75,56 +74,54 @@ export default function Invitation() {
       })
 
       if (reducedMotion) {
-        gsap.set(background, { opacity: .88 })
         gsap.set(revealElements, { opacity: 0 })
         timeline
-          .to(background, { opacity: 1, duration: 1.2 }, 0)
-          .to(quote, { opacity: 1, duration: .42 }, .12)
-          .to(quoteDivider, { opacity: 1, duration: .38 }, .3)
-          .to(title, { opacity: 1, duration: .55 }, .48)
-          .to(body, { opacity: 1, duration: .45 }, .72)
-          .to(lotus, { opacity: .7, duration: .38 }, .88)
-          .to(celebrationDivider, { opacity: 1, duration: .38 }, .94)
-          .to(celebrate, { opacity: 1, duration: .4 }, 1.16)
-          .to(tagline, { opacity: 1, duration: .45 }, 1.38)
+          .to(quote, { opacity: 1, duration: .45 }, .05)
+          .to(quoteDivider, { opacity: 1, duration: .35 }, .19)
+          .to(title, { opacity: 1, duration: .6 }, .33)
+          .to(body, { opacity: 1, duration: .45 }, .47)
+          .to(lotus, { opacity: .7, duration: .35 }, .61)
+          .to(celebrate, { opacity: 1, duration: .4 }, .75)
+          .to(tagline, { opacity: 1, duration: .45 }, .89)
       } else {
         /* ── Initial hidden states ─────────────────────────────── */
-        gsap.set(background, { opacity: .88, scale: 1.03, transformOrigin: 'center center' })
-        gsap.set([quote, body, celebrate, tagline], { opacity: 0, y: 16, filter: 'blur(4px)' })
-        gsap.set(lotus, { opacity: 0, y: 10, scale: .9 })
-        gsap.set([quoteDivider, celebrationDivider], {
+        gsap.set(background, { scale: 1.03, transformOrigin: 'center center' })
+        gsap.set([quote, body, celebrate, tagline], { opacity: 0, y: 18, filter: 'blur(4px)' })
+        gsap.set(lotus, { opacity: 0, y: 14, scale: .9 })
+        gsap.set(quoteDivider, {
           opacity: 0,
           scaleX: 0,
           transformOrigin: 'center center',
         })
-        /* Title starts with cinematic hidden state */
-        gsap.set(title, { opacity: 0, y: 22, scale: .96, filter: 'blur(5px)' })
+        /* Main title: clearly visible initial hidden state */
+        gsap.set(title, { opacity: 0, y: 28, scale: .94, filter: 'blur(7px)' })
 
-        /* ── Reveal order ──────────────────────────────────────
-           quote → divider → You're Invited → body → lotus → COME CELEBRATE → subtitle */
+        /* ── Reveal sequence (stagger ~0.14s) ───────────────────
+           1. quote → 2. divider → 3. “You’re Invited” → 4. body paragraph
+           → 5. lotus → 6. COME CELEBRATE → 7. subtitle */
         timeline
-          .to(background, { opacity: 1, scale: 1, duration: 1.2, ease: 'power2.out' }, 0)
+          .to(background, { scale: 1, duration: 1.2, ease: 'power2.out' }, 0)
           /* 1. Quote */
-          .to(quote, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .52 }, .14)
+          .to(quote, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .58 }, .08)
           /* 2. Quote divider */
-          .to(quoteDivider, { opacity: 1, scaleX: 1, duration: .45 }, .38)
-          /* 3. Title – cinematic reveal */
+          .to(quoteDivider, { opacity: 1, scaleX: 1, duration: .45 }, .22)
+          /* 3. “You’re Invited” – dominant cinematic entrance */
           .to(title, {
             opacity: 1,
             y: 0,
             scale: 1,
             filter: 'blur(0px)',
-            duration: .75,
+            duration: .85,
             ease: 'power3.out',
-          }, .58)
-          /* 4. Body */
-          .to(body, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .55 }, .92)
+          }, .36)
+          /* 4. Body paragraph */
+          .to(body, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .58 }, .50)
           /* 5. Lotus ornament */
-          .to(lotus, { opacity: .7, y: 0, scale: 1, duration: .4, ease: 'power2.out' }, 1.18)
+          .to(lotus, { opacity: .7, y: 0, scale: 1, duration: .42, ease: 'power2.out' }, .64)
           /* 6. COME CELEBRATE */
-          .to(celebrate, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .45 }, 1.36)
+          .to(celebrate, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .52 }, .78)
           /* 7. Subtitle */
-          .to(tagline, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .5 }, 1.56)
+          .to(tagline, { opacity: 1, y: 0, filter: 'blur(0px)', duration: .52 }, .92)
       }
 
       /* ── Intersection observer ─────────────────────────────────
@@ -190,8 +187,6 @@ export default function Invitation() {
           </p>
 
           <LotusOrnament />
-
-          <RoyalDivider className="invitation-divider invitation-divider--celebration" />
 
           <div className="invitation-closing">
             <p className="invitation-celebrate">COME CELEBRATE</p>

@@ -3,6 +3,7 @@
   justify-content: center;
   width: 100%;
   min-height: 100svh;
+  margin-top: -1px;
   color: var(--text-dark);
   background: radial-gradient(circle at center, rgba(211, 160, 74, .08), transparent 38%), #020811;
 }
@@ -28,39 +29,44 @@
   pointer-events: none;
 }
 
-/* ── Hero→Invitation seam ────────────────────────────────────────────
-   Replaced the wide muddy brown band with a very short soft feather
-   plus the faintest warm-gold mist. Flowers and lanterns stay crisp. */
+/* ── Hero→Invitation minimal seam feather (18–30px) ───────────────────
+   Warm gold/ivory → transparent feather keeps the seam soft while
+   leaving the floral arch and background crisp from the top edge. */
 .invitation-transition {
   position: absolute;
   inset-inline: 0;
   top: 0;
-  z-index: 0;
-  height: clamp(20px, 4dvh, 35px);
+  z-index: 1;
+  height: 22px;
   overflow: hidden;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 100% 100% at 50% 0%, rgba(211, 160, 74, .06), transparent 70%);
+    radial-gradient(ellipse 100% 100% at 50% 0%, rgba(229, 190, 112, .05), transparent 70%),
+    linear-gradient(to bottom, rgba(255, 244, 223, .22) 0%, transparent 100%);
 }
 
-/* Minimal warm mist that fades in after entrance – keeps the join soft. */
-.invitation-transition::after {
+@media (max-height: 720px) {
+  .invitation-transition { height: 18px; }
+}
+
+/* ── Invitation→Celebrations minimal bottom feather (18–28px) ─────────
+   Feathers bottom 22px softly to ensure a seamless bridge to Celebrations
+   while keeping Celebrations top arch crisp. */
+.invitation-stage::after {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(255, 240, 200, .05), transparent 80%);
-  opacity: 0;
-  transition: opacity 1.2s var(--ease-cinematic);
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 2;
+  height: 22px;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 100% 100% at 50% 100%, rgba(229, 190, 112, .05), transparent 70%),
+    linear-gradient(to top, rgba(255, 244, 223, .20) 0%, transparent 100%);
   content: '';
 }
 
-.invitation-transition--entered .invitation-transition::after { opacity: 1; }
-
 @media (max-height: 720px) {
-  .invitation-transition { height: 20px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .invitation-transition::after { opacity: 1; transition: none; }
+  .invitation-stage::after { height: 18px; }
 }
 
 /* ── Content layout ────────────────────────────────────────────────── */
@@ -127,24 +133,19 @@
 /* ── Lotus ornament ──────────────────────────────────────────────── */
 .invitation-lotus {
   display: block;
-  width: min(40px, 5dvh);
+  width: min(38px, 4.8dvh);
   height: auto;
-  margin: clamp(18px, 2.5dvh, 28px) auto clamp(6px, .8dvh, 10px);
+  margin: clamp(12px, 1.8dvh, 20px) auto clamp(4px, .6dvh, 8px);
   color: var(--gold-700);
   opacity: .7;
-}
-
-.invitation-divider--celebration {
-  width: min(76%, 230px);
-  margin-top: clamp(20px, 2.8dvh, 30px);
 }
 
 .invitation-closing {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(6px, .9dvh, 10px);
-  margin-top: clamp(12px, 1.8dvh, 20px);
+  gap: clamp(5px, .8dvh, 8px);
+  margin-top: clamp(6px, 1dvh, 12px);
   font-family: var(--font-ui);
   font-weight: 500;
 }
@@ -188,9 +189,8 @@
   .invitation-quote { font-size: clamp(.88rem, 1.78dvh, 1.04rem); }
   .invitation-title { font-size: clamp(3.9rem, 10.2dvh, 6.5rem); margin-top: 20px; }
   .invitation-body { font-size: clamp(.96rem, 1.92dvh, 1.16rem); margin-top: 20px; }
-  .invitation-divider--celebration { margin-top: 18px; }
-  .invitation-closing { margin-top: 12px; gap: 6px; }
-  .invitation-lotus { margin-top: 16px; margin-bottom: 5px; }
+  .invitation-closing { margin-top: 8px; gap: 5px; }
+  .invitation-lotus { margin-top: 12px; margin-bottom: 4px; }
 }
 
 @media (max-height: 720px) {
@@ -201,9 +201,8 @@
   .invitation-divider--quote { width: min(64%, 180px); margin-top: 10px; }
   .invitation-title { font-size: clamp(3.5rem, 9.8dvh, 5.6rem); margin-top: 16px; }
   .invitation-body { font-size: .94rem; line-height: 1.38; margin-top: 16px; }
-  .invitation-divider--celebration { width: min(72%, 200px); margin-top: 14px; }
-  .invitation-closing { margin-top: 10px; }
-  .invitation-lotus { width: min(32px, 4.5dvh); margin-top: 12px; margin-bottom: 4px; }
+  .invitation-closing { margin-top: 6px; }
+  .invitation-lotus { width: min(30px, 4.2dvh); margin-top: 10px; margin-bottom: 3px; }
 }
 
 @media (max-height: 600px) {
@@ -215,6 +214,6 @@
   .invitation-quote { font-size: .84rem; }
   .invitation-title { font-size: clamp(3.2rem, 8.8dvh, 4.8rem); margin-top: 12px; }
   .invitation-body { font-size: .9rem; margin-top: 14px; }
-  .invitation-divider--celebration { margin-top: 12px; }
-  .invitation-lotus { width: min(28px, 4dvh); margin-top: 10px; }
+  .invitation-closing { margin-top: 6px; }
+  .invitation-lotus { width: min(26px, 3.8dvh); margin-top: 8px; }
 }

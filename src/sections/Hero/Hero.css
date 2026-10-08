@@ -27,23 +27,22 @@
   background: var(--navy-950);
 }
 
-/* Soft feather at Hero bottom – pairs with the subtle Invitation-top seam.
-   Deliberately light so flowers and lanterns are never hidden. */
+/* Minimal transition feather at Hero bottom (18–30px) */
 .hero-stage::after {
   position: absolute;
   inset-inline: 0;
   bottom: 0;
-  z-index: 1;
-  height: clamp(20px, 4dvh, 35px);
+  z-index: 2;
+  height: 22px;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 100% 100% at 50% 100%, rgba(211, 160, 74, .06), transparent 70%),
-    linear-gradient(to top, rgba(255, 240, 200, .08), transparent);
+    radial-gradient(ellipse 100% 100% at 50% 100%, rgba(229, 190, 112, .05), transparent 70%),
+    linear-gradient(to top, #020811 0%, transparent 100%);
   content: '';
 }
 
 @media (max-height: 720px) {
-  .hero-stage::after { height: 20px; }
+  .hero-stage::after { height: 18px; }
 }
 
 .hero-background,
@@ -72,7 +71,7 @@
   background:
     radial-gradient(ellipse 78% 62% at 12% 42%, rgba(3, 10, 18, .7), rgba(3, 10, 18, .38) 55%, transparent 82%),
     linear-gradient(90deg, rgba(3, 10, 18, .6), rgba(3, 10, 18, .32) 42%, transparent 70%),
-    linear-gradient(0deg, rgba(3, 10, 18, .55), transparent 28%, transparent 82%, rgba(3, 10, 18, .28));
+    linear-gradient(180deg, rgba(3, 10, 18, .28) 0%, transparent 16%);
 }
 
 .hero-couple {

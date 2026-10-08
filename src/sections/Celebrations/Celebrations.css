@@ -1,0 +1,270 @@
+.celebrations-section {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100svh;
+  margin-top: -1px;
+  color: var(--text-dark, #3a2418);
+  background: radial-gradient(circle at center, rgba(211, 160, 74, .08), transparent 38%), #020811;
+}
+
+.celebrations-stage {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100dvh;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--ivory-100, #fff4df);
+  container-type: inline-size;
+}
+
+@media (min-width: 768px) {
+  .celebrations-stage {
+    width: min(560px, 60dvh, calc(100vw - 32px));
+    box-shadow: var(--shadow-night, 0 16px 45px rgba(0, 0, 0, .35));
+  }
+}
+
+@media (min-width: 1200px) {
+  .celebrations-stage {
+    width: min(580px, 62dvh, calc(100vw - 32px));
+  }
+}
+
+.celebrations-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+/* ── Invitation→Celebrations narrow cinematic seam ───────────────────
+   Narrow 20px warm gold mist feather keeps seam soft without a muddy band
+   and leaves the Celebrations top floral arch completely crisp. */
+.celebrations-transition {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  z-index: 1;
+  height: 20px;
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(ellipse 100% 100% at 50% 0%, rgba(229, 190, 112, .05), transparent 70%);
+}
+
+@media (max-height: 720px) {
+  .celebrations-transition { height: 18px; }
+}
+
+/* ── Header Overlay ─────────────────────────────────────────────────── */
+.celebrations-header {
+  position: absolute;
+  top: 7.6%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  width: min(84%, 420px);
+  text-align: center;
+  pointer-events: auto;
+}
+
+.celebrations-title {
+  will-change: opacity, transform;
+  font-family: var(--font-script, "Allura", cursive);
+  font-size: clamp(2.35rem, 9.2cqi, 3.8rem);
+  font-weight: 400;
+  line-height: 1.08;
+  color: #563315;
+  text-shadow: 0 1px 1px rgba(255, 250, 240, 0.55);
+  margin: 0;
+}
+
+.celebrations-hindi {
+  font-family: var(--font-hindi, "Noto Serif Devanagari", serif);
+  font-size: clamp(0.82rem, 3.1cqi, 1.06rem);
+  font-weight: 600;
+  line-height: 1.35;
+  color: #72461d;
+  letter-spacing: 0.02em;
+  margin: clamp(2px, 0.7cqi, 5px) 0 0;
+}
+
+.celebrations-subtitle {
+  font-family: var(--font-ui, "Montserrat", sans-serif);
+  font-size: clamp(0.5rem, 1.9cqi, 0.66rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  line-height: 1.35;
+  color: #8c5d2b;
+  margin: clamp(4px, 1.2cqi, 7px) 0 0;
+}
+
+/* ── Event 1: Haldi Copy Overlay ────────────────────────────────────── */
+.celebration-haldi-copy {
+  position: absolute;
+  top: 23.8%;
+  left: 53.5%;
+  z-index: 1;
+  width: 38%;
+  height: 17.4%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  pointer-events: auto;
+}
+
+/* ── Event 2: Wedding Copy Overlay ──────────────────────────────────── */
+.celebration-wedding-copy {
+  position: absolute;
+  top: 45.0%;
+  left: 53.5%;
+  z-index: 1;
+  width: 38%;
+  height: 17.4%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  pointer-events: auto;
+}
+
+/* ── Shared Event Copy Elements ─────────────────────────────────────── */
+.celebration-event-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.celebration-event-title {
+  will-change: opacity, transform;
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(1.4rem, 5.6cqi, 2.2rem);
+  font-weight: 600;
+  line-height: 1.02;
+  color: #482a13;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.celebration-event-date {
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(0.72rem, 2.7cqi, 0.94rem);
+  font-weight: 600;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #845524;
+  margin: 0;
+}
+
+/* Spacer keeps the baked gold line with diamond (at 29.8% and 51.0%)
+   completely unobstructed by text across all screen sizes */
+.celebration-event-spacer {
+  height: clamp(8px, 1.6cqi, 16px);
+  min-height: 8px;
+  flex-shrink: 0;
+}
+
+.celebration-event-details {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2px, 0.8cqi, 6px);
+}
+
+.celebration-detail-row {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(4px, 1.2cqi, 7px);
+}
+
+.celebration-detail-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #8e5e2c;
+  transform: translateY(1px);
+}
+
+.celebration-detail-icon svg {
+  width: clamp(11px, 2.5cqi, 13px);
+  height: clamp(11px, 2.5cqi, 13px);
+}
+
+.celebration-detail-text {
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(0.78rem, 2.9cqi, 1.02rem);
+  font-weight: 500;
+  line-height: 1.28;
+  color: #422814;
+}
+
+.celebration-detail-time {
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-weight: 600;
+  color: #6d421a;
+}
+
+.celebration-detail-venue {
+  font-weight: 600;
+  color: #482a13;
+}
+
+.celebration-detail-location {
+  font-weight: 500;
+  color: #5a381c;
+}
+
+/* ── Narrow Mobile Fine-Tuning (360x800, 375x812, 390x844, 412x915, 430x932) ──
+   Keeps overlay geometry locked to the baked photo areas while slightly
+   adjusting font scales and row gaps to prevent overflow or awkward wrap. */
+@media (max-width: 440px) {
+  .celebration-haldi-copy,
+  .celebration-wedding-copy {
+    left: 53%;
+    width: 40%;
+  }
+
+  .celebration-event-title {
+    font-size: clamp(1.22rem, 5.0cqi, 1.45rem);
+  }
+
+  .celebration-event-date {
+    font-size: clamp(0.66rem, 2.5cqi, 0.78rem);
+  }
+
+  .celebration-detail-text {
+    font-size: clamp(0.72rem, 2.6cqi, 0.84rem);
+    line-height: 1.24;
+  }
+
+  .celebration-event-details {
+    gap: 3px;
+  }
+
+  .celebrations-title {
+    font-size: clamp(2.15rem, 8.8cqi, 2.75rem);
+  }
+
+  .celebrations-hindi {
+    font-size: clamp(0.76rem, 2.8cqi, 0.92rem);
+  }
+
+  .celebrations-subtitle {
+    font-size: clamp(0.46rem, 1.7cqi, 0.56rem);
+    letter-spacing: .14em;
+  }
+}
+
+@media (max-height: 720px) {
+  .celebrations-title { font-size: clamp(2.1rem, 7.8cqi, 3rem); }
+  .celebration-event-title { font-size: clamp(1.22rem, 4.6cqi, 1.75rem); }
+  .celebration-detail-text { font-size: clamp(0.72rem, 2.5cqi, 0.9rem); }
+}
