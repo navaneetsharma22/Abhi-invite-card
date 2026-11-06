@@ -146,6 +146,28 @@ p { font-size: clamp(1rem, 2vw, 1.2rem); line-height: 1.65; }
   line-height: .9;
   text-wrap: balance;
 }
+
+/* Shared script display treatment for the invitation's three focal lines. */
+.script-display {
+  font-family: var(--font-script, "Allura", cursive);
+  font-size: clamp(2.5rem, 9.6cqi, 3.9rem);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+@media (max-width: 440px) {
+  .script-display { font-size: clamp(2.25rem, 9cqi, 2.85rem); }
+}
+
+@media (max-height: 720px) {
+  .script-display { font-size: clamp(2.05rem, 7.8cqi, 2.65rem); }
+}
+
+@media (max-height: 660px) {
+  .script-display { font-size: clamp(1.85rem, 7cqi, 2.35rem); }
+}
 .type-heading {
   font-family: var(--font-serif);
   font-size: clamp(2rem, 5vw, 4rem);

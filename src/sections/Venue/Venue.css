@@ -300,28 +300,13 @@
   text-shadow: 0 1px 1px rgba(255, 250, 240, 0.50);
 }
 
-/* ── Map and directions actions ─────────────────────────────────────── */
-.venue-actions {
-  display: flex;
-  justify-content: center;
-  gap: clamp(8px, 2.4cqi, 14px);
-  width: min(100%, 380px);
-  margin-top: clamp(4px, 1.2cqi, 8px);
-  pointer-events: auto;
-}
-
-.venue-btn {
-  min-height: 40px;
-  flex: 1;
-  padding: 7px clamp(10px, 2.8cqi, 16px);
-  font-size: clamp(0.58rem, 1.9cqi, 0.70rem);
-  letter-spacing: 0.08em;
-  box-shadow: 0 6px 20px rgba(73, 30, 10, 0.16);
-}
-
-.venue-btn-icon {
-  flex-shrink: 0;
-  color: var(--gold-300, #e9c97e);
+.venue-divider--ornament {
+  width: min(54%, 205px);
+  height: auto;
+  margin-top: clamp(5px, 1.2cqi, 8px);
+  margin-bottom: clamp(3px, 0.8cqi, 6px);
+  color: rgba(160, 111, 46, .72);
+  pointer-events: none;
 }
 
 /* 7. Refined closing line */
@@ -361,11 +346,6 @@
   }
   .venue-address {
     font-size: clamp(0.85rem, 3.1cqi, 1.00rem);
-  }
-  .venue-btn {
-    min-height: 36px;
-    padding: 6px 8px;
-    font-size: 0.63rem;
   }
   .venue-closing {
     font-size: clamp(0.80rem, 2.8cqi, 0.95rem);
@@ -412,12 +392,6 @@
   .venue-address {
     font-size: clamp(0.82rem, 3.0cqi, 0.98rem);
     margin-top: 3px;
-  }
-  .venue-actions {
-    margin-top: 5px;
-  }
-  .venue-btn {
-    min-height: 36px;
   }
   .venue-landmark {
     margin-top: 5px;
@@ -479,13 +453,6 @@
   .venue-address {
     font-size: clamp(0.75rem, 2.8cqi, 0.88rem);
     margin-top: 2px;
-  }
-  .venue-actions {
-    margin-top: 4px;
-  }
-  .venue-btn {
-    min-height: 34px;
-    font-size: 0.62rem;
   }
   .venue-landmark {
     margin-top: 4px;

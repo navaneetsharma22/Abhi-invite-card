@@ -11,8 +11,8 @@ export default function FinalBlessing() {
   const hasEnteredRef = useRef(false)
   const [petalsActive, setPetalsActive] = useState(false)
 
-  const groomDisplayName = (weddingData.groom ? weddingData.groom.split(' ')[0] : 'SHAILENDRA').toUpperCase()
-  const brideDisplayName = (weddingData.bride || 'KANCHAN').toUpperCase()
+  const groomDisplayName = weddingData.groom?.split(' ')[0] || 'Shailendra'
+  const brideDisplayName = weddingData.bride || 'Kanchan'
   const weddingDate = (weddingData.wedding?.date || '21 November 2026').toUpperCase()
   const locationName = 'KHADDA'
 
@@ -308,9 +308,9 @@ export default function FinalBlessing() {
 
           {/* Couple Names */}
           <div className="final-blessing-names">
-            <span className="final-blessing-name final-blessing-name--groom">{groomDisplayName}</span>
+            <span className="final-blessing-name final-blessing-name--groom script-display">{groomDisplayName}</span>
             <span className="final-blessing-ampersand">&amp;</span>
-            <span className="final-blessing-name final-blessing-name--bride">{brideDisplayName}</span>
+            <span className="final-blessing-name final-blessing-name--bride script-display">{brideDisplayName}</span>
           </div>
 
           {/* Date & Location */}

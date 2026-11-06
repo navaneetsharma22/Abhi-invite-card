@@ -174,7 +174,7 @@ export default function Invitation() {
 
           <RoyalDivider size="sm" className="invitation-divider invitation-divider--quote" />
 
-          <h2 id="invitation-title" className="invitation-title">
+          <h2 id="invitation-title" className="invitation-title script-display">
             <span>You're</span>{' '}
             <span>Invited</span>
           </h2>

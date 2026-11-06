@@ -1,9 +1,7 @@
 import { useLayoutEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { Map, Navigation } from 'lucide-react'
 import { weddingData } from '../../data/weddingData'
 import RoyalDivider from '../../components/ui/RoyalDivider'
-import Button from '../../components/ui/Button'
 import VenueAtmosphere from './VenueAtmosphere'
 import './Venue.css'
 
@@ -20,8 +18,6 @@ export default function Venue() {
     .map((line) => line.trim())
     .filter((line) => line && line.toLocaleLowerCase() !== venueLandmark.toLocaleLowerCase())
   const venuePhoto = weddingData.venue?.photo ?? null
-  const mapUrl = weddingData.venue?.mapUrl || weddingData.wedding?.mapUrl
-  const directionsUrl = weddingData.venue?.directionsUrl || weddingData.wedding?.directionsUrl
 
   useLayoutEffect(() => {
     const root = rootRef.current
@@ -43,7 +39,7 @@ export default function Venue() {
       const venueNameEl = root.querySelector('.venue-name')
       const addressEl = root.querySelector('.venue-address')
       const landmarkEl = root.querySelector('.venue-landmark')
-      const actionsEl = root.querySelector('.venue-actions')
+      const ornamentEl = root.querySelector('.venue-divider--ornament')
       const closingEl = root.querySelector('.venue-closing')
       const bottomDivider = root.querySelector('.venue-divider--bottom')
       const nameBloom = root.querySelector('.venue-name-bloom')
@@ -60,7 +56,7 @@ export default function Venue() {
         venueNameEl,
         addressEl,
         landmarkEl,
-        actionsEl,
+        ornamentEl,
         closingEl,
         bottomDivider,
       ].filter(Boolean)
@@ -103,7 +99,7 @@ export default function Venue() {
           .to(venueNameEl, { opacity: 1, duration: 0.30 }, 0.75)
           .to(addressEl, { opacity: 1, duration: 0.30 }, 0.85)
           .to(landmarkEl, { opacity: 1, duration: 0.30 }, 0.95)
-          .to(actionsEl, { opacity: 1, duration: 0.30 }, 1.05)
+          .to(ornamentEl, { opacity: 1, duration: 0.30 }, 1.05)
           .to(closingEl, { opacity: 1, duration: 0.30 }, 1.15)
           .to(bottomDivider, { opacity: 1, duration: 0.30 }, 1.25)
       } else {
@@ -145,7 +141,7 @@ export default function Venue() {
           opacity: 0,
           y: 10,
         })
-        gsap.set(actionsEl, {
+        gsap.set(ornamentEl, {
           opacity: 0,
           y: 10,
         })
@@ -241,8 +237,8 @@ export default function Venue() {
           duration: 0.45,
         }, 1.70)
 
-        /* 10. Map and directions actions */
-        timeline.to(actionsEl, {
+        /* 10. Decorative ornament */
+        timeline.to(ornamentEl, {
           opacity: 1,
           y: 0,
           duration: 0.45,
@@ -394,30 +390,7 @@ export default function Venue() {
             <span className="venue-landmark-value">{venueLandmark}</span>
           </div>
 
-          {/* Map and directions links */}
-          <div className="venue-actions">
-            <Button
-              variant="primary"
-              className="venue-btn venue-btn--map"
-              href={mapUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Map size={15} className="venue-btn-icon" aria-hidden="true" />
-              <span>VIEW MAP</span>
-            </Button>
-
-            <Button
-              variant="dark-gold"
-              className="venue-btn venue-btn--directions"
-              href={directionsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Navigation size={15} className="venue-btn-icon" aria-hidden="true" />
-              <span>GET DIRECTIONS</span>
-            </Button>
-          </div>
+          <RoyalDivider size="sm" className="venue-divider venue-divider--ornament" focusable="false" />
 
           {/* 7. Refined closing line */}
           <p className="venue-closing">
