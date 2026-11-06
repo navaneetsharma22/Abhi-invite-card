@@ -241,19 +241,19 @@
     opacity: 0;
   }
   8% {
-    opacity: .72;
+    opacity: var(--petal-peak-opacity, .72);
   }
   32% {
-    transform: translate3d(calc(var(--petal-drift) * .8), 30cqh, 0) rotate(calc(var(--petal-rotation) * .35));
-    opacity: .75;
+    transform: translate3d(calc(var(--petal-drift) * .8 + var(--petal-wind-shift, 0px)), 30cqh, 0) rotate(calc(var(--petal-rotation) * .35));
+    opacity: var(--petal-peak-opacity, .75);
   }
   62% {
-    transform: translate3d(calc(var(--petal-drift) * -.4), 62cqh, 0) rotate(calc(var(--petal-rotation) * .7));
-    opacity: .68;
+    transform: translate3d(calc(var(--petal-drift) * -.4 + var(--petal-wind-shift, 0px)), 62cqh, 0) rotate(calc(var(--petal-rotation) * .7));
+    opacity: calc(var(--petal-peak-opacity, .68) * .88);
   }
   85% {
-    transform: translate3d(calc(var(--petal-drift) * .6), 88cqh, 0) rotate(calc(var(--petal-rotation) * .9));
-    opacity: .52;
+    transform: translate3d(calc(var(--petal-drift) * .6 + var(--petal-wind-shift, 0px)), 88cqh, 0) rotate(calc(var(--petal-rotation) * .9));
+    opacity: calc(var(--petal-peak-opacity, .52) * .68);
   }
   100% {
     transform: translate3d(var(--petal-drift), calc(100cqh + 40px), 0) rotate(var(--petal-rotation));

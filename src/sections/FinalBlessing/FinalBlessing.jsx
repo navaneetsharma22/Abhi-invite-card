@@ -247,15 +247,13 @@ export default function FinalBlessing() {
     /* Observer handles initial entrance trigger AND offscreen pause */
     observer = new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting
-      if (entry.isIntersecting && !hasEnteredRef.current) {
-        if (entry.intersectionRatio >= 0.35 || entry.isIntersecting) {
-          hasEnteredRef.current = true
-          timeline?.play(0)
-          if (!reducedMotion) breathingTween?.play()
-        }
+      if (entry.intersectionRatio >= 0.35 && !hasEnteredRef.current) {
+        hasEnteredRef.current = true
+        timeline?.play(0)
+        if (!reducedMotion) breathingTween?.play()
       }
       updateVisibility()
-    }, { threshold: [0, 0.38] })
+    }, { threshold: [0, 0.35] })
 
     observer.observe(root)
 
@@ -292,13 +290,11 @@ export default function FinalBlessing() {
             loading="lazy"
             decoding="async"
           />
+          <FinalBlessingAtmosphere />
         </div>
 
         {/* Minimal top transition feather from Venue section */}
         <div className="final-blessing-transition" aria-hidden="true" />
-
-        {/* Layer 1 (z1): Live Night Atmosphere (moonlight, palace warmth, diyas, water shimmer, dust) */}
-        <FinalBlessingAtmosphere />
 
         {/* Layer 2 (z2): Real HTML Text Content (stationary after entrance) */}
         <div className="final-blessing-content">

@@ -147,7 +147,7 @@ export default function FinalBlessingPetals({ active = false }) {
           {fallingPetals.map((p, index) => (
             <span
               key={`fall-${index}`}
-              className={`final-petal final-petal--falling final-petal--${p.palette} final-petal--lane-${p.lane}`}
+              className={`final-petal final-petal--falling final-petal--${p.palette} final-petal--lane-${p.lane} falling-petal--${p.lane}`}
               style={{
                 '--petal-x': p.x,
                 '--petal-size': `${p.size}px`,
@@ -156,6 +156,7 @@ export default function FinalBlessingPetals({ active = false }) {
                 '--petal-drift': `${p.drift}px`,
                 '--petal-rotation': `${p.rotation}deg`,
                 '--petal-max-opacity': p.maxOpacity,
+                '--petal-wind-shift': `${((index % 5) - 2) * 4}px`,
               }}
             />
           ))}
@@ -164,7 +165,7 @@ export default function FinalBlessingPetals({ active = false }) {
           {ongoingPetals.map((p, index) => (
             <span
               key={`ongoing-${index}`}
-              className={`final-petal final-petal--ongoing final-petal--${p.palette} final-petal--lane-${p.lane}`}
+              className={`final-petal final-petal--ongoing final-petal--${p.palette} final-petal--lane-${p.lane} falling-petal--${p.lane}`}
               style={{
                 '--petal-x': p.x,
                 '--petal-size': `${p.size}px`,
@@ -173,6 +174,7 @@ export default function FinalBlessingPetals({ active = false }) {
                 '--petal-drift': `${p.drift}px`,
                 '--petal-rotation': `${p.rotation}deg`,
                 '--petal-max-opacity': p.maxOpacity,
+                '--petal-wind-shift': `${((index % 5) - 2) * 4}px`,
               }}
             />
           ))}

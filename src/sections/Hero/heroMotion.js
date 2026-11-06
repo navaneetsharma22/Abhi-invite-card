@@ -118,6 +118,7 @@ export function createHeroMotion(root) {
   }
   const syncPlayback = () => {
     updateInputMode()
+    root.classList.toggle('hero-atmosphere--visible', !document.hidden && inView)
     if (disposed || reducedMotion.matches || document.hidden || !inView) {
       stop()
       if (reducedMotion.matches) {
@@ -165,6 +166,7 @@ export function createHeroMotion(root) {
     document.removeEventListener('visibilitychange', handleVisibility)
     reducedMotion.removeEventListener('change', syncPlayback)
     desktopPointer.removeEventListener('change', syncPlayback)
+    root.classList.remove('hero-atmosphere--visible')
     layers.forEach(({ element }) => { element.style.transform = '' })
   }
 }

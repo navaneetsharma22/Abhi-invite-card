@@ -355,3 +355,6 @@
   }
 }
 
+@media (max-width: 767px) {
+  .couple-stage { height: 100svh; }
+}

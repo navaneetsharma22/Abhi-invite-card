@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { CalendarDays, ChevronDown, MapPin } from 'lucide-react'
 import { weddingData } from '../../data/weddingData'
-import HeroAtmosphere from './HeroAtmosphere'
+import HeroAtmosphere, { HeroPalaceAtmosphere } from './HeroAtmosphere'
 import HeroCountdown from './HeroCountdown'
 import HeroControls from './HeroControls'
 import { createHeroMotion } from './heroMotion'
@@ -162,6 +162,7 @@ export default function Hero({ active = false }) {
               loading="eager"
               decoding="async"
             />
+            <HeroPalaceAtmosphere />
           </div>
         </div>
         <div className="hero-image-overlay" aria-hidden="true" />

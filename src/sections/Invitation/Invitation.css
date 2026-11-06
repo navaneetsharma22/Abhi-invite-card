@@ -217,3 +217,7 @@
   .invitation-closing { margin-top: 6px; }
   .invitation-lotus { width: min(26px, 3.8dvh); margin-top: 8px; }
 }
+
+@media (max-width: 767px) {
+  .invitation-stage { height: 100svh; }
+}

@@ -16,7 +16,7 @@ import './OpeningEffects.css'
 const openingAssets = {
   background: '/images/opening/opening-bg.webp.png',
   ganesha: '/images/opening/ganesha.webp.png',
-  diya: '/images/opening/diya.webp.png',
+  diya: '/images/opening/diya.webp.webp',
 }
 
 export default function Opening({ onExitStart, onComplete }) {
@@ -36,6 +36,7 @@ export default function Opening({ onExitStart, onComplete }) {
     let masterTimeline
     let loadingExitTimeline
     let fallbackTimer
+    let readyToReveal = false
     const abortController = new AbortController()
     const shouldReduceMotion = reducedMotion || window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -181,15 +182,37 @@ export default function Opening({ onExitStart, onComplete }) {
         .to(root, { opacity: 0, duration: 0.6, ease: 'power2.inOut' }, 'exit')
     }, root)
 
+    const handleVisibilityChange = () => {
+      const isVisible = !document.hidden
+      root.classList.toggle('opening-scene--visible', isVisible)
+
+      if (!isVisible) {
+        loadingExitTimeline?.pause()
+        masterTimeline?.pause()
+        return
+      }
+
+      if (!readyToReveal) return
+      if (loadingExitTimeline && loadingExitTimeline.progress() < 1) {
+        loadingExitTimeline.resume()
+      } else {
+        masterTimeline?.resume()
+      }
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    handleVisibilityChange()
+
     const images = [backgroundRef.current, ganeshaRef.current, diyaRef.current]
     waitForOpeningReady(images, abortController.signal)
       .then(({ imageStates, fontsReady }) => {
         if (!active) return
         imageStates.forEach((ready, index) => {
-          if (!ready && images[index]) images[index].style.visibility = 'hidden'
+          if (images[index]) images[index].style.visibility = ready ? '' : 'hidden'
         })
         if (!fontsReady) root.classList.add('opening-font-fallback')
-        loadingExitTimeline.play(0)
+        readyToReveal = true
+        if (!document.hidden) loadingExitTimeline.play(0)
       })
       .catch(() => {
         if (!active) return
@@ -197,12 +220,15 @@ export default function Opening({ onExitStart, onComplete }) {
           if (image) image.style.visibility = 'hidden'
         })
         root.classList.add('opening-font-fallback')
-        loadingExitTimeline.play(0)
+        readyToReveal = true
+        if (!document.hidden) loadingExitTimeline.play(0)
       })
 
     return () => {
       active = false
       abortController.abort()
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+      root.classList.remove('opening-scene--visible')
       window.clearTimeout(fallbackTimer)
       context.revert()
     }

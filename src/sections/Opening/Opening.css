@@ -77,10 +77,10 @@
 }
 
 .opening-content {
-  --opening-mantra-art-gap: clamp(14px, 2dvh, 22px);
-  --opening-art-title-gap: clamp(18px, 2.8dvh, 32px);
-  --opening-title-blessing-gap: clamp(10px, 1.6dvh, 16px);
-  --opening-diya-tagline-gap: clamp(18px, 3dvh, 30px);
+  --opening-mantra-art-gap: clamp(14px, 2svh, 22px);
+  --opening-art-title-gap: clamp(18px, 2.8svh, 32px);
+  --opening-title-blessing-gap: clamp(10px, 1.6svh, 16px);
+  --opening-diya-tagline-gap: clamp(18px, 3svh, 30px);
 
   position: relative;
   z-index: var(--opening-layer-content);
@@ -101,7 +101,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding-top: clamp(96px, 14.5dvh, 154px);
+  padding-top: clamp(96px, 14.5svh, 154px);
   margin-bottom: clamp(18px, 3dvh, 34px);
 }
 
@@ -218,6 +218,11 @@
 }
 
 @media (max-width: 767px) {
+  .opening-scene,
+  .opening-stage {
+    height: 100svh;
+    max-height: 100svh;
+  }
   .opening-stage {
     width: 100%;
     max-width: none;
@@ -266,7 +271,7 @@
     --opening-title-blessing-gap: 8px;
     --opening-diya-tagline-gap: 12px;
   }
-  .opening-upper-content { padding-top: clamp(67px, 12dvh, 90px); }
+  .opening-upper-content { padding-top: clamp(67px, 12svh, 90px); }
   .opening-ganesha-wrap { width: clamp(140px, 38vw, 205px); }
   .opening-diya-wrap { width: clamp(185px, 54vw, 250px); }
 }
@@ -279,7 +284,7 @@
     --opening-diya-tagline-gap: 10px;
     padding-bottom: max(16px, calc(env(safe-area-inset-bottom) + 12px));
   }
-  .opening-upper-content { padding-top: clamp(52px, 9dvh, 70px); }
+  .opening-upper-content { padding-top: clamp(52px, 9svh, 70px); }
   .opening-ganesha-wrap { width: clamp(120px, 33vw, 165px); }
   .opening-diya-wrap { width: clamp(165px, 45vw, 210px); }
 }
@@ -289,7 +294,7 @@
 }
 
 @media (max-width: 767px) and (min-height: 880px) {
-  .opening-upper-content { padding-top: clamp(125px, 15dvh, 150px); }
+  .opening-upper-content { padding-top: clamp(125px, 15svh, 150px); }
   .opening-ganesha-wrap { width: clamp(190px, 48vw, 225px); }
   .opening-diya-wrap { width: clamp(275px, 72vw, 325px); }
 }

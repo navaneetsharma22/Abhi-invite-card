@@ -11,6 +11,7 @@ export default function App() {
   const [heroActive, setHeroActive] = useState(false)
   const handleOpeningExitStart = useCallback(() => setHeroActive(true), [])
   const handleOpeningComplete = useCallback(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     setHeroActive(true)
     setIntroComplete(true)
   }, [])

@@ -122,19 +122,19 @@
     opacity: 0;
   }
   6% {
-    opacity: var(--petal-max-opacity, 0.75);
+    opacity: calc(var(--petal-max-opacity, 0.75) * var(--petal-opacity-scale, 1));
   }
   30% {
-    transform: translate3d(calc(var(--petal-drift) * 0.85), 32cqh, 0) rotate(calc(var(--petal-rotation) * 0.35));
-    opacity: var(--petal-max-opacity, 0.75);
+    transform: translate3d(calc(var(--petal-drift) * 0.85 + var(--petal-wind-shift, 0px)), 32cqh, 0) rotate(calc(var(--petal-rotation) * 0.35));
+    opacity: calc(var(--petal-max-opacity, 0.75) * var(--petal-opacity-scale, 1));
   }
   60% {
-    transform: translate3d(calc(var(--petal-drift) * -0.4), 62cqh, 0) rotate(calc(var(--petal-rotation) * 0.7));
-    opacity: calc(var(--petal-max-opacity, 0.75) * 0.95);
+    transform: translate3d(calc(var(--petal-drift) * -0.4 + var(--petal-wind-shift, 0px)), 62cqh, 0) rotate(calc(var(--petal-rotation) * 0.7));
+    opacity: calc(var(--petal-max-opacity, 0.75) * 0.95 * var(--petal-opacity-scale, 1));
   }
   85% {
-    transform: translate3d(calc(var(--petal-drift) * 0.6), 88cqh, 0) rotate(calc(var(--petal-rotation) * 0.9));
-    opacity: calc(var(--petal-max-opacity, 0.75) * 0.7);
+    transform: translate3d(calc(var(--petal-drift) * 0.6 + var(--petal-wind-shift, 0px)), 88cqh, 0) rotate(calc(var(--petal-rotation) * 0.9));
+    opacity: calc(var(--petal-max-opacity, 0.75) * 0.7 * var(--petal-opacity-scale, 1));
   }
   100% {
     transform: translate3d(var(--petal-drift), calc(100cqh + 38px), 0) rotate(var(--petal-rotation));
@@ -148,19 +148,19 @@
     opacity: 0;
   }
   8% {
-    opacity: var(--petal-max-opacity, 0.70);
+    opacity: calc(var(--petal-max-opacity, 0.70) * var(--petal-opacity-scale, 1));
   }
   35% {
-    transform: translate3d(calc(var(--petal-drift) * 0.8), 34cqh, 0) rotate(calc(var(--petal-rotation) * 0.4));
-    opacity: var(--petal-max-opacity, 0.70);
+    transform: translate3d(calc(var(--petal-drift) * 0.8 + var(--petal-wind-shift, 0px)), 34cqh, 0) rotate(calc(var(--petal-rotation) * 0.4));
+    opacity: calc(var(--petal-max-opacity, 0.70) * var(--petal-opacity-scale, 1));
   }
   65% {
-    transform: translate3d(calc(var(--petal-drift) * -0.3), 64cqh, 0) rotate(calc(var(--petal-rotation) * 0.75));
-    opacity: calc(var(--petal-max-opacity, 0.70) * 0.9);
+    transform: translate3d(calc(var(--petal-drift) * -0.3 + var(--petal-wind-shift, 0px)), 64cqh, 0) rotate(calc(var(--petal-rotation) * 0.75));
+    opacity: calc(var(--petal-max-opacity, 0.70) * 0.9 * var(--petal-opacity-scale, 1));
   }
   88% {
-    transform: translate3d(calc(var(--petal-drift) * 0.5), 90cqh, 0) rotate(calc(var(--petal-rotation) * 0.92));
-    opacity: calc(var(--petal-max-opacity, 0.70) * 0.5);
+    transform: translate3d(calc(var(--petal-drift) * 0.5 + var(--petal-wind-shift, 0px)), 90cqh, 0) rotate(calc(var(--petal-rotation) * 0.92));
+    opacity: calc(var(--petal-max-opacity, 0.70) * 0.5 * var(--petal-opacity-scale, 1));
   }
   100% {
     transform: translate3d(var(--petal-drift), calc(100cqh + 40px), 0) rotate(var(--petal-rotation));

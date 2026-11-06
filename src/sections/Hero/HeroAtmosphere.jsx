@@ -19,16 +19,20 @@ const dust = Array.from({ length: 15 }, (_, index) => ({
   drift: -8 + (index % 6) * 3,
 }))
 
+export function HeroPalaceAtmosphere() {
+  return (
+    <div className="hero-palace-atmosphere" aria-hidden="true">
+      <div className="hero-palace-lights">
+        <span /><span /><span /><span />
+      </div>
+      <div className="hero-water-shimmer"><span /></div>
+    </div>
+  )
+}
+
 export default function HeroAtmosphere() {
   return (
     <>
-      <div className="hero-palace-atmosphere" aria-hidden="true">
-        <div className="hero-palace-lights">
-          <span /><span /><span /><span />
-        </div>
-        <div className="hero-water-shimmer"><span /></div>
-      </div>
-
       <div className="hero-foreground-atmosphere" aria-hidden="true">
         <div className="hero-foreground-motion">
           <div className="hero-golden-dust">
@@ -52,7 +56,7 @@ export default function HeroAtmosphere() {
             {petals.map((petal, index) => (
               <span
                 key={index}
-                className={`hero-rose-petal ${index === 5 ? 'hero-atmosphere--desktop' : ''}`}
+                className={`hero-rose-petal falling-petal--${petal.size >= 15 ? 'front' : petal.size <= 10 ? 'back' : 'mid'} ${index === 5 ? 'hero-atmosphere--desktop' : ''}`}
                 style={{
                   '--petal-x': `${petal.x}%`,
                   '--petal-y': `${petal.y}%`,
@@ -61,6 +65,7 @@ export default function HeroAtmosphere() {
                   '--petal-turn': `${petal.turn}deg`,
                   '--petal-duration': `${petal.duration}s`,
                   '--petal-delay': `${petal.delay}s`,
+                  '--petal-wind-shift': `${((index % 5) - 2) * 4}px`,
                 }}
               />
             ))}

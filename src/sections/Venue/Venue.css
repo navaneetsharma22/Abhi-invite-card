@@ -365,7 +365,7 @@
   .venue-btn {
     min-height: 36px;
     padding: 6px 8px;
-    font-size: 0.56rem;
+    font-size: 0.63rem;
   }
   .venue-closing {
     font-size: clamp(0.80rem, 2.8cqi, 0.95rem);
@@ -477,7 +477,7 @@
     font-size: clamp(1.22rem, 4.6cqi, 1.48rem);
   }
   .venue-address {
-    font-size: clamp(0.76rem, 2.7cqi, 0.88rem);
+    font-size: clamp(0.75rem, 2.8cqi, 0.88rem);
     margin-top: 2px;
   }
   .venue-actions {
@@ -485,7 +485,7 @@
   }
   .venue-btn {
     min-height: 34px;
-    font-size: 0.52rem;
+    font-size: 0.62rem;
   }
   .venue-landmark {
     margin-top: 4px;
@@ -545,4 +545,6 @@
   }
 }
 
-
+@media (max-width: 767px) {
+  .venue-stage { height: 100svh; }
+}

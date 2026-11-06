@@ -363,3 +363,31 @@ p { font-size: clamp(1rem, 2vw, 1.2rem); line-height: 1.65; }
   .button, .icon-button, .image-frame__image { transition-duration: 0ms; }
   .button:hover, .icon-button:hover, .image-frame:hover .image-frame__image { transform: none; }
 }
+
+/* Shared depth treatment for the site's existing falling petals. */
+.falling-petal--back {
+  --petal-speed: 1.2;
+  --petal-opacity-scale: 0.62;
+  --petal-peak-opacity: 0.34;
+  z-index: 0;
+  filter: blur(0.45px);
+}
+.falling-petal--mid {
+  --petal-speed: 1;
+  --petal-opacity-scale: 1;
+  --petal-peak-opacity: 0.68;
+  z-index: 1;
+}
+.falling-petal--front {
+  --petal-speed: 0.88;
+  --petal-opacity-scale: 0.78;
+  --petal-peak-opacity: 0.46;
+  z-index: 2;
+  filter: blur(1.1px);
+}
+:is(.opening-petal, .hero-rose-petal, .invitation-petal, .celebration-petal, .couple-petal, .venue-petal, .final-petal).falling-petal--back {
+  animation-duration: calc(var(--petal-duration, 10s) * var(--petal-speed));
+}
+:is(.opening-petal, .hero-rose-petal, .invitation-petal, .celebration-petal, .couple-petal, .venue-petal, .final-petal).falling-petal--front {
+  animation-duration: calc(var(--petal-duration, 10s) * var(--petal-speed));
+}

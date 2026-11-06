@@ -251,6 +251,10 @@
 /* ── Narrow Mobile Fine-Tuning (360x800, 375x812, 390x844, 412x915, 430x932) ──
    Keeps overlay geometry locked to the baked photo areas while slightly
    adjusting font scales and row gaps to prevent overflow or awkward wrap. */
+@media (max-width: 767px) {
+  .celebrations-stage { height: 100svh; }
+}
+
 @media (max-width: 440px) {
   .celebration-haldi-copy,
   .celebration-wedding-copy {
@@ -263,11 +267,11 @@
   }
 
   .celebration-event-date {
-    font-size: clamp(0.66rem, 2.5cqi, 0.78rem);
+    font-size: clamp(0.75rem, 2.7cqi, 0.84rem);
   }
 
   .celebration-detail-text {
-    font-size: clamp(0.72rem, 2.6cqi, 0.84rem);
+    font-size: clamp(0.75rem, 2.7cqi, 0.88rem);
     line-height: 1.24;
   }
 
@@ -292,5 +296,5 @@
 @media (max-height: 720px) {
   .celebrations-title { font-size: clamp(2.1rem, 7.8cqi, 3rem); }
   .celebration-event-title { font-size: clamp(1.22rem, 4.6cqi, 1.75rem); }
-  .celebration-detail-text { font-size: clamp(0.72rem, 2.5cqi, 0.9rem); }
+  .celebration-detail-text { font-size: clamp(0.75rem, 2.6cqi, 0.9rem); }
 }

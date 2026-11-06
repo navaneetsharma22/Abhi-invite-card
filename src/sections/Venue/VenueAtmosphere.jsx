@@ -83,7 +83,7 @@ export default function VenueAtmosphere() {
         {petals.map((petal, index) => (
           <span
             key={index}
-            className={`venue-petal${petal.fg ? ' venue-petal--fg' : ''}`}
+            className={`venue-petal${petal.fg ? ' venue-petal--fg' : ''} falling-petal--${petal.fg || petal.size >= 18 ? 'front' : petal.size <= 13 ? 'back' : 'mid'}`}
             style={{
               '--petal-x': petal.x,
               '--petal-size': `${petal.size}px`,
@@ -91,6 +91,7 @@ export default function VenueAtmosphere() {
               '--petal-delay': `${petal.delay}s`,
               '--petal-drift': `${petal.drift}px`,
               '--petal-rotation': `${petal.rotation}deg`,
+              '--petal-wind-shift': `${((index % 5) - 2) * 4}px`,
             }}
           />
         ))}

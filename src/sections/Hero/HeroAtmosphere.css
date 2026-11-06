@@ -47,6 +47,12 @@
 .hero-atmosphere--live .hero-palace-atmosphere,
 .hero-atmosphere--live .hero-foreground-atmosphere { opacity: 1; }
 
+.hero-palace-atmosphere *,
+.hero-foreground-atmosphere * { animation-play-state: paused; }
+
+.hero-atmosphere--visible .hero-palace-atmosphere *,
+.hero-atmosphere--visible .hero-foreground-atmosphere * { animation-play-state: running; }
+
 .hero-palace-lights {
   position: absolute;
   inset: 0;
@@ -141,8 +147,12 @@
 
 @keyframes heroPetalFall {
   0% { opacity: 0; transform: translate3d(0, -8dvh, 0) rotate(-20deg); }
-  20% { opacity: .36; }
-  75% { opacity: .28; }
+  20% { opacity: var(--petal-peak-opacity, .36); }
+  45% {
+    transform: translate3d(calc(var(--petal-drift) * .4 + var(--petal-wind-shift, 0px)), 43dvh, 0) rotate(calc(var(--petal-turn) * .38));
+    opacity: var(--petal-peak-opacity, .36);
+  }
+  75% { opacity: calc(var(--petal-peak-opacity, .36) * .78); }
   100% { opacity: 0; transform: translate3d(var(--petal-drift), 102dvh, 0) rotate(var(--petal-turn)); }
 }
 

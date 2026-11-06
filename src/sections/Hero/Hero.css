@@ -313,7 +313,7 @@
 .hero-info-venue {
   display: block;
   font-family: var(--font-ui);
-  font-size: clamp(.6rem, 1.8vw, .72rem);
+  font-size: clamp(.75rem, 1.8vw, .82rem);
   font-weight: 600;
   line-height: 1.4;
   letter-spacing: .085em;
@@ -391,7 +391,7 @@
 .hero-countdown__label,
 .hero-countdown__message {
   font-family: var(--font-ui);
-  font-size: .48rem;
+  font-size: .6rem;
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: .14em;
@@ -479,7 +479,7 @@
   .hero-names__bride { font-size: clamp(2.2rem, 7.4vw, 3.05rem); }
   .hero-invite-copy { font-size: .95rem; }
   .hero-wedding-info { gap: 7px; }
-  .hero-info-address { font-size: .74rem; }
+  .hero-info-address { font-size: .75rem; }
   .hero-countdown__heading { font-size: 1.12rem; margin-bottom: 7px; }
   .hero-countdown__number { font-size: 1.36rem; }
   .hero-countdown__unit { gap: 4px; }
@@ -507,10 +507,14 @@
   .hero-scroll-hint__line { height: 16px; }
 }
 
+@media (max-width: 767px) {
+  .hero-stage { height: 100svh; }
+}
+
 @media (max-width: 380px) {
   .hero-wedding-info { width: 50%; }
   .hero-countdown { width: 48%; }
-  .hero-countdown__label { font-size: .44rem; letter-spacing: .1em; }
+  .hero-countdown__label { font-size: .6rem; letter-spacing: .06em; }
 }
 
 @media (prefers-reduced-motion: reduce) {

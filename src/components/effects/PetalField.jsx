@@ -27,7 +27,7 @@ export default function PetalField() {
         return (
           <svg
             key={index}
-            className={`opening-petal ${index >= 6 ? 'opening-petal--desktop' : ''} ${petal.size >= 20 ? 'opening-petal--foreground' : ''}`}
+            className={`opening-petal ${index >= 6 ? 'opening-petal--desktop' : ''} ${petal.size >= 20 ? 'opening-petal--foreground falling-petal--front' : petal.size <= 13 ? 'falling-petal--back' : 'falling-petal--mid'}`}
             viewBox="0 0 24 32"
             style={{
               '--petal-x': `${petal.x}%`,
@@ -38,6 +38,7 @@ export default function PetalField() {
               '--petal-turn': `${petal.turn}deg`,
               '--petal-duration': `${petal.duration}s`,
               '--petal-delay': `${petal.delay}s`,
+              '--petal-wind-shift': `${((index % 5) - 2) * 4}px`,
             }}
           >
             <defs>

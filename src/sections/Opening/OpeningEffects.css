@@ -219,8 +219,12 @@
 }
 @keyframes openingPetalFall {
   0% { opacity: 0; transform: translate3d(-18px, -10dvh, 0) rotate(-18deg); }
-  22% { opacity: .42; }
-  75% { opacity: .3; }
+  22% { opacity: var(--petal-peak-opacity, .42); }
+  46% {
+    transform: translate3d(calc(var(--petal-drift) * .42 + var(--petal-wind-shift, 0px)), 42dvh, 0) rotate(calc(var(--petal-turn) * .4));
+    opacity: var(--petal-peak-opacity, .42);
+  }
+  75% { opacity: calc(var(--petal-peak-opacity, .42) * .74); }
   100% { opacity: 0; transform: translate3d(var(--petal-drift), var(--petal-travel), 0) rotate(var(--petal-turn)); }
 }
 @keyframes openingGaneshaBreathe {
@@ -262,4 +266,8 @@
   .diya-bowl-glow span,
   .diya-floor-glow span,
   .diya-flame-glow span { animation: none; }
+}
+
+.opening-scene:not(.opening-scene--visible) .opening-stage * {
+  animation-play-state: paused;
 }

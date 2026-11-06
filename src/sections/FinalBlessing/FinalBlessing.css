@@ -116,7 +116,7 @@
 /* 1. Top Blessing */
 .final-blessing-quote {
   font-family: var(--font-ui, "Montserrat", sans-serif);
-  font-size: clamp(0.50rem, 1.8cqi, 0.62rem);
+  font-size: clamp(0.75rem, 2.1cqi, 0.88rem);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.20em;
@@ -253,10 +253,14 @@
 }
 
 /* ── Narrow Mobile Fine-Tuning (360x800, 375x812, 390x844, 412x915, 430x932) ── */
+@media (max-width: 767px) {
+  .final-blessing-stage { height: 100svh; }
+}
+
 @media (max-width: 440px) {
   .final-blessing-quote {
-    font-size: clamp(0.46rem, 1.7cqi, 0.54rem);
-    letter-spacing: 0.18em;
+    font-size: clamp(0.75rem, 2.1cqi, 0.82rem);
+    letter-spacing: 0.13em;
   }
   .final-blessing-names {
     max-width: min(80%, 310px);
@@ -301,7 +305,7 @@
     top: 7.6%;
   }
   .final-blessing-quote {
-    font-size: 0.48rem;
+    font-size: 0.75rem;
     line-height: 1.35;
   }
   .final-blessing-divider--top {
@@ -342,8 +346,8 @@
     top: 6.8%;
   }
   .final-blessing-quote {
-    font-size: 0.44rem;
-    letter-spacing: 0.16em;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
   }
   .final-blessing-divider--top {
     margin-top: 6px;
