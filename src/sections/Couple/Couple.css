@@ -121,9 +121,26 @@
 }
 
 .couple-title {
+  position: absolute;
+  top: var(--couple-title-center-y, 19.8dvh);
+  left: 50%;
+  translate: -50% -50%;
+  z-index: 1;
+  width: min(84%, 420px);
+  text-align: center;
+  font-size: var(--couple-title-font-size);
+  line-height: 1.174;
   color: #563315;
   text-shadow: 0 1px 1px rgba(255, 250, 240, 0.55);
   margin: 0;
+  --couple-title-font-size: clamp(1.9rem, 7.6cqi, 2.9rem);
+  --couple-title-center-y: 19.8dvh;
+}
+
+.couple-title-reserve {
+  display: block;
+  height: calc(var(--couple-title-flow-size) * 1.174);
+  --couple-title-flow-size: clamp(2.185rem, 8.39cqi, 3.409rem);
 }
 
 .couple-subtitle {
@@ -193,10 +210,10 @@
 
 .couple-portrait-img {
   position: absolute;
-  top: var(--portrait-image-top, 8%);
+  top: var(--portrait-image-top, 0px);
   left: var(--portrait-image-center, 50%);
-  width: auto;
-  height: var(--portrait-image-height, 174%);
+  width: var(--portrait-image-width, 100%);
+  height: auto;
   max-width: none;
   object-fit: contain;
   object-position: center top;
@@ -207,6 +224,14 @@
 .couple-portrait-parallax {
   position: absolute;
   inset: 0;
+}
+
+.couple-portrait-scale {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform: scale(0.92);
+  transform-origin: center bottom;
 }
 
 .couple-portrait-entrance {
@@ -279,15 +304,21 @@
 }
 
 .couple-portrait--groom {
-  --portrait-image-height: 148%;
-  --portrait-image-center: 50%;
-  --portrait-image-top: 8%;
+  --portrait-image-width: 122%;
+  --portrait-image-center: 60.3%;
+  --portrait-image-top: max(
+    clamp(2px, 0.6dvh, 5px),
+    calc(max(33.9dvh, 33.9svh) - 68.1cqi)
+  );
 }
 
 .couple-portrait--bride {
-  --portrait-image-height: 157%;
-  --portrait-image-center: 57%;
-  --portrait-image-top: 8%;
+  --portrait-image-width: 109.5%;
+  --portrait-image-center: 44.6%;
+  --portrait-image-top: max(
+    clamp(2px, 0.6dvh, 5px),
+    calc(max(33.9dvh, 33.9svh) - 68.1cqi)
+  );
 }
 
 /* ── Names & Roles (Directly beneath portrait frames) ────────────────── */
@@ -378,7 +409,11 @@
 @media (max-width: 440px) {
   .couple-header { top: 3.2%; }
   .couple-title {
-    line-height: 1.08;
+    --couple-title-font-size: clamp(1.125rem, 5cqi, 1.3rem);
+    --couple-title-center-y: 20.8dvh;
+  }
+  .couple-title-reserve {
+    --couple-title-flow-size: clamp(1.967rem, 7.866cqi, 2.491rem);
   }
   .couple-subtitle {
     font-size: clamp(0.48rem, 1.8cqi, 0.58rem);
@@ -408,6 +443,13 @@
 @media (max-height: 720px) {
   .couple-header {
     top: 0.5%;
+  }
+  .couple-title {
+    --couple-title-font-size: clamp(1.5rem, 6.5cqi, 2.3rem);
+    --couple-title-center-y: 19.8dvh;
+  }
+  .couple-title-reserve {
+    --couple-title-flow-size: clamp(1.792rem, 6.817cqi, 2.316rem);
   }
   .couple-subtitle {
     font-size: clamp(0.48rem, 1.8cqi, 0.58rem);
@@ -446,6 +488,13 @@
 @media (max-height: 660px) {
   .couple-header {
     top: 0.5%;
+  }
+  .couple-title {
+    --couple-title-font-size: clamp(1.25rem, 5.5cqi, 1.8rem);
+    --couple-title-center-y: 19.8dvh;
+  }
+  .couple-title-reserve {
+    --couple-title-flow-size: clamp(1.617rem, 6.118cqi, 2.054rem);
   }
   .couple-subtitle {
     font-size: clamp(0.44rem, 1.5cqi, 0.52rem);

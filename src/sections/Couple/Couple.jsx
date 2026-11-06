@@ -125,7 +125,7 @@ export default function Couple() {
         /* Initial hidden states */
         gsap.set(title, {
           opacity: 0,
-          y: -14,
+          y: -5,
           scale: 0.96,
           filter: 'blur(5px)',
         })
@@ -335,29 +335,33 @@ export default function Couple() {
 
         {/* ── Main Header ── */}
         <header className="couple-header">
-          <h2 id="couple-title" className="couple-title script-display">
-            The Couple
-          </h2>
+          <div className="couple-title-reserve" aria-hidden="true" />
           <p className="couple-subtitle">
             TWO SOULS, ONE STORY
           </p>
           <RoyalDivider size="sm" className="couple-divider couple-divider--top" />
         </header>
 
+        <h2 id="couple-title" className="couple-title script-display">
+          The Couple
+        </h2>
+
         <div className="couple-portrait-layer">
           {/* ── Portrait Frame Openings ── */}
           <div className="couple-portrait couple-portrait--groom">
             <div className="couple-portrait-entrance couple-portrait-entrance--groom">
               <div className="couple-portrait-parallax">
-                {groomPhoto && (
-                  <img
-                    src={groomPhoto}
-                    alt={groomDisplayName}
-                    className="couple-portrait-img"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                )}
+                <div className="couple-portrait-scale">
+                  {groomPhoto && (
+                    <img
+                      src={groomPhoto}
+                      alt={groomDisplayName}
+                      className="couple-portrait-img"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -365,15 +369,17 @@ export default function Couple() {
           <div className="couple-portrait couple-portrait--bride">
             <div className="couple-portrait-entrance couple-portrait-entrance--bride">
               <div className="couple-portrait-parallax">
-                {bridePhoto && (
-                  <img
-                    src={bridePhoto}
-                    alt={brideDisplayName}
-                    className="couple-portrait-img"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                )}
+                <div className="couple-portrait-scale">
+                  {bridePhoto && (
+                    <img
+                      src={bridePhoto}
+                      alt={brideDisplayName}
+                      className="couple-portrait-img"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )}
+                </div>
               </div>
             </div>
           </div>
