@@ -8,11 +8,15 @@ export const weddingData = {
     date: '21 November 2026',
     venue: 'Anmol Marriage Hall',
     location: 'Jalkal Road, Near Railway Station, Khadda',
+    mapUrl: 'https://maps.google.com/?q=Anmol+Marriage+Hall+Khadda',
+    directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Anmol+Marriage+Hall+Khadda',
   },
   venue: {
     name: 'Anmol Marriage Hall',
     address: 'Jalkal Road, Near Railway Station, Khadda',
     landmark: 'Near Railway Station',
     photo: null,
+    mapUrl: 'https://maps.google.com/?q=Anmol+Marriage+Hall+Khadda',
+    directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Anmol+Marriage+Hall+Khadda',
   },
 }
