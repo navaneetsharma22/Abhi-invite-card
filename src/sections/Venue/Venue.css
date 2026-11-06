@@ -75,6 +75,33 @@
   .venue-transition { height: 16px; }
 }
 
+/* ── Venue→Final Blessing bottom seam feather (~20–28px) ───────────────
+   Smooth narrow cinematic transition from warm ivory / antique gold
+   into deep navy / near-black. Crisp, no wide muddy fade. */
+.venue-stage::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 24px;
+  z-index: 5;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(2, 8, 17, 0.35) 60%,
+    rgba(2, 8, 17, 0.95) 100%
+  );
+}
+
+@media (max-height: 720px) {
+  .venue-stage::after { height: 20px; }
+}
+
+@media (max-height: 660px) {
+  .venue-stage::after { height: 18px; }
+}
+
 /* ── Header Overlay (Upper arch sky area) ───────────────────────────── */
 .venue-header {
   position: absolute;
@@ -145,78 +172,152 @@
   pointer-events: auto;
 }
 
-/* ── Venue Details (Directly below large photo in cream parchment) ───── */
+/* ── Venue Details (Premium cream information composition) ──────────── */
 .venue-details {
   position: absolute;
-  top: 54.8%;
+  top: 55.0%;
   left: 50%;
   transform: translateX(-50%);
-  width: min(88%, 420px);
+  width: min(90%, 430px);
   text-align: center;
   z-index: 2;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   align-items: center;
   pointer-events: auto;
 }
 
-.venue-name {
-  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
-  font-size: clamp(1.60rem, 6.4cqi, 2.35rem);
+/* 1. Small uppercase label */
+.venue-event-label {
+  font-family: var(--font-ui, "Montserrat", sans-serif);
+  font-size: clamp(0.50rem, 1.8cqi, 0.62rem);
   font-weight: 600;
-  line-height: 1.12;
-  color: #482a13;
-  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #9c682c;
+  line-height: 1.25;
   margin: 0;
-  text-shadow: 0 1px 1px rgba(255, 250, 240, 0.6);
 }
 
+/* 2. Wedding date */
+.venue-date {
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(1.15rem, 4.3cqi, 1.55rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1.18;
+  color: #4a2b13;
+  margin: clamp(2px, 0.6cqi, 4px) 0 0;
+  text-shadow: 0 1px 1px rgba(255, 250, 240, 0.60);
+}
+
+/* 3. Middle gold divider / lotus ornament */
+.venue-divider--middle {
+  width: min(46%, 125px);
+  margin-top: clamp(4px, 1.1cqi, 7px);
+  margin-bottom: clamp(4px, 1.1cqi, 6px);
+}
+
+/* 4. Venue name (largest text in cream area) */
+.venue-name-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.venue-name {
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(1.65rem, 6.6cqi, 2.40rem);
+  font-weight: 600;
+  line-height: 1.12;
+  color: #42240d;
+  letter-spacing: 0.02em;
+  margin: 0;
+  text-shadow: 0 1px 1px rgba(255, 250, 240, 0.65);
+}
+
+/* 5. Address (Cormorant Garamond 500) */
 .venue-address {
   font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
-  font-size: clamp(0.95rem, 3.6cqi, 1.25rem);
+  font-size: clamp(0.90rem, 3.3cqi, 1.12rem);
   font-weight: 500;
-  line-height: 1.35;
-  color: #6d4522;
-  margin: clamp(6px, 1.8cqi, 10px) 0 0;
-  display: inline-flex;
+  line-height: 1.32;
+  color: #633b19;
+  margin: clamp(4px, 1.2cqi, 7px) 0 0;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
   text-shadow: 0 1px 1px rgba(255, 250, 240, 0.45);
 }
 
-.venue-pin-icon {
-  flex-shrink: 0;
-  color: #b88232;
+.venue-address-line {
+  display: block;
 }
 
-/* ── Action Buttons (View Map / Get Directions) ─────────────────────── */
-.venue-actions {
-  position: absolute;
-  top: 67.5%;
-  left: 50%;
-  transform: translateX(-50%);
+/* 6. Small landmark treatment */
+.venue-landmark {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: clamp(8px, 2.4cqi, 14px);
-  width: min(88%, 380px);
-  z-index: 2;
-  pointer-events: auto;
+  gap: clamp(1px, 0.4cqi, 2px);
+  margin-top: clamp(6px, 1.5cqi, 9px);
+  padding-block: clamp(3px, 0.8cqi, 5px);
+  position: relative;
 }
 
-.venue-btn {
-  min-height: 42px;
-  padding: 8px clamp(12px, 3.2cqi, 20px);
-  font-size: clamp(0.66rem, 2.2cqi, 0.76rem);
-  letter-spacing: 0.10em;
-  flex: 1;
-  box-shadow: 0 6px 20px rgba(73, 30, 10, 0.16);
+.venue-landmark-label {
+  font-family: var(--font-ui, "Montserrat", sans-serif);
+  font-size: clamp(0.48rem, 1.7cqi, 0.56rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #9c682c;
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(8px, 2.2cqi, 12px);
+  line-height: 1.2;
 }
 
-.venue-btn-icon {
-  flex-shrink: 0;
-  color: var(--gold-300, #e9c97e);
+.venue-landmark-label::before,
+.venue-landmark-label::after {
+  content: "";
+  display: inline-block;
+  width: clamp(14px, 3.8cqi, 22px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(185, 130, 50, 0.40), transparent);
+}
+
+.venue-landmark-value {
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(0.88rem, 3.2cqi, 1.05rem);
+  font-weight: 500;
+  color: #5a3418;
+  line-height: 1.25;
+  text-shadow: 0 1px 1px rgba(255, 250, 240, 0.50);
+}
+
+/* 7. Refined closing line */
+.venue-closing {
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-style: italic;
+  font-size: clamp(0.84rem, 3.0cqi, 1.02rem);
+  font-weight: 500;
+  line-height: 1.35;
+  color: #754b24;
+  margin: clamp(6px, 1.6cqi, 10px) 0 0;
+  max-width: min(92%, 350px);
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(255, 250, 240, 0.50);
+}
+
+/* 8. Small gold lotus/divider before lower diya scenery */
+.venue-divider--bottom {
+  width: min(40%, 105px);
+  margin-top: clamp(6px, 1.4cqi, 9px);
 }
 
 /* ── Narrow Mobile Fine-Tuning (360x800, 375x812, 390x844, 412x915, 430x932) ── */
@@ -229,23 +330,23 @@
     letter-spacing: 0.15em;
   }
   .venue-name {
-    font-size: clamp(1.42rem, 5.8cqi, 1.75rem);
+    font-size: clamp(1.45rem, 6.0cqi, 1.85rem);
+  }
+  .venue-date {
+    font-size: clamp(1.05rem, 4.0cqi, 1.30rem);
   }
   .venue-address {
-    font-size: clamp(0.88rem, 3.3cqi, 1.05rem);
+    font-size: clamp(0.85rem, 3.1cqi, 1.00rem);
   }
-  .venue-btn {
-    min-height: 40px;
-    padding: 7px 10px;
-    font-size: clamp(0.62rem, 2.0cqi, 0.70rem);
-    letter-spacing: 0.08em;
+  .venue-closing {
+    font-size: clamp(0.80rem, 2.8cqi, 0.95rem);
   }
 }
 
 /* ── Short-Height Screen Optimizations (<=720px and <=660px) ────────── */
 @media (max-height: 720px) {
   .venue-header {
-    top: 6.2%;
+    top: 6.0%;
   }
   .venue-title {
     font-size: clamp(2.05rem, 7.8cqi, 2.65rem);
@@ -258,31 +359,53 @@
     margin-top: 4px;
   }
   .venue-photo-container {
-    top: 16.5%;
-    height: 33.5%;
+    top: 16.2%;
+    height: 33.0%;
   }
   .venue-details {
-    top: 52.8%;
+    top: 52.4%;
+  }
+  .venue-event-label {
+    font-size: 0.50rem;
+  }
+  .venue-date {
+    font-size: 1.10rem;
+    margin-top: 2px;
+  }
+  .venue-divider--middle {
+    margin-top: 4px;
+    margin-bottom: 3px;
+    width: min(44%, 115px);
   }
   .venue-name {
-    font-size: clamp(1.35rem, 5.2cqi, 1.65rem);
+    font-size: clamp(1.35rem, 5.2cqi, 1.70rem);
   }
   .venue-address {
     font-size: clamp(0.82rem, 3.0cqi, 0.98rem);
-    margin-top: 4px;
+    margin-top: 3px;
   }
-  .venue-actions {
-    top: 65.5%;
+  .venue-landmark {
+    margin-top: 5px;
   }
-  .venue-btn {
-    min-height: 38px;
-    padding: 6px 12px;
+  .venue-landmark-label {
+    font-size: 0.46rem;
+  }
+  .venue-landmark-value {
+    font-size: 0.85rem;
+  }
+  .venue-closing {
+    font-size: 0.82rem;
+    margin-top: 5px;
+  }
+  .venue-divider--bottom {
+    margin-top: 5px;
+    width: min(38%, 95px);
   }
 }
 
 @media (max-height: 660px) {
   .venue-header {
-    top: 5.8%;
+    top: 5.5%;
   }
   .venue-title {
     font-size: clamp(1.85rem, 7.0cqi, 2.35rem);
@@ -294,28 +417,90 @@
   }
   .venue-divider--top {
     margin-top: 3px;
-    width: min(50%, 120px);
+    width: min(48%, 115px);
   }
   .venue-photo-container {
-    top: 16.0%;
-    height: 32.5%;
+    top: 15.6%;
+    height: 31.8%;
   }
   .venue-details {
-    top: 51.5%;
+    top: 50.6%;
+  }
+  .venue-event-label {
+    font-size: 0.44rem;
+  }
+  .venue-date {
+    font-size: 0.98rem;
+    margin-top: 1px;
+  }
+  .venue-divider--middle {
+    margin-top: 3px;
+    margin-bottom: 2px;
+    width: min(40%, 100px);
   }
   .venue-name {
-    font-size: clamp(1.22rem, 4.6cqi, 1.45rem);
+    font-size: clamp(1.22rem, 4.6cqi, 1.48rem);
   }
   .venue-address {
-    font-size: clamp(0.78rem, 2.8cqi, 0.90rem);
-    margin-top: 3px;
+    font-size: clamp(0.76rem, 2.7cqi, 0.88rem);
+    margin-top: 2px;
   }
-  .venue-actions {
-    top: 64.0%;
+  .venue-landmark {
+    margin-top: 4px;
   }
-  .venue-btn {
-    min-height: 36px;
-    padding: 5px 10px;
-    font-size: 0.62rem;
+  .venue-landmark-label {
+    font-size: 0.42rem;
+  }
+  .venue-landmark-value {
+    font-size: 0.78rem;
+  }
+  .venue-closing {
+    font-size: 0.75rem;
+    margin-top: 4px;
+    line-height: 1.25;
+  }
+  .venue-divider--bottom {
+    margin-top: 4px;
+    width: min(34%, 85px);
   }
 }
+
+/* ── One-time Warm Gold Bloom Accent behind Venue Name ──────────────── */
+.venue-name-bloom {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(90%, 320px);
+  height: clamp(45px, 14cqi, 70px);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse 75% 55% at 50% 50%,
+    rgba(245, 205, 120, 0.35),
+    rgba(225, 175, 60, 0.10) 50%,
+    transparent 75%
+  );
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .venue-name-bloom {
+    display: none !important;
+  }
+  .venue-title,
+  .venue-subtitle,
+  .venue-divider,
+  .venue-photo-container,
+  .venue-event-label,
+  .venue-date,
+  .venue-name,
+  .venue-address,
+  .venue-landmark,
+  .venue-closing {
+    will-change: auto;
+  }
+}
+
+

@@ -1,0 +1,329 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   VenueAtmosphere.css
+   Live Cinematic Atmosphere for Venue Section (Part 3)
+   - Background camera breathing (GSAP-driven wrapper)
+   - Lantern & warm light radial glows (independent timing, no blinking)
+   - Floating petals (7 petals, confined to outer floral lanes)
+   - Golden atmospheric dust (10 particles, slow upward drift)
+   - Photo-area ambient warmth (soft backlight for empty/future photo)
+   - Lower palace / diya reflection shimmer (soft multi-radial gradient)
+   - Viewport visibility toggling and prefers-reduced-motion support
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.venue-atmosphere,
+.venue-atmosphere * {
+  pointer-events: none;
+}
+
+.venue-atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  container-type: size;
+}
+
+.venue-background-push {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* ── 1. Lantern & Warm Light Radial Glows ────────────────────────────── */
+.venue-lantern-glows {
+  position: absolute;
+  inset: 0;
+}
+
+.venue-lantern-glow {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 212, 120, 0.95),
+    rgba(240, 162, 52, 0.40) 36%,
+    transparent 72%
+  );
+  transform: translate(-50%, -50%);
+  opacity: .11;
+}
+
+/* Upper Arch Lanterns */
+.venue-lantern-glow--top-left {
+  left: 8.5%;
+  top: 10.8%;
+  width: clamp(75px, 17cqi, 115px);
+  height: clamp(75px, 17cqi, 115px);
+  animation: venue-lantern-glow-tl 3.2s ease-in-out infinite;
+}
+
+.venue-lantern-glow--top-right {
+  left: 91.5%;
+  top: 10.8%;
+  width: clamp(75px, 17cqi, 115px);
+  height: clamp(75px, 17cqi, 115px);
+  animation: venue-lantern-glow-tr 3.7s ease-in-out infinite;
+}
+
+/* Pool Deck / Lower Arch Lanterns */
+.venue-lantern-glow--pool-left {
+  left: 14.0%;
+  top: 48.2%;
+  width: clamp(65px, 15cqi, 95px);
+  height: clamp(65px, 15cqi, 95px);
+  animation: venue-lantern-glow-pl 2.8s ease-in-out infinite;
+}
+
+.venue-lantern-glow--pool-right {
+  left: 86.0%;
+  top: 48.2%;
+  width: clamp(65px, 15cqi, 95px);
+  height: clamp(65px, 15cqi, 95px);
+  animation: venue-lantern-glow-pr 3.4s ease-in-out infinite;
+}
+
+@keyframes venue-lantern-glow-tl {
+  0%, 100% {
+    opacity: .08;
+    transform: translate(-50%, -50%) scale(.98);
+  }
+  42% {
+    opacity: .20;
+    transform: translate(-50%, -50%) scale(1.035);
+  }
+  75% {
+    opacity: .11;
+    transform: translate(-50%, -50%) scale(1.00);
+  }
+}
+
+@keyframes venue-lantern-glow-tr {
+  0%, 100% {
+    opacity: .11;
+    transform: translate(-50%, -50%) scale(1.00);
+  }
+  38% {
+    opacity: .20;
+    transform: translate(-50%, -50%) scale(1.035);
+  }
+  72% {
+    opacity: .08;
+    transform: translate(-50%, -50%) scale(.98);
+  }
+}
+
+@keyframes venue-lantern-glow-pl {
+  0%, 100% {
+    opacity: .09;
+    transform: translate(-50%, -50%) scale(.98);
+  }
+  50% {
+    opacity: .19;
+    transform: translate(-50%, -50%) scale(1.03);
+  }
+  80% {
+    opacity: .11;
+    transform: translate(-50%, -50%) scale(1.00);
+  }
+}
+
+@keyframes venue-lantern-glow-pr {
+  0%, 100% {
+    opacity: .11;
+    transform: translate(-50%, -50%) scale(1.00);
+  }
+  45% {
+    opacity: .19;
+    transform: translate(-50%, -50%) scale(1.03);
+  }
+  78% {
+    opacity: .09;
+    transform: translate(-50%, -50%) scale(.98);
+  }
+}
+
+/* ── 2. Photo-Area Ambient Light (Subtle warmth for prepared slot) ───── */
+.venue-glow-photo {
+  position: absolute;
+  top: 34.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(240px, 68cqi, 400px);
+  height: clamp(140px, 30cqi, 220px);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse 70% 55% at 50% 50%,
+    rgba(255, 215, 120, 0.40),
+    rgba(235, 175, 65, 0.12) 50%,
+    transparent 75%
+  );
+  opacity: .035;
+  animation: venue-photo-warmth 4.8s ease-in-out infinite;
+}
+
+@keyframes venue-photo-warmth {
+  0%, 100% { opacity: .025; }
+  50%      { opacity: .070; }
+  80%      { opacity: .035; }
+}
+
+/* ── 3. Lower Reflection / Diya Shimmer ──────────────────────────────── */
+.venue-water-shimmer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 22%;
+  overflow: hidden;
+}
+
+.venue-water-reflection {
+  position: absolute;
+  inset: -10% -20%;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 65%, rgba(255, 215, 130, .45), transparent 70%),
+    radial-gradient(ellipse 50% 30% at 26% 75%, rgba(255, 190, 85, .35), transparent 60%),
+    radial-gradient(ellipse 50% 30% at 74% 75%, rgba(255, 190, 85, .35), transparent 60%);
+  opacity: .05;
+  animation: venue-water-shimmer 6.8s ease-in-out infinite;
+}
+
+@keyframes venue-water-shimmer {
+  0%, 100% {
+    transform: translate3d(-5px, 0, 0);
+    opacity: .04;
+  }
+  50% {
+    transform: translate3d(5px, 0, 0);
+    opacity: .09;
+  }
+  78% {
+    transform: translate3d(1px, 0, 0);
+    opacity: .05;
+  }
+}
+
+/* ── 4. Floating Petals ─────────────────────────────────────────────── */
+.venue-petals {
+  position: absolute;
+  inset: 0;
+}
+
+.venue-petal {
+  position: absolute;
+  top: -30px;
+  left: var(--petal-x);
+  width: var(--petal-size);
+  height: calc(var(--petal-size) * 1.35);
+  border-radius: 50% 0 50% 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(238, 92, 118, .85) 0%,
+    rgba(215, 55, 84, .75) 50%,
+    rgba(195, 40, 70, .65) 100%
+  );
+  box-shadow: 0 2px 6px rgba(180, 40, 60, .25);
+  opacity: 0;
+  animation: venue-petal-drift var(--petal-duration) cubic-bezier(.4, 0, .6, 1) var(--petal-delay) infinite;
+}
+
+.venue-petal--fg {
+  filter: blur(1.5px);
+  z-index: 1;
+}
+
+@keyframes venue-petal-drift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: .72;
+  }
+  32% {
+    transform: translate3d(calc(var(--petal-drift) * .8), 30cqh, 0) rotate(calc(var(--petal-rotation) * .35));
+    opacity: .75;
+  }
+  62% {
+    transform: translate3d(calc(var(--petal-drift) * -.4), 62cqh, 0) rotate(calc(var(--petal-rotation) * .7));
+    opacity: .68;
+  }
+  85% {
+    transform: translate3d(calc(var(--petal-drift) * .6), 88cqh, 0) rotate(calc(var(--petal-rotation) * .9));
+    opacity: .52;
+  }
+  100% {
+    transform: translate3d(var(--petal-drift), calc(100cqh + 40px), 0) rotate(var(--petal-rotation));
+    opacity: 0;
+  }
+}
+
+/* ── 5. Golden Atmospheric Dust Particles ───────────────────────────── */
+.venue-dust {
+  position: absolute;
+  inset: 0;
+}
+
+.venue-dust-particle {
+  position: absolute;
+  left: var(--dust-x);
+  top: var(--dust-y);
+  width: var(--dust-size);
+  height: var(--dust-size);
+  border-radius: 50%;
+  background: #f7d896;
+  box-shadow: 0 0 6px rgba(247, 216, 150, .8);
+  opacity: 0;
+  animation: venue-dust-rise var(--dust-duration) ease-in-out var(--dust-delay) infinite alternate;
+}
+
+@keyframes venue-dust-rise {
+  0% {
+    transform: translate3d(0, 8px, 0);
+    opacity: .08;
+  }
+  50% {
+    transform: translate3d(3px, -8px, 0);
+    opacity: .40;
+  }
+  100% {
+    transform: translate3d(-3px, -24px, 0);
+    opacity: .10;
+  }
+}
+
+/* ── Viewport Visibility Optimization ────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .venue-atmosphere * {
+    animation-play-state: paused;
+  }
+  .venue-section.venue-atmosphere--visible .venue-atmosphere * {
+    animation-play-state: running;
+  }
+}
+
+/* ── 6. Reduced Motion ──────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .venue-background-push {
+    animation: none !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
+  .venue-petals,
+  .venue-dust,
+  .venue-water-shimmer {
+    display: none !important;
+  }
+  .venue-lantern-glow {
+    animation: none !important;
+    opacity: .12 !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+  }
+  .venue-glow-photo {
+    animation: none !important;
+    opacity: .035 !important;
+  }
+}

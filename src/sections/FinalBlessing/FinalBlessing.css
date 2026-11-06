@@ -1,0 +1,400 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   FinalBlessing.css
+   Final Blessing Section (Part 1 - Static Foundation & Layer Structure)
+   - Single portrait-stage container with 941x1672 aspect ratio composition
+   - Fixed percentage-based typography overlay inside the celestial night arch
+   - Prepared clean z-index layers for future atmosphere & petals (z0–z4)
+   - Authentic wedding data (Shailendra & Kanchan, 21 November 2026, Khadda)
+   - Completely static: No animations in Part 1
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.final-blessing-section {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100svh;
+  margin-top: -1px;
+  color: var(--text-light, #f9ebcb);
+  background: radial-gradient(circle at center, rgba(211, 160, 74, 0.08), transparent 38%), #020811;
+}
+
+.final-blessing-stage {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100dvh;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #020811;
+  container-type: inline-size;
+}
+
+@media (min-width: 768px) {
+  .final-blessing-stage {
+    width: min(560px, 60dvh, calc(100vw - 32px));
+    box-shadow: var(--shadow-night, 0 16px 45px rgba(0, 0, 0, 0.45));
+  }
+}
+
+@media (min-width: 1200px) {
+  .final-blessing-stage {
+    width: min(580px, 62dvh, calc(100vw - 32px));
+  }
+}
+
+/* ── Layer 0 (z0): Background Image Canvas ─────────────────────────── */
+.final-blessing-bg-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.final-blessing-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+/* ── Venue→Final Blessing transition seam feather (~20–28px) ──────────
+   Narrow cinematic seam moving into deep navy / near-black
+   with subtle warm gold bridge (opacity max .04–.06).
+   Final Blessing top floral arch, lanterns, and night sky remain crisp. */
+.final-blessing-transition {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  z-index: 1;
+  height: 24px;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 100% 100% at 50% 0%, rgba(229, 190, 112, 0.05), transparent 70%),
+    linear-gradient(to bottom, rgba(2, 8, 17, 0.70) 0%, transparent 100%);
+}
+
+@media (max-height: 720px) {
+  .final-blessing-transition { height: 20px; }
+}
+
+@media (max-height: 660px) {
+  .final-blessing-transition { height: 18px; }
+}
+
+/* ── Layer 1 (z1): Future Back-Atmosphere Layer (moon glow, stars) ─── */
+.final-blessing-layer-atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ── Layer 2 (z2): Real HTML Text Content ──────────────────────────── */
+.final-blessing-content {
+  position: absolute;
+  top: 9.2%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(84%, 400px);
+  text-align: center;
+  z-index: 2;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: auto;
+}
+
+/* 1. Top Blessing */
+.final-blessing-quote {
+  font-family: var(--font-ui, "Montserrat", sans-serif);
+  font-size: clamp(0.50rem, 1.8cqi, 0.62rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.20em;
+  line-height: 1.45;
+  color: #faecd0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85), 0 0 12px rgba(230, 195, 120, 0.25);
+}
+
+/* Thin Dividers */
+.final-blessing-divider {
+  display: block;
+  margin-inline: auto;
+  color: rgba(229, 190, 112, 0.45);
+  pointer-events: none;
+}
+
+.final-blessing-divider--top {
+  width: min(36%, 100px);
+  margin-top: clamp(10px, 2.5cqi, 15px);
+  margin-bottom: clamp(7px, 1.8cqi, 11px);
+}
+
+.final-blessing-divider--bottom {
+  width: min(32%, 85px);
+  margin-top: clamp(11px, 2.8cqi, 16px);
+  margin-bottom: clamp(10px, 2.5cqi, 14px);
+}
+
+/* 2. Couple Names */
+.final-blessing-names {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: min(78%, 340px);
+  margin-inline: auto;
+  margin-block: 0;
+  line-height: 1;
+}
+
+.final-blessing-name {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+  font-family: var(--font-script, "Allura", cursive);
+  font-size: clamp(2.08rem, 8.2cqi, 3.05rem);
+  font-weight: 400;
+  line-height: 0.95;
+  color: #fff4dc;
+  text-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.90),
+    0 0 24px rgba(235, 200, 125, 0.35);
+  letter-spacing: 0.02em;
+}
+
+.final-blessing-ampersand {
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(0.95rem, 3.2cqi, 1.25rem);
+  font-weight: 400;
+  line-height: 1;
+  color: rgba(229, 190, 112, 0.85);
+  margin-block: clamp(-4px, -0.8cqi, 0px);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
+}
+
+/* 3. Date & Location */
+.final-blessing-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2px, 0.6cqi, 4px);
+  margin-top: clamp(6px, 1.6cqi, 10px);
+}
+
+.final-blessing-date {
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(0.88rem, 3.2cqi, 1.08rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  color: #faecd0;
+  margin: 0;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.85);
+}
+
+.final-blessing-location {
+  font-family: var(--font-serif, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(0.76rem, 2.7cqi, 0.92rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  line-height: 1.2;
+  color: #d8b068;
+  margin: 0;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.85);
+}
+
+/* 4. Ceremonial Hindi Blessing */
+.final-blessing-hindi {
+  font-family: var(--font-hindi, "Noto Serif Devanagari", serif);
+  font-size: clamp(0.95rem, 3.6cqi, 1.22rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: #f0cf85;
+  letter-spacing: 0.06em;
+  margin: 0;
+  text-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.90),
+    0 0 18px rgba(229, 190, 112, 0.40);
+}
+
+/* ── Layer 3 (z3): Future Mid/Front Petal Layers ───────────────────── */
+.final-blessing-layer-petals {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* ── Layer 4 (z4): Future Bottom Settled-Petal Bed ─────────────────── */
+.final-blessing-layer-petal-bed {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 20%;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* ── Narrow Mobile Fine-Tuning (360x800, 375x812, 390x844, 412x915, 430x932) ── */
+@media (max-width: 440px) {
+  .final-blessing-quote {
+    font-size: clamp(0.46rem, 1.7cqi, 0.54rem);
+    letter-spacing: 0.18em;
+  }
+  .final-blessing-names {
+    max-width: min(80%, 310px);
+  }
+  .final-blessing-name {
+    font-size: clamp(1.88rem, 7.4cqi, 2.45rem);
+  }
+  .final-blessing-ampersand {
+    font-size: clamp(0.90rem, 3.0cqi, 1.15rem);
+  }
+  .final-blessing-divider--top {
+    margin-top: 10px;
+    margin-bottom: 7px;
+  }
+  .final-blessing-date {
+    font-size: clamp(0.82rem, 3.0cqi, 0.98rem);
+  }
+  .final-blessing-location {
+    font-size: clamp(0.70rem, 2.5cqi, 0.84rem);
+  }
+  .final-blessing-divider--bottom {
+    margin-top: 11px;
+    margin-bottom: 9px;
+  }
+  .final-blessing-hindi {
+    font-size: clamp(0.88rem, 3.3cqi, 1.08rem);
+  }
+}
+
+@media (max-width: 380px) {
+  .final-blessing-names {
+    max-width: min(78%, 280px);
+  }
+  .final-blessing-name {
+    font-size: clamp(1.72rem, 7.0cqi, 2.15rem);
+  }
+}
+
+/* ── Short-Height Screen Optimizations (<=720px and <=660px) ────────── */
+@media (max-height: 720px) {
+  .final-blessing-content {
+    top: 7.6%;
+  }
+  .final-blessing-quote {
+    font-size: 0.48rem;
+    line-height: 1.35;
+  }
+  .final-blessing-divider--top {
+    margin-top: 7px;
+    margin-bottom: 5px;
+  }
+  .final-blessing-names {
+    max-width: min(76%, 300px);
+  }
+  .final-blessing-name {
+    font-size: clamp(1.75rem, 6.5cqi, 2.25rem);
+  }
+  .final-blessing-ampersand {
+    font-size: 0.92rem;
+    margin-block: -3px;
+  }
+  .final-blessing-meta {
+    margin-top: 4px;
+    gap: 2px;
+  }
+  .final-blessing-date {
+    font-size: 0.84rem;
+  }
+  .final-blessing-location {
+    font-size: 0.72rem;
+  }
+  .final-blessing-divider--bottom {
+    margin-top: 8px;
+    margin-bottom: 7px;
+  }
+  .final-blessing-hindi {
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-height: 660px) {
+  .final-blessing-content {
+    top: 6.8%;
+  }
+  .final-blessing-quote {
+    font-size: 0.44rem;
+    letter-spacing: 0.16em;
+  }
+  .final-blessing-divider--top {
+    margin-top: 6px;
+    margin-bottom: 4px;
+    width: min(30%, 80px);
+  }
+  .final-blessing-names {
+    max-width: min(74%, 280px);
+  }
+  .final-blessing-name {
+    font-size: clamp(1.58rem, 5.8cqi, 1.98rem);
+  }
+  .final-blessing-ampersand {
+    font-size: 0.85rem;
+    margin-block: -3px;
+  }
+  .final-blessing-meta {
+    margin-top: 3px;
+    gap: 1px;
+  }
+  .final-blessing-date {
+    font-size: 0.78rem;
+  }
+  .final-blessing-location {
+    font-size: 0.68rem;
+  }
+  .final-blessing-divider--bottom {
+    margin-top: 7px;
+    margin-bottom: 6px;
+    width: min(28%, 70px);
+  }
+  .final-blessing-hindi {
+    font-size: 0.84rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .final-blessing-bg-wrap {
+    will-change: auto;
+    transform: none !important;
+  }
+  .final-blessing-bg,
+  .final-blessing-quote,
+  .final-blessing-divider,
+  .final-blessing-name,
+  .final-blessing-ampersand,
+  .final-blessing-date,
+  .final-blessing-location,
+  .final-blessing-hindi {
+    will-change: auto;
+  }
+}
+
+

@@ -1,0 +1,217 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   FinalBlessingPetals.css
+   Petal Journey Finale & Settled Petal Bed for Final Blessing (Part 3)
+   - Three depth lanes: Back, Mid, Front
+   - 17 active falling petals with curved drift and rotation
+   - Settled petal bed in bottom 6-13% zone (capped at 34 petals)
+   - Initial static base of 6 subtle petals
+   - Sparse continuous ongoing fall (3-4 petals)
+   - Performance: pauses when offscreen or hidden
+   - Reduced motion: static petal bed only, no movement
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.final-petals-system {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ── Falling Petals Container ───────────────────────────────────────── */
+.final-falling-petals {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Base Petal Shape & Gradient Palettes */
+.final-petal {
+  position: absolute;
+  top: -34px;
+  left: var(--petal-x);
+  width: var(--petal-size);
+  height: calc(var(--petal-size) * 1.34);
+  border-radius: 50% 0 50% 50%;
+  opacity: 0;
+  box-shadow: 0 2px 6px rgba(160, 30, 50, 0.22);
+  will-change: transform, opacity;
+}
+
+/* Palette: Rose */
+.final-petal--rose {
+  background: linear-gradient(
+    135deg,
+    rgba(238, 88, 115, 0.88) 0%,
+    rgba(215, 50, 80, 0.78) 50%,
+    rgba(190, 35, 65, 0.68) 100%
+  );
+}
+
+/* Palette: Blush */
+.final-petal--blush {
+  background: linear-gradient(
+    135deg,
+    rgba(248, 178, 192, 0.88) 0%,
+    rgba(232, 132, 154, 0.78) 50%,
+    rgba(212, 98, 122, 0.68) 100%
+  );
+  box-shadow: 0 2px 6px rgba(180, 70, 95, 0.18);
+}
+
+/* Palette: Ivory */
+.final-petal--ivory {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 248, 232, 0.92) 0%,
+    rgba(246, 224, 192, 0.82) 50%,
+    rgba(228, 195, 148, 0.68) 100%
+  );
+  box-shadow: 0 2px 6px rgba(150, 110, 60, 0.16);
+}
+
+/* Palette: Gold / Marigold */
+.final-petal--gold {
+  background: linear-gradient(
+    135deg,
+    rgba(248, 186, 75, 0.88) 0%,
+    rgba(226, 146, 45, 0.78) 50%,
+    rgba(196, 110, 28, 0.68) 100%
+  );
+  box-shadow: 0 2px 6px rgba(160, 90, 20, 0.20);
+}
+
+/* ── Three Depth Lanes ── */
+
+/* BACK LANE: small, lower opacity, subtle blur, slower motion */
+.final-petal--lane-back {
+  z-index: 1;
+  filter: blur(0.8px);
+}
+
+/* MID LANE: standard clarity, main visible drift */
+.final-petal--lane-mid {
+  z-index: 3;
+}
+
+/* FRONT LANE: 3-4 larger foreground petals, soft blur, faster */
+.final-petal--lane-front {
+  z-index: 4;
+  filter: blur(1.5px);
+}
+
+/* ── Falling Petal Animations & Viewport Pausing ─────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .final-petal--falling {
+    animation: final-petal-descent var(--petal-duration) cubic-bezier(0.38, 0, 0.62, 1) var(--petal-delay) infinite;
+    animation-play-state: paused;
+  }
+
+  .final-petal--ongoing {
+    animation: final-petal-descent-ongoing var(--petal-duration) cubic-bezier(0.38, 0, 0.62, 1) var(--petal-delay) infinite;
+    animation-play-state: paused;
+  }
+
+  .final-petals-active .final-petal--falling,
+  .final-petals-active .final-petal--ongoing {
+    animation-play-state: running;
+  }
+}
+
+@keyframes final-petal-descent {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  6% {
+    opacity: var(--petal-max-opacity, 0.75);
+  }
+  30% {
+    transform: translate3d(calc(var(--petal-drift) * 0.85), 32cqh, 0) rotate(calc(var(--petal-rotation) * 0.35));
+    opacity: var(--petal-max-opacity, 0.75);
+  }
+  60% {
+    transform: translate3d(calc(var(--petal-drift) * -0.4), 62cqh, 0) rotate(calc(var(--petal-rotation) * 0.7));
+    opacity: calc(var(--petal-max-opacity, 0.75) * 0.95);
+  }
+  85% {
+    transform: translate3d(calc(var(--petal-drift) * 0.6), 88cqh, 0) rotate(calc(var(--petal-rotation) * 0.9));
+    opacity: calc(var(--petal-max-opacity, 0.75) * 0.7);
+  }
+  100% {
+    transform: translate3d(var(--petal-drift), calc(100cqh + 38px), 0) rotate(var(--petal-rotation));
+    opacity: 0;
+  }
+}
+
+@keyframes final-petal-descent-ongoing {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: var(--petal-max-opacity, 0.70);
+  }
+  35% {
+    transform: translate3d(calc(var(--petal-drift) * 0.8), 34cqh, 0) rotate(calc(var(--petal-rotation) * 0.4));
+    opacity: var(--petal-max-opacity, 0.70);
+  }
+  65% {
+    transform: translate3d(calc(var(--petal-drift) * -0.3), 64cqh, 0) rotate(calc(var(--petal-rotation) * 0.75));
+    opacity: calc(var(--petal-max-opacity, 0.70) * 0.9);
+  }
+  88% {
+    transform: translate3d(calc(var(--petal-drift) * 0.5), 90cqh, 0) rotate(calc(var(--petal-rotation) * 0.92));
+    opacity: calc(var(--petal-max-opacity, 0.70) * 0.5);
+  }
+  100% {
+    transform: translate3d(var(--petal-drift), calc(100cqh + 40px), 0) rotate(var(--petal-rotation));
+    opacity: 0;
+  }
+}
+
+/* ── 4. Settled Petal Bed (.final-petal-bed) ─────────────────────────── */
+.final-petal-bed {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.final-settled-petal {
+  position: absolute;
+  left: var(--bed-x);
+  bottom: calc(var(--bed-bottom) + env(safe-area-inset-bottom, 0px));
+  width: var(--bed-size);
+  height: calc(var(--bed-size) * 1.32);
+  border-radius: 50% 0 50% 50%;
+  transform: translate(-50%, 50%) rotate(var(--bed-rotation)) scale(var(--bed-scale, 1));
+  opacity: 0;
+  transition: opacity 1.8s ease-out;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+/* Initial static base petals (visible from start) */
+.final-settled-petal--initial {
+  opacity: var(--bed-opacity, 0.45);
+}
+
+/* Arriving settled petals (accumulate as waves land) */
+.final-settled-petal--settled {
+  opacity: var(--bed-opacity, 0.70);
+}
+
+/* ── Reduced Motion ─────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .final-falling-petals {
+    display: none !important;
+  }
+  .final-settled-petal {
+    transition: none !important;
+  }
+  .final-settled-petal--initial {
+    opacity: var(--bed-opacity, 0.45) !important;
+  }
+  .final-settled-petal--settled {
+    opacity: var(--bed-opacity, 0.65) !important;
+  }
+}

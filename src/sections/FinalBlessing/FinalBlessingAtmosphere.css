@@ -1,0 +1,343 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   FinalBlessingAtmosphere.css
+   Live Night Atmosphere for Final Blessing Section (Part 3 & Part 4)
+   - Restrained moonlight radial glow around the baked moon
+   - Palace warm ambient light (2-3 large soft radial glows)
+   - Diya warmth overlays around foreground diya zones (no flicker)
+   - Water reflection shimmer across the lake (55-82% stage height)
+   - Golden / star dust particles (8-10 tiny particles in sky & palace)
+   - Viewport visibility & document.hidden animation-play-state pausing
+   - Full prefers-reduced-motion support
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.final-atmosphere,
+.final-atmosphere * {
+  pointer-events: none;
+}
+
+.final-atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  container-type: size;
+}
+
+/* ── 1. Moonlight Glow (Around baked moon at x: 84%, y: 28%) ────────── */
+.final-moon-glow {
+  position: absolute;
+  left: 84.0%;
+  top: 28.5%;
+  width: clamp(75px, 17cqi, 115px);
+  height: clamp(75px, 17cqi, 115px);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(230, 242, 255, 0.48) 0%,
+    rgba(185, 215, 255, 0.16) 45%,
+    transparent 72%
+  );
+  transform: translate(-50%, -50%);
+  opacity: 0.06;
+  animation: final-moon-pulse 7.5s ease-in-out infinite;
+}
+
+@keyframes final-moon-pulse {
+  0%, 100% {
+    opacity: 0.05;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+  50% {
+    opacity: 0.10;
+    transform: translate(-50%, -50%) scale(1.03);
+  }
+  75% {
+    opacity: 0.06;
+    transform: translate(-50%, -50%) scale(1.00);
+  }
+}
+
+/* ── 2. Palace Warm Light (3 large soft radial glows around palace) ─── */
+.final-palace-glows {
+  position: absolute;
+  inset: 0;
+}
+
+.final-palace-glow {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse 75% 55% at 50% 50%,
+    rgba(255, 210, 110, 0.50) 0%,
+    rgba(245, 175, 60, 0.18) 50%,
+    transparent 75%
+  );
+  transform: translate(-50%, -50%);
+  opacity: 0.04;
+}
+
+.final-palace-glow--center {
+  left: 50%;
+  top: 55%;
+  width: clamp(190px, 46cqi, 280px);
+  height: clamp(85px, 21cqi, 125px);
+  animation: final-palace-pulse-center 5.8s ease-in-out infinite;
+}
+
+.final-palace-glow--left {
+  left: 32%;
+  top: 54%;
+  width: clamp(140px, 35cqi, 210px);
+  height: clamp(70px, 18cqi, 105px);
+  animation: final-palace-pulse-left 4.6s ease-in-out infinite;
+}
+
+.final-palace-glow--right {
+  left: 68%;
+  top: 55%;
+  width: clamp(150px, 38cqi, 220px);
+  height: clamp(75px, 19cqi, 110px);
+  animation: final-palace-pulse-right 6.8s ease-in-out infinite;
+}
+
+@keyframes final-palace-pulse-center {
+  0%, 100% {
+    opacity: 0.035;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+  48% {
+    opacity: 0.080;
+    transform: translate(-50%, -50%) scale(1.02);
+  }
+  76% {
+    opacity: 0.045;
+    transform: translate(-50%, -50%) scale(1.00);
+  }
+}
+
+@keyframes final-palace-pulse-left {
+  0%, 100% {
+    opacity: 0.040;
+    transform: translate(-50%, -50%) scale(1.00);
+  }
+  42% {
+    opacity: 0.075;
+    transform: translate(-50%, -50%) scale(1.025);
+  }
+  70% {
+    opacity: 0.035;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+}
+
+@keyframes final-palace-pulse-right {
+  0%, 100% {
+    opacity: 0.035;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+  54% {
+    opacity: 0.078;
+    transform: translate(-50%, -50%) scale(1.02);
+  }
+  80% {
+    opacity: 0.042;
+    transform: translate(-50%, -50%) scale(1.00);
+  }
+}
+
+/* ── 3. Diya Warmth (Broad soft glow regions around foreground diyas) ─ */
+.final-diya-glows {
+  position: absolute;
+  inset: 0;
+}
+
+.final-diya-glow {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 195, 85, 0.70) 0%,
+    rgba(235, 140, 40, 0.28) 45%,
+    transparent 72%
+  );
+  transform: translate(-50%, -50%);
+  opacity: 0.07;
+}
+
+.final-diya-glow--left {
+  left: 14%;
+  top: 92%;
+  width: clamp(110px, 26cqi, 160px);
+  height: clamp(80px, 19cqi, 120px);
+  animation: final-diya-pulse-left 5.2s ease-in-out infinite;
+}
+
+.final-diya-glow--center {
+  left: 50%;
+  top: 94%;
+  width: clamp(170px, 42cqi, 250px);
+  height: clamp(95px, 23cqi, 140px);
+  animation: final-diya-pulse-center 6.4s ease-in-out infinite;
+}
+
+.final-diya-glow--right {
+  left: 86%;
+  top: 92%;
+  width: clamp(110px, 26cqi, 160px);
+  height: clamp(80px, 19cqi, 120px);
+  animation: final-diya-pulse-right 4.8s ease-in-out infinite;
+}
+
+@keyframes final-diya-pulse-left {
+  0%, 100% {
+    opacity: 0.06;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+  45% {
+    opacity: 0.12;
+    transform: translate(-50%, -50%) scale(1.025);
+  }
+  75% {
+    opacity: 0.07;
+    transform: translate(-50%, -50%) scale(1.00);
+  }
+}
+
+@keyframes final-diya-pulse-center {
+  0%, 100% {
+    opacity: 0.07;
+    transform: translate(-50%, -50%) scale(1.00);
+  }
+  50% {
+    opacity: 0.12;
+    transform: translate(-50%, -50%) scale(1.02);
+  }
+  78% {
+    opacity: 0.06;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+}
+
+@keyframes final-diya-pulse-right {
+  0%, 100% {
+    opacity: 0.05;
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+  40% {
+    opacity: 0.11;
+    transform: translate(-50%, -50%) scale(1.03);
+  }
+  70% {
+    opacity: 0.07;
+    transform: translate(-50%, -50%) scale(1.00);
+  }
+}
+
+/* ── 4. Water Reflection Shimmer (55–82% stage height) ──────────────── */
+.final-water-shimmer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 56%;
+  height: 25%;
+  overflow: hidden;
+}
+
+.final-water-reflection {
+  position: absolute;
+  inset: -10% -15%;
+  background:
+    radial-gradient(ellipse 65% 35% at 50% 50%, rgba(255, 215, 120, 0.38), transparent 70%),
+    radial-gradient(ellipse 45% 25% at 28% 60%, rgba(255, 185, 75, 0.28), transparent 60%),
+    radial-gradient(ellipse 45% 25% at 72% 60%, rgba(255, 185, 75, 0.28), transparent 60%);
+  opacity: 0.04;
+  animation: final-water-shimmer 8.2s ease-in-out infinite;
+}
+
+@keyframes final-water-shimmer {
+  0%, 100% {
+    transform: translate3d(-4px, 0, 0);
+    opacity: 0.03;
+  }
+  50% {
+    transform: translate3d(4px, 0, 0);
+    opacity: 0.08;
+  }
+  75% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.05;
+  }
+}
+
+/* ── 5. Golden / Star Dust Particles (8–10 tiny particles in sky) ───── */
+.final-dust {
+  position: absolute;
+  inset: 0;
+}
+
+.final-dust-particle {
+  position: absolute;
+  left: var(--dust-x);
+  top: var(--dust-y);
+  width: var(--dust-size);
+  height: var(--dust-size);
+  border-radius: 50%;
+  background: #fce7b2;
+  box-shadow: 0 0 5px rgba(252, 231, 178, 0.75);
+  opacity: 0;
+  animation: final-dust-float var(--dust-duration) ease-in-out var(--dust-delay) infinite alternate;
+}
+
+@keyframes final-dust-float {
+  0% {
+    transform: translate3d(0, 8px, 0);
+    opacity: 0.06;
+  }
+  50% {
+    opacity: 0.22;
+  }
+  100% {
+    transform: translate3d(calc(var(--dust-size) * 3px), -10px, 0);
+    opacity: 0.08;
+  }
+}
+
+/* ── Viewport & Document Visibility Optimization ─────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .final-atmosphere * {
+    animation-play-state: paused;
+  }
+  .final-atmosphere.final-atmosphere--active * {
+    animation-play-state: running;
+  }
+}
+
+/* ── Reduced Motion ─────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .final-moon-glow,
+  .final-palace-glow,
+  .final-diya-glow,
+  .final-water-reflection,
+  .final-dust-particle {
+    animation: none !important;
+  }
+  .final-dust-particle {
+    display: none !important;
+  }
+  .final-moon-glow {
+    opacity: 0.07;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  .final-palace-glow {
+    opacity: 0.05;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  .final-diya-glow {
+    opacity: 0.08;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  .final-water-reflection {
+    opacity: 0.04;
+    transform: none;
+  }
+}
