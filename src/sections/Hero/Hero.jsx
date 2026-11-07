@@ -82,9 +82,9 @@ export default function Hero({ active = false }) {
           .to(background, { opacity: 1, duration: .55 }, 'heroReveal')
           .to(couple, { opacity: 1, duration: .5 }, 'couple')
           .to(eyebrow, { opacity: 1, duration: .35 }, 'eyebrow')
-          .to(groom, { opacity: 1, duration: .4 }, 'names')
+          .to(bride, { opacity: 1, duration: .4 }, 'names')
           .to(ampersand, { opacity: 1, duration: .35 }, 'names+=.1')
-          .to(bride, { opacity: 1, duration: .4 }, 'names+=.2')
+          .to(groom, { opacity: 1, duration: .4 }, 'names+=.2')
           .to(copy, { opacity: 1, duration: .35 }, 'copy')
           .to(details, { opacity: 1, duration: .3 }, 'details')
           .to(detailRows, { opacity: 1, duration: .3, stagger: .08 }, 'details+=.05')
@@ -118,9 +118,9 @@ export default function Hero({ active = false }) {
         .addLabel('heroReveal', 0)
         .addLabel('couple', .1)
         .addLabel('eyebrow', .25)
-        .addLabel('groom', .38)
+        .addLabel('firstName', .38)
         .addLabel('ampersand', .55)
-        .addLabel('bride', .7)
+        .addLabel('secondName', .7)
         .addLabel('copy', .9)
         .addLabel('details', 1.08)
         .addLabel('countdown', 1.25)
@@ -129,9 +129,9 @@ export default function Hero({ active = false }) {
         .to(background, { opacity: 1, scale: 1.025, duration: .9, ease: 'power2.out' }, 'heroReveal')
         .to(couple, { opacity: 1, x: 0, y: 0, scale: 1, duration: 1 }, 'couple')
         .to(eyebrow, { opacity: 1, y: 0, duration: .5 }, 'eyebrow')
-        .to(groom, { opacity: 1, y: 0, duration: .62 }, 'groom')
+        .to(bride, { opacity: 1, y: 0, duration: .62 }, 'firstName')
         .to(ampersand, { opacity: 1, y: 0, scale: 1, duration: .4, ease: 'sine.out' }, 'ampersand')
-        .to(bride, { opacity: 1, y: 0, duration: .55 }, 'bride')
+        .to(groom, { opacity: 1, y: 0, duration: .55 }, 'secondName')
         .to(copy, { opacity: 1, y: 0, duration: .5 }, 'copy')
         .to(details, { opacity: 1, y: 0, duration: .42 }, 'details')
         .to(detailRows, { opacity: 1, y: 0, duration: .42, stagger: .1 }, 'details+=.05')
@@ -191,9 +191,9 @@ export default function Hero({ active = false }) {
             </div>
 
             <h1 id="hero-title" className="hero-names">
-              <span className="hero-names__groom">{weddingData.groom.split(' ')[0]}</span>
-              <span className="hero-names__ampersand">&amp;</span>
               <span className="hero-names__bride">{weddingData.bride}</span>
+              <span className="hero-names__ampersand">&amp;</span>
+              <span className="hero-names__groom">{weddingData.groom.split(' ')[0]}</span>
             </h1>
 
             <p className="hero-invite-copy">Invite you to celebrate<br />their wedding</p>

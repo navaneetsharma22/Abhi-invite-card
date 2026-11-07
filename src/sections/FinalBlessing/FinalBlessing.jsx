@@ -101,9 +101,9 @@ export default function FinalBlessing() {
           .to(bgEl, { opacity: 1, duration: 0.45 }, 0.05)
           .to(quoteEl, { opacity: 1, duration: 0.35 }, 0.20)
           .to(topDividerEl, { opacity: 1, duration: 0.30 }, 0.35)
-          .to(groomEl, { opacity: 1, duration: 0.35 }, 0.45)
+          .to(brideEl, { opacity: 1, duration: 0.35 }, 0.45)
           .to(ampersandEl, { opacity: 1, duration: 0.25 }, 0.60)
-          .to(brideEl, { opacity: 1, duration: 0.35 }, 0.70)
+          .to(groomEl, { opacity: 1, duration: 0.35 }, 0.70)
           .to(dateEl, { opacity: 1, duration: 0.30 }, 0.85)
           .to(locationEl, { opacity: 1, duration: 0.30 }, 0.95)
           .to(bottomDividerEl, { opacity: 1, duration: 0.30 }, 1.05)
@@ -175,8 +175,8 @@ export default function FinalBlessing() {
           ease: 'power2.out',
         }, 0.45)
 
-        /* 3. SHAILENDRA */
-        timeline.to(groomEl, {
+        /* 3. KANCHAN */
+        timeline.to(brideEl, {
           opacity: 1,
           y: 0,
           scale: 1,
@@ -193,8 +193,8 @@ export default function FinalBlessing() {
           ease: 'power2.out',
         }, 0.95)
 
-        /* 5. KANCHAN */
-        timeline.to(brideEl, {
+        /* 5. SHAILENDRA */
+        timeline.to(groomEl, {
           opacity: 1,
           y: 0,
           scale: 1,
@@ -308,9 +308,9 @@ export default function FinalBlessing() {
 
           {/* Couple Names */}
           <div className="final-blessing-names">
-            <span className="final-blessing-name final-blessing-name--groom script-display">{groomDisplayName}</span>
-            <span className="final-blessing-ampersand">&amp;</span>
             <span className="final-blessing-name final-blessing-name--bride script-display">{brideDisplayName}</span>
+            <span className="final-blessing-ampersand">&amp;</span>
+            <span className="final-blessing-name final-blessing-name--groom script-display">{groomDisplayName}</span>
           </div>
 
           {/* Date & Location */}
