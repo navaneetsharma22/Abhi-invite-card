@@ -36,11 +36,29 @@ export default function Opening({ onExitStart, onComplete }) {
     let masterTimeline
     let loadingExitTimeline
     let readinessFallbackTimer
-    let handoffFallbackTimer
+    let completionFallbackTimer
     let readyToReveal = false
     let timelineStarted = false
     const abortController = new AbortController()
     const shouldReduceMotion = reducedMotion || window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    const beginExit = () => {
+      if (!active || exitStartedRef.current) return
+      exitStartedRef.current = true
+      onExitStart?.()
+    }
+
+    const finish = () => {
+      if (!active || completedRef.current) return
+      beginExit()
+      completedRef.current = true
+      window.clearTimeout(readinessFallbackTimer)
+      window.clearTimeout(completionFallbackTimer)
+      onComplete?.()
+    }
+
+    // Guard setup itself as well as playback so a GSAP error cannot strand the overlay.
+    completionFallbackTimer = window.setTimeout(finish, 7000)
 
     const context = gsap.context(() => {
       const stage = root.querySelector('[data-opening-stage]')
@@ -104,28 +122,11 @@ export default function Opening({ onExitStart, onComplete }) {
       const heroImageDecode = (image) => image?.decode?.().catch(() => {})
       heroImageDecode(heroImages[0])?.then(() => heroImageDecode(heroImages[1]))
 
-      const beginExit = () => {
-        if (!active || exitStartedRef.current) return
-        exitStartedRef.current = true
-        onExitStart?.()
-      }
-
-      const finish = () => {
-        if (!active || completedRef.current) return
-        beginExit()
-        completedRef.current = true
-        window.clearTimeout(readinessFallbackTimer)
-        window.clearTimeout(handoffFallbackTimer)
-        onComplete?.()
-      }
-
       const startTimeline = () => {
         if (!active || timelineStarted) return
         timelineStarted = true
         readyToReveal = true
         if (!document.hidden) loadingExitTimeline?.play(0)
-        // A stalled or interrupted GSAP handoff must not strand the overlay or scroll lock.
-        handoffFallbackTimer = window.setTimeout(finish, 6250)
       }
 
       gsap.set(root, { opacity: 1 })
@@ -259,9 +260,6 @@ export default function Opening({ onExitStart, onComplete }) {
           if (images[index]) images[index].style.visibility = ready ? '' : 'hidden'
         })
         if (!fontsReady) root.classList.add('opening-font-fallback')
-        readyToReveal = true
-        window.clearTimeout(readinessFallbackTimer)
-        startTimeline()
       })
       .catch(() => {
         if (!active) return
@@ -269,9 +267,6 @@ export default function Opening({ onExitStart, onComplete }) {
           if (image) image.style.visibility = 'hidden'
         })
         root.classList.add('opening-font-fallback')
-        readyToReveal = true
-        window.clearTimeout(readinessFallbackTimer)
-        startTimeline()
       })
 
     return () => {
@@ -280,7 +275,7 @@ export default function Opening({ onExitStart, onComplete }) {
       document.removeEventListener('visibilitychange', handleVisibilityChange)
       root.classList.remove('opening-scene--visible')
       window.clearTimeout(readinessFallbackTimer)
-      window.clearTimeout(handoffFallbackTimer)
+      window.clearTimeout(completionFallbackTimer)
       context.revert()
     }
   }, [onExitStart, onComplete, reducedMotion])
