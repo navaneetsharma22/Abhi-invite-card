@@ -18,6 +18,17 @@ function LotusMark() {
   )
 }
 
+function revealCoupleArtwork(image) {
+  const layer = image.closest('.hero-couple')
+  if (!layer || image.naturalWidth === 0) return
+  const reveal = () => layer.classList.add('hero-couple--image-ready')
+  if (typeof image.decode === 'function') {
+    image.decode().then(reveal, reveal)
+    return
+  }
+  reveal()
+}
+
 export default function Hero({ active = false, revealed = false }) {
   const rootRef = useRef(null)
 
@@ -30,7 +41,7 @@ export default function Hero({ active = false, revealed = false }) {
       const background = root.querySelector('.hero-camera-plane')
       const couple = root.querySelector('.hero-couple')
       const coupleImage = couple?.querySelector('img')
-      if (coupleImage?.complete && coupleImage.naturalWidth > 0) couple.classList.add('hero-couple--image-ready')
+      if (coupleImage?.complete) revealCoupleArtwork(coupleImage)
       const eyebrow = root.querySelector('.hero-eyebrow')
       const groom = root.querySelector('.hero-names__groom')
       const ampersand = root.querySelector('.hero-names__ampersand')
@@ -109,7 +120,8 @@ export default function Hero({ active = false, revealed = false }) {
               height="1536"
               loading="eager"
               decoding="async"
-              onLoad={(event) => event.currentTarget.closest('.hero-couple')?.classList.add('hero-couple--image-ready')}
+              fetchPriority="high"
+              onLoad={(event) => revealCoupleArtwork(event.currentTarget)}
             />
           </div>
         </div>
