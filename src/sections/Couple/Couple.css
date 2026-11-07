@@ -200,11 +200,11 @@
   pointer-events: none;
 }
 
-.couple-portrait--groom {
+.couple-portrait--left {
   left: 8.0%;
 }
 
-.couple-portrait--bride {
+.couple-portrait--right {
   left: 54.8%;
 }
 
@@ -303,18 +303,18 @@
   }
 }
 
-.couple-portrait--groom {
-  --portrait-image-width: 122%;
-  --portrait-image-center: 60.3%;
+.couple-portrait--left {
+  --portrait-image-width: 109.5%;
+  --portrait-image-center: 44.6%;
   --portrait-image-top: max(
     clamp(2px, 0.6dvh, 5px),
     calc(max(33.9dvh, 33.9svh) - 68.1cqi)
   );
 }
 
-.couple-portrait--bride {
-  --portrait-image-width: 109.5%;
-  --portrait-image-center: 44.6%;
+.couple-portrait--right {
+  --portrait-image-width: 122%;
+  --portrait-image-center: 60.3%;
   --portrait-image-top: max(
     clamp(2px, 0.6dvh, 5px),
     calc(max(33.9dvh, 33.9svh) - 68.1cqi)
@@ -334,11 +334,11 @@
   pointer-events: auto;
 }
 
-.couple-card--groom {
+.couple-card--left {
   left: 8.0%;
 }
 
-.couple-card--bride {
+.couple-card--right {
   left: 54.8%;
 }
 

@@ -62,10 +62,10 @@ export default function Couple() {
       const title = root.querySelector('.couple-title')
       const subtitle = root.querySelector('.couple-subtitle')
       const topDivider = root.querySelector('.couple-divider--top')
-      const groomPortrait = root.querySelector('.couple-portrait-entrance--groom')
-      const bridePortrait = root.querySelector('.couple-portrait-entrance--bride')
-      const groomCard = root.querySelector('.couple-card--groom')
-      const brideCard = root.querySelector('.couple-card--bride')
+      const leftPortrait = root.querySelector('.couple-portrait-entrance--left')
+      const rightPortrait = root.querySelector('.couple-portrait-entrance--right')
+      const leftCard = root.querySelector('.couple-card--left')
+      const rightCard = root.querySelector('.couple-card--right')
       const bottomDivider = root.querySelector('.couple-divider--bottom')
       const tagline = root.querySelector('.couple-tagline')
       const taglineBloom = root.querySelector('.couple-tagline-bloom')
@@ -77,10 +77,10 @@ export default function Couple() {
         title,
         subtitle,
         topDivider,
-        groomPortrait,
-        bridePortrait,
-        groomCard,
-        brideCard,
+        leftPortrait,
+        rightPortrait,
+        leftCard,
+        rightCard,
         bottomDivider,
         tagline,
       ].filter(Boolean)
@@ -116,9 +116,9 @@ export default function Couple() {
           .to(title, { opacity: 1, duration: 0.40 }, 0.05)
           .to(subtitle, { opacity: 1, duration: 0.35 }, 0.18)
           .to(topDivider, { opacity: 1, duration: 0.35 }, 0.30)
-          .to([groomPortrait, bridePortrait], { opacity: 1, duration: 0.35, stagger: 0.10 }, 0.42)
-          .to(groomCard, { opacity: 1, duration: 0.35 }, 0.62)
-          .to(brideCard, { opacity: 1, duration: 0.35 }, 0.74)
+          .to([leftPortrait, rightPortrait], { opacity: 1, duration: 0.35, stagger: 0.10 }, 0.42)
+          .to(leftCard, { opacity: 1, duration: 0.35 }, 0.62)
+          .to(rightCard, { opacity: 1, duration: 0.35 }, 0.74)
           .to(bottomDivider, { opacity: 1, duration: 0.35 }, 0.88)
           .to(tagline, { opacity: 1, duration: 0.40 }, 1.00)
       } else {
@@ -133,11 +133,11 @@ export default function Couple() {
           opacity: 0,
           y: 10,
         })
-        gsap.set([groomPortrait, bridePortrait], {
+        gsap.set([leftPortrait, rightPortrait], {
           opacity: 0,
           y: 10,
         })
-        gsap.set([groomCard, brideCard], {
+        gsap.set([leftCard, rightCard], {
           opacity: 0,
           y: 14,
           filter: 'blur(3px)',
@@ -178,32 +178,32 @@ export default function Couple() {
           duration: 0.45,
         }, 0.45)
 
-        /* 4. Groom portrait slot/frame area */
-        timeline.to(groomPortrait, {
+        /* 4. Kanchan portrait in the left frame */
+        timeline.to(leftPortrait, {
           opacity: 1,
           y: 0,
           duration: 0.95,
           ease: 'power2.out',
         }, 0.65)
 
-        /* 5. Bride portrait slot/frame area (stagger ~.12s) */
-        timeline.to(bridePortrait, {
+        /* 5. Shailendra portrait in the right frame (stagger ~.12s) */
+        timeline.to(rightPortrait, {
           opacity: 1,
           y: 0,
           duration: 0.95,
           ease: 'power2.out',
         }, 0.77)
 
-        /* 6. Shailendra + THE GROOM */
-        timeline.to(groomCard, {
+        /* 6. Kanchan + THE BRIDE */
+        timeline.to(leftCard, {
           opacity: 1,
           y: 0,
           filter: 'blur(0px)',
           duration: 0.50,
         }, 0.95)
 
-        /* 7. Kanchan + THE BRIDE */
-        timeline.to(brideCard, {
+        /* 7. Shailendra + THE GROOM */
+        timeline.to(rightCard, {
           opacity: 1,
           y: 0,
           filter: 'blur(0px)',
@@ -348,14 +348,14 @@ export default function Couple() {
 
         <div className="couple-portrait-layer">
           {/* ── Portrait Frame Openings ── */}
-          <div className="couple-portrait couple-portrait--groom">
-            <div className="couple-portrait-entrance couple-portrait-entrance--groom">
+          <div className="couple-portrait couple-portrait--left">
+            <div className="couple-portrait-entrance couple-portrait-entrance--left">
               <div className="couple-portrait-parallax">
                 <div className="couple-portrait-scale">
-                  {groomPhoto && (
+                  {bridePhoto && (
                     <img
-                      src={groomPhoto}
-                      alt={groomDisplayName}
+                      src={bridePhoto}
+                      alt={brideDisplayName}
                       className="couple-portrait-img"
                       loading="lazy"
                       decoding="async"
@@ -366,14 +366,14 @@ export default function Couple() {
             </div>
           </div>
 
-          <div className="couple-portrait couple-portrait--bride">
-            <div className="couple-portrait-entrance couple-portrait-entrance--bride">
+          <div className="couple-portrait couple-portrait--right">
+            <div className="couple-portrait-entrance couple-portrait-entrance--right">
               <div className="couple-portrait-parallax">
                 <div className="couple-portrait-scale">
-                  {bridePhoto && (
+                  {groomPhoto && (
                     <img
-                      src={bridePhoto}
-                      alt={brideDisplayName}
+                      src={groomPhoto}
+                      alt={groomDisplayName}
                       className="couple-portrait-img"
                       loading="lazy"
                       decoding="async"
@@ -425,23 +425,23 @@ export default function Couple() {
           </div>
         </div>
 
-        {/* ── Groom Name & Role ── */}
-        <div className="couple-card couple-card--groom">
-          <h3 className="couple-name">{groomDisplayName}</h3>
-          <p className="couple-role">THE GROOM</p>
-          <div className="couple-family" aria-label="Groom's family and address">
-            <p className="couple-family-parents">Son of Late Mrs. Lali Devi<br />&amp; Late Mr. Suresh Prasad</p>
-            <p className="couple-family-address">Village: Khairetwa · P.O.: Tekuatar<br />P.S.: Ramkola<br />Kushinagar, Uttar Pradesh</p>
-          </div>
-        </div>
-
-        {/* ── Bride Name & Role ── */}
-        <div className="couple-card couple-card--bride">
+        {/* ── Kanchan — The Bride (left / first card) ── */}
+        <div className="couple-card couple-card--left">
           <h3 className="couple-name">{brideDisplayName}</h3>
           <p className="couple-role">THE BRIDE</p>
           <div className="couple-family" aria-label="Bride's family and address">
             <p className="couple-family-parents">Daughter of Mrs. Vidya Devi<br />&amp; Mr. Sitaram Prasad</p>
             <p className="couple-family-address">Village &amp; P.O.: Chhitauni (Bypass)<br />P.S.: Hanumanganj<br />Kushinagar, Uttar Pradesh</p>
+          </div>
+        </div>
+
+        {/* ── Shailendra — The Groom (right / second card) ── */}
+        <div className="couple-card couple-card--right">
+          <h3 className="couple-name">{groomDisplayName}</h3>
+          <p className="couple-role">THE GROOM</p>
+          <div className="couple-family" aria-label="Groom's family and address">
+            <p className="couple-family-parents">Son of Late Mrs. Lali Devi<br />&amp; Late Mr. Suresh Prasad</p>
+            <p className="couple-family-address">Village: Khairetwa · P.O.: Tekuatar<br />P.S.: Ramkola<br />Kushinagar, Uttar Pradesh</p>
           </div>
         </div>
 
