@@ -9,10 +9,11 @@ import FinalBlessing from './sections/FinalBlessing/FinalBlessing'
 export default function App() {
   const [introComplete, setIntroComplete] = useState(false)
   const [heroActive, setHeroActive] = useState(false)
-  const handleOpeningExitStart = useCallback(() => setHeroActive(true), [])
-  const handleOpeningComplete = useCallback(() => {
+  const handleOpeningExitStart = useCallback(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     setHeroActive(true)
+  }, [])
+  const handleOpeningComplete = useCallback(() => {
     setIntroComplete(true)
   }, [])
 
@@ -21,6 +22,7 @@ export default function App() {
 
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     return () => { document.body.style.overflow = previousOverflow }
   }, [introComplete])
 

@@ -35,7 +35,6 @@ export default function Opening({ onExitStart, onComplete }) {
     let active = true
     let masterTimeline
     let loadingExitTimeline
-    let fallbackTimer
     let readyToReveal = false
     const abortController = new AbortController()
     const shouldReduceMotion = reducedMotion || window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -61,6 +60,46 @@ export default function Opening({ onExitStart, onComplete }) {
       const flameGlow = root.querySelector('[data-opening-flame-glow]')
       const reflection = root.querySelector('[data-opening-reflection]')
       const divider = root.querySelector('[data-opening-divider]')
+      const hero = document.querySelector('#hero')
+      const heroBackground = hero?.querySelector('.hero-camera-plane')
+      const heroCouple = hero?.querySelector('.hero-couple')
+      const heroEyebrow = hero?.querySelector('.hero-eyebrow')
+      const heroGroom = hero?.querySelector('.hero-names__groom')
+      const heroAmpersand = hero?.querySelector('.hero-names__ampersand')
+      const heroBride = hero?.querySelector('.hero-names__bride')
+      const heroCopy = hero?.querySelector('.hero-invite-copy')
+      const heroDetails = hero?.querySelector('.hero-wedding-info')
+      const heroRows = hero?.querySelectorAll('.hero-info-row')
+      const heroCountdown = hero?.querySelector('.hero-countdown')
+      const heroControls = hero?.querySelectorAll('.hero-top-controls .icon-button')
+      const heroScrollHint = hero?.querySelector('.hero-scroll-hint')
+      const openingContent = root.querySelector('.opening-content')
+      const handoffAt = 5.95
+      const openingEnd = 6.9
+
+      const addHeroHandoff = (timeline) => {
+        timeline
+          .addLabel('heroHandoff', handoffAt)
+          .call(beginExit, null, 'heroHandoff')
+          .to(openingContent, { opacity: 0, duration: 0.32, ease: 'power1.out' }, 'heroHandoff')
+          .to(heroBackground, { opacity: 1, scale: 1.025, duration: 0.95, ease: 'power2.out' }, 'heroHandoff')
+          .to(heroCouple, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.8, ease: 'power2.out' }, 'heroHandoff+=0.1')
+          .to([heroEyebrow, heroBride], { opacity: 1, y: 0, duration: 0.48, ease: 'power2.out' }, 'heroHandoff+=0.2')
+          .to(heroAmpersand, { opacity: 1, y: 0, scale: 1, duration: 0.36, ease: 'power2.out' }, 'heroHandoff+=0.32')
+          .to(heroGroom, { opacity: 1, y: 0, duration: 0.46, ease: 'power2.out' }, 'heroHandoff+=0.38')
+          .to(heroCopy, { opacity: 1, y: 0, duration: 0.42, ease: 'power2.out' }, 'heroHandoff+=0.42')
+          .to(heroDetails, { opacity: 1, y: 0, duration: 0.36, ease: 'power2.out' }, 'heroHandoff+=0.5')
+          .to(heroRows, { opacity: 1, y: 0, duration: 0.32, stagger: 0.06, ease: 'power2.out' }, 'heroHandoff+=0.55')
+          .to(heroCountdown, { opacity: 1, y: 0, scale: 1, duration: 0.38, ease: 'power2.out' }, 'heroHandoff+=0.58')
+          .to(heroControls, { opacity: 1, y: 0, scale: 1, duration: 0.3, stagger: 0.05, ease: 'power2.out' }, 'heroHandoff+=0.62')
+          .to(heroScrollHint, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }, 'heroHandoff+=0.64')
+          .to(root, { opacity: 0, duration: openingEnd - (handoffAt + 0.32), ease: 'power1.inOut' }, 'heroHandoff+=0.32')
+      }
+
+      // Warm the Hero artwork while the Opening is visible; the timeline never waits for these decodes.
+      const heroImages = hero?.querySelectorAll('img') ?? []
+      const heroImageDecode = (image) => image?.decode?.().catch(() => {})
+      heroImageDecode(heroImages[0])?.then(() => heroImageDecode(heroImages[1]))
 
       const beginExit = () => {
         if (!active || exitStartedRef.current) return
@@ -72,7 +111,6 @@ export default function Opening({ onExitStart, onComplete }) {
         if (!active || completedRef.current) return
         beginExit()
         completedRef.current = true
-        window.clearTimeout(fallbackTimer)
         onComplete?.()
       }
 
@@ -90,7 +128,6 @@ export default function Opening({ onExitStart, onComplete }) {
           if (!active || completedRef.current) return
           gsap.set(loadingLayer, { display: 'none' })
           masterTimeline.play(0)
-          fallbackTimer = window.setTimeout(finish, 5600)
         },
       }).to(loadingLayer, { opacity: 0, duration: 0.25, ease: 'power1.out' })
 
@@ -107,9 +144,7 @@ export default function Opening({ onExitStart, onComplete }) {
           .addLabel('diya', 1.3)
           .addLabel('tagline', 1.55)
           .addLabel('breathe', 2)
-          .addLabel('heroExit', 3.4)
-          .addLabel('exit', 3.7)
-          .call(beginExit, null, 'heroExit')
+          .addLabel('exit', 6.35)
           .to(background, { opacity: 1, duration: 0.45 }, 'background')
           .to(mantra, { opacity: 1, duration: 0.45 }, 'mantra')
           .to(ganesha, { opacity: 1, duration: 0.55 }, 'ganesha')
@@ -123,7 +158,7 @@ export default function Opening({ onExitStart, onComplete }) {
           .to(floorGlow, { opacity: 1, duration: 0.4 }, 'diya')
           .to(flameGlow, { opacity: 1, duration: 0.35 }, 'diya+=0.2')
           .to(divider, { opacity: 0.75, duration: 0.35 }, 'tagline')
-          .to(root, { opacity: 0, duration: 0.55, ease: 'power1.inOut' }, 'exit')
+        addHeroHandoff(masterTimeline)
 
         return
       }
@@ -151,8 +186,6 @@ export default function Opening({ onExitStart, onComplete }) {
         .addLabel('tagline', 1.75)
         .addLabel('breathe', 2.2)
         .addLabel('warmth', 3.4)
-        .addLabel('exit', 3.7)
-        .call(beginExit, null, 'warmth')
         .to(background, { opacity: 1, duration: 0.55 }, 'background')
         .to(background, { scale: 1.055, yPercent: -0.5, duration: 4.2, ease: 'none' }, 'background')
         .to(mantra, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.55 }, 'mantra')
@@ -176,10 +209,7 @@ export default function Opening({ onExitStart, onComplete }) {
         .to(reflection, { opacity: 1, duration: 0.45 }, 'diya+=0.1')
         .to(divider, { opacity: 0.75, scaleX: 1, duration: 0.5 }, 'tagline-=0.05')
         .to(veil, { opacity: 0.08, duration: 0.25, ease: 'sine.out' }, 'warmth')
-        .to(veil, { opacity: 0.1, duration: 0.12, ease: 'sine.out' }, 'exit')
-        .to(veil, { opacity: 0, duration: 0.3, ease: 'sine.inOut' }, 'exit+=0.12')
-        .to(stage, { scale: 1.025, filter: 'blur(5px)', duration: 0.6, ease: 'power2.inOut' }, 'exit')
-        .to(root, { opacity: 0, duration: 0.6, ease: 'power2.inOut' }, 'exit')
+      addHeroHandoff(masterTimeline)
     }, root)
 
     const handleVisibilityChange = () => {
@@ -229,7 +259,6 @@ export default function Opening({ onExitStart, onComplete }) {
       abortController.abort()
       document.removeEventListener('visibilitychange', handleVisibilityChange)
       root.classList.remove('opening-scene--visible')
-      window.clearTimeout(fallbackTimer)
       context.revert()
     }
   }, [onExitStart, onComplete, reducedMotion])

@@ -20,32 +20,19 @@ function LotusMark() {
 
 export default function Hero({ active = false }) {
   const rootRef = useRef(null)
-  const hasEnteredRef = useRef(false)
 
   useLayoutEffect(() => {
     const root = rootRef.current
     if (!root) return undefined
 
-    let completed = false
-    let cleanupMotion = () => {}
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const context = gsap.context(() => {
-      if (active && hasEnteredRef.current) return
-
       const background = root.querySelector('.hero-camera-plane')
       const couple = root.querySelector('.hero-couple')
       const eyebrow = root.querySelector('.hero-eyebrow')
       const groom = root.querySelector('.hero-names__groom')
       const ampersand = root.querySelector('.hero-names__ampersand')
       const bride = root.querySelector('.hero-names__bride')
-      const copy = root.querySelector('.hero-invite-copy')
-      const details = root.querySelector('.hero-wedding-info')
-      const detailRows = root.querySelectorAll('.hero-info-row')
-      const countdown = root.querySelector('.hero-countdown')
-      const controls = root.querySelectorAll('.hero-top-controls .icon-button')
-      const scrollHint = root.querySelector('.hero-scroll-hint')
-      const chevron = root.querySelector('.hero-scroll-hint__icon')
-
       gsap.set(root, { opacity: 1 })
       gsap.set(background, {
         opacity: .72,
@@ -55,45 +42,13 @@ export default function Hero({ active = false }) {
       gsap.set(couple, reducedMotion
         ? { opacity: 0, x: 0, y: 0, scale: 1 }
         : { opacity: 0, x: 8, y: 16, scale: .985 })
+      const copy = root.querySelector('.hero-invite-copy')
+      const details = root.querySelector('.hero-wedding-info')
+      const detailRows = root.querySelectorAll('.hero-info-row')
+      const countdown = root.querySelector('.hero-countdown')
+      const controls = root.querySelectorAll('.hero-top-controls .icon-button')
+      const scrollHint = root.querySelector('.hero-scroll-hint')
       gsap.set([eyebrow, groom, ampersand, bride, copy, details, countdown, scrollHint, ...controls, ...detailRows], { opacity: 0 })
-
-      if (!active) return
-      hasEnteredRef.current = true
-      root.classList.add('hero-entrance--active')
-      const finishEntrance = () => {
-        completed = true
-        root.classList.remove('hero-entrance--active')
-        root.classList.add('hero-atmosphere--live')
-        cleanupMotion = createHeroMotion(root)
-      }
-
-      if (reducedMotion) {
-        const timeline = gsap.timeline({ onComplete: finishEntrance })
-        timeline
-          .addLabel('heroReveal', 0)
-          .addLabel('couple', .12)
-          .addLabel('eyebrow', .22)
-          .addLabel('names', .34)
-          .addLabel('copy', .57)
-          .addLabel('details', .7)
-          .addLabel('countdown', .85)
-          .addLabel('controls', 1.08)
-          .addLabel('scroll', 1.18)
-          .to(background, { opacity: 1, duration: .55 }, 'heroReveal')
-          .to(couple, { opacity: 1, duration: .5 }, 'couple')
-          .to(eyebrow, { opacity: 1, duration: .35 }, 'eyebrow')
-          .to(bride, { opacity: 1, duration: .4 }, 'names')
-          .to(ampersand, { opacity: 1, duration: .35 }, 'names+=.1')
-          .to(groom, { opacity: 1, duration: .4 }, 'names+=.2')
-          .to(copy, { opacity: 1, duration: .35 }, 'copy')
-          .to(details, { opacity: 1, duration: .3 }, 'details')
-          .to(detailRows, { opacity: 1, duration: .3, stagger: .08 }, 'details+=.05')
-          .to(countdown, { opacity: 1, duration: .3 }, 'countdown')
-          .to(controls, { opacity: 1, duration: .3, stagger: .06 }, 'controls')
-          .to(scrollHint, { opacity: 1, duration: .3 }, 'scroll')
-        return
-      }
-
       gsap.set(eyebrow, { y: 8 })
       gsap.set([groom, bride], { y: 12 })
       gsap.set(ampersand, { y: 5, scale: .88 })
@@ -104,47 +59,21 @@ export default function Hero({ active = false }) {
       gsap.set(controls, { y: -5, scale: .98 })
       gsap.set(scrollHint, { y: 6 })
 
-      const chevronMotion = gsap.to(chevron, {
-        y: 2, duration: 1.4, ease: 'sine.inOut', repeat: -1, yoyo: true, paused: true,
-      })
-      const timeline = gsap.timeline({
-        defaults: { ease: 'power2.out' },
-        onComplete: () => {
-          chevronMotion.play()
-          finishEntrance()
-        },
-      })
-      timeline
-        .addLabel('heroReveal', 0)
-        .addLabel('couple', .1)
-        .addLabel('eyebrow', .25)
-        .addLabel('firstName', .38)
-        .addLabel('ampersand', .55)
-        .addLabel('secondName', .7)
-        .addLabel('copy', .9)
-        .addLabel('details', 1.08)
-        .addLabel('countdown', 1.25)
-        .addLabel('controls', 1.6)
-        .addLabel('scroll', 1.82)
-        .to(background, { opacity: 1, scale: 1.025, duration: .9, ease: 'power2.out' }, 'heroReveal')
-        .to(couple, { opacity: 1, x: 0, y: 0, scale: 1, duration: 1 }, 'couple')
-        .to(eyebrow, { opacity: 1, y: 0, duration: .5 }, 'eyebrow')
-        .to(bride, { opacity: 1, y: 0, duration: .62 }, 'firstName')
-        .to(ampersand, { opacity: 1, y: 0, scale: 1, duration: .4, ease: 'sine.out' }, 'ampersand')
-        .to(groom, { opacity: 1, y: 0, duration: .55 }, 'secondName')
-        .to(copy, { opacity: 1, y: 0, duration: .5 }, 'copy')
-        .to(details, { opacity: 1, y: 0, duration: .42 }, 'details')
-        .to(detailRows, { opacity: 1, y: 0, duration: .42, stagger: .1 }, 'details+=.05')
-        .to(countdown, { opacity: 1, y: 0, scale: 1, duration: .5 }, 'countdown')
-        .to(controls, { opacity: 1, y: 0, scale: 1, duration: .4, stagger: .08 }, 'controls')
-        .to(scrollHint, { opacity: 1, y: 0, duration: .45 }, 'scroll')
     }, root)
 
     return () => {
-      cleanupMotion()
-      root.classList.remove('hero-atmosphere--live', 'hero-entrance--active')
       context.revert()
-      if (active && !completed) hasEnteredRef.current = false
+    }
+  }, [])
+
+  useLayoutEffect(() => {
+    const root = rootRef.current
+    if (!root || !active) return undefined
+    root.classList.add('hero-atmosphere--live')
+    const cleanupMotion = createHeroMotion(root)
+    return () => {
+      cleanupMotion()
+      root.classList.remove('hero-atmosphere--live')
     }
   }, [active])
 
