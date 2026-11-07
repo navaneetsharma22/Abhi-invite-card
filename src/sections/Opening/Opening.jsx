@@ -35,7 +35,10 @@ export default function Opening({ onExitStart, onComplete }) {
     let active = true
     let masterTimeline
     let loadingExitTimeline
+    let readinessFallbackTimer
+    let handoffFallbackTimer
     let readyToReveal = false
+    let timelineStarted = false
     const abortController = new AbortController()
     const shouldReduceMotion = reducedMotion || window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -74,8 +77,8 @@ export default function Opening({ onExitStart, onComplete }) {
       const heroControls = hero?.querySelectorAll('.hero-top-controls .icon-button')
       const heroScrollHint = hero?.querySelector('.hero-scroll-hint')
       const openingContent = root.querySelector('.opening-content')
-      const handoffAt = 5.95
-      const openingEnd = 6.9
+      const handoffAt = 5.05
+      const openingEnd = 6
 
       const addHeroHandoff = (timeline) => {
         timeline
@@ -111,7 +114,18 @@ export default function Opening({ onExitStart, onComplete }) {
         if (!active || completedRef.current) return
         beginExit()
         completedRef.current = true
+        window.clearTimeout(readinessFallbackTimer)
+        window.clearTimeout(handoffFallbackTimer)
         onComplete?.()
+      }
+
+      const startTimeline = () => {
+        if (!active || timelineStarted) return
+        timelineStarted = true
+        readyToReveal = true
+        if (!document.hidden) loadingExitTimeline?.play(0)
+        // A stalled or interrupted GSAP handoff must not strand the overlay or scroll lock.
+        handoffFallbackTimer = window.setTimeout(finish, 6250)
       }
 
       gsap.set(root, { opacity: 1 })
@@ -144,7 +158,7 @@ export default function Opening({ onExitStart, onComplete }) {
           .addLabel('diya', 1.3)
           .addLabel('tagline', 1.55)
           .addLabel('breathe', 2)
-          .addLabel('exit', 6.35)
+          .addLabel('exit', 5.5)
           .to(background, { opacity: 1, duration: 0.45 }, 'background')
           .to(mantra, { opacity: 1, duration: 0.45 }, 'mantra')
           .to(ganesha, { opacity: 1, duration: 0.55 }, 'ganesha')
@@ -159,6 +173,7 @@ export default function Opening({ onExitStart, onComplete }) {
           .to(flameGlow, { opacity: 1, duration: 0.35 }, 'diya+=0.2')
           .to(divider, { opacity: 0.75, duration: 0.35 }, 'tagline')
         addHeroHandoff(masterTimeline)
+        readinessFallbackTimer = window.setTimeout(startTimeline, 650)
 
         return
       }
@@ -210,6 +225,9 @@ export default function Opening({ onExitStart, onComplete }) {
         .to(divider, { opacity: 0.75, scaleX: 1, duration: 0.5 }, 'tagline-=0.05')
         .to(veil, { opacity: 0.08, duration: 0.25, ease: 'sine.out' }, 'warmth')
       addHeroHandoff(masterTimeline)
+
+      // Keep the existing image/font readiness checks running, but never let them hold the invitation.
+      readinessFallbackTimer = window.setTimeout(startTimeline, 650)
     }, root)
 
     const handleVisibilityChange = () => {
@@ -242,7 +260,8 @@ export default function Opening({ onExitStart, onComplete }) {
         })
         if (!fontsReady) root.classList.add('opening-font-fallback')
         readyToReveal = true
-        if (!document.hidden) loadingExitTimeline.play(0)
+        window.clearTimeout(readinessFallbackTimer)
+        startTimeline()
       })
       .catch(() => {
         if (!active) return
@@ -251,7 +270,8 @@ export default function Opening({ onExitStart, onComplete }) {
         })
         root.classList.add('opening-font-fallback')
         readyToReveal = true
-        if (!document.hidden) loadingExitTimeline.play(0)
+        window.clearTimeout(readinessFallbackTimer)
+        startTimeline()
       })
 
     return () => {
@@ -259,6 +279,8 @@ export default function Opening({ onExitStart, onComplete }) {
       abortController.abort()
       document.removeEventListener('visibilitychange', handleVisibilityChange)
       root.classList.remove('opening-scene--visible')
+      window.clearTimeout(readinessFallbackTimer)
+      window.clearTimeout(handoffFallbackTimer)
       context.revert()
     }
   }, [onExitStart, onComplete, reducedMotion])

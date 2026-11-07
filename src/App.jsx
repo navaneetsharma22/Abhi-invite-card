@@ -9,11 +9,13 @@ import FinalBlessing from './sections/FinalBlessing/FinalBlessing'
 export default function App() {
   const [introComplete, setIntroComplete] = useState(false)
   const [heroActive, setHeroActive] = useState(false)
+  const [heroRevealed, setHeroRevealed] = useState(false)
   const handleOpeningExitStart = useCallback(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     setHeroActive(true)
   }, [])
   const handleOpeningComplete = useCallback(() => {
+    setHeroRevealed(true)
     setIntroComplete(true)
   }, [])
 
@@ -30,7 +32,7 @@ export default function App() {
     <>
       {!introComplete && <Opening onExitStart={handleOpeningExitStart} onComplete={handleOpeningComplete} />}
       <main inert={!introComplete} aria-hidden={!introComplete}>
-        <Hero active={heroActive} />
+        <Hero active={heroActive} revealed={heroRevealed} />
         <Invitation />
         <Celebrations />
         <Couple />

@@ -89,9 +89,13 @@
   width: 100%;
   height: auto;
   object-fit: contain;
+  opacity: 0;
+  transition: opacity 350ms ease-out;
   /* Warm sunset rim light */
   filter: drop-shadow(-6px -2px 16px rgba(255, 170, 92, .16)) drop-shadow(0 10px 22px rgba(2, 8, 17, .35));
 }
+
+.hero-couple--image-ready img { opacity: 1; }
 
 /* ---------- Top controls ---------- */
 .hero-top-controls {
@@ -136,6 +140,25 @@
 .hero-scroll-hint {
   opacity: 0;
 }
+
+/* Persist the finished handoff after the Opening GSAP context is reverted. */
+.hero-entrance--complete .hero-eyebrow,
+.hero-entrance--complete .hero-names__groom,
+.hero-entrance--complete .hero-names__ampersand,
+.hero-entrance--complete .hero-names__bride,
+.hero-entrance--complete .hero-invite-copy,
+.hero-entrance--complete .hero-wedding-info,
+.hero-entrance--complete .hero-info-row,
+.hero-entrance--complete .hero-countdown,
+.hero-entrance--complete .hero-top-controls .icon-button,
+.hero-entrance--complete .hero-scroll-hint {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+.hero-entrance--complete .hero-camera-plane { opacity: 1 !important; }
+.hero-entrance--complete .hero-couple { opacity: 1 !important; visibility: visible !important; transform: none !important; }
 
 /* ---------- Content column ---------- */
 .hero-content {

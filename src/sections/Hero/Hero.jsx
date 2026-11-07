@@ -18,7 +18,7 @@ function LotusMark() {
   )
 }
 
-export default function Hero({ active = false }) {
+export default function Hero({ active = false, revealed = false }) {
   const rootRef = useRef(null)
 
   useLayoutEffect(() => {
@@ -29,6 +29,8 @@ export default function Hero({ active = false }) {
     const context = gsap.context(() => {
       const background = root.querySelector('.hero-camera-plane')
       const couple = root.querySelector('.hero-couple')
+      const coupleImage = couple?.querySelector('img')
+      if (coupleImage?.complete && coupleImage.naturalWidth > 0) couple.classList.add('hero-couple--image-ready')
       const eyebrow = root.querySelector('.hero-eyebrow')
       const groom = root.querySelector('.hero-names__groom')
       const ampersand = root.querySelector('.hero-names__ampersand')
@@ -78,7 +80,7 @@ export default function Hero({ active = false }) {
   }, [active])
 
   return (
-    <section ref={rootRef} id="hero" className="hero-section" aria-labelledby="hero-title">
+    <section ref={rootRef} id="hero" className={`hero-section${revealed ? ' hero-entrance--complete' : ''}`} aria-labelledby="hero-title">
       <div className="hero-stage">
         <div className="hero-camera-plane" aria-hidden="true">
           <div className="hero-background-motion">
@@ -90,6 +92,7 @@ export default function Hero({ active = false }) {
               height="1672"
               loading="eager"
               decoding="async"
+              fetchPriority="high"
             />
             <HeroPalaceAtmosphere />
           </div>
@@ -106,6 +109,7 @@ export default function Hero({ active = false }) {
               height="1536"
               loading="eager"
               decoding="async"
+              onLoad={(event) => event.currentTarget.closest('.hero-couple')?.classList.add('hero-couple--image-ready')}
             />
           </div>
         </div>
