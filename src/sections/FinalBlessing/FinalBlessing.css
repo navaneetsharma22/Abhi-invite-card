@@ -100,7 +100,7 @@
 /* ── Layer 2 (z2): Real HTML Text Content ──────────────────────────── */
 .final-blessing-content {
   position: absolute;
-  top: 9.2%;
+  top: calc(9.2% + 32px);
   left: 50%;
   transform: translateX(-50%);
   width: min(84%, 400px);
@@ -294,7 +294,7 @@
 /* ── Short-Height Screen Optimizations (<=720px and <=660px) ────────── */
 @media (max-height: 720px) {
   .final-blessing-content {
-    top: 7.6%;
+    top: calc(7.6% + 32px);
   }
   .final-blessing-quote {
     font-size: 0.75rem;
@@ -332,7 +332,7 @@
 
 @media (max-height: 660px) {
   .final-blessing-content {
-    top: 6.8%;
+    top: calc(6.8% + 32px);
   }
   .final-blessing-quote {
     font-size: 0.75rem;
